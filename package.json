@@ -21,7 +21,7 @@
     "lint:styles:fix": "pnpm run lint:styles:check --fix",
     "preinstall": "npx only-allow pnpm",
     "setup": "is-ci || simple-git-hooks",
-    "test:unit": "jest",
+    "test:unit": "jest --passWithNoTests",
     "types:check": "tsc --noEmit",
     "validate": "run-p format:check lint:check types:check test:unit"
   },
