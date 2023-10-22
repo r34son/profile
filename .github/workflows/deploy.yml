@@ -59,7 +59,7 @@ jobs:
 
   build:
     name: Build
-    # needs: validate
+    needs: validate
     runs-on: ubuntu-latest
 
     steps:
@@ -89,5 +89,9 @@ jobs:
           bucket: ${{ secrets.BUCKET }}
           root: out
           include: |
-            _next/static
-            !(_next)/**/*
+            _next/static/chunks/*.js
+            _next/static/chunks/app
+            _next/static/chunks/pages
+            _next/static/css
+            _next/static/media
+            *
