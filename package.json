@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "ANALYZE=true next build",
+    "build": "next build",
     "start": "next start",
     "format:check": "prettier . --cache --check",
     "format:fix": "pnpm run format:check --write",
