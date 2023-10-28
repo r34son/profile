@@ -1,3 +1,4 @@
+// @ts-check
 const withPlugins = require('next-compose-plugins');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -5,12 +6,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
+  output: 'standalone',
+  assetPrefix: process.env.ASSET_PREFIX,
+  experimental: {
+    optimizePackageImports: ['@nextui-org/react'],
   },
 };
 

@@ -7,9 +7,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml* .npmrc ./
 RUN corepack enable && pnpm i --frozen-lockfile
-
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -20,11 +19,10 @@ COPY . .
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
+ARG ASSET_PREFIX
+ENV ASSET_PREFIX=$ASSET_PREFIX
 
 RUN corepack enable && pnpm build
-
-# If using npm comment out above and use below instead
-# RUN npm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner

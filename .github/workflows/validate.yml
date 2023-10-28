@@ -48,11 +48,5 @@ jobs:
       - name: Format
         run: pnpm run format:check
 
-      - name: Lint
-        run: pnpm run lint:check
-
-      - name: Typecheck
-        run: pnpm run types:check
-
       - name: Run the tests
         run: pnpm test:unit
