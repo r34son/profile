@@ -6,12 +6,30 @@ on:
   pull_request:
     branches: ['master']
 
+env:
+  ENVIRONMENT_TAG: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'production' }}
+
 jobs:
   publish-image:
     name: Publish image
     runs-on: ubuntu-latest
+    outputs:
+      docker-image-version: ${{ steps.meta.outputs.version }}
 
     steps:
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -26,16 +44,18 @@ jobs:
         with:
           push: true
           provenance: false
-          cache-from: type=registry,ref=cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ github.sha }}
+          cache-from: type=registry,ref=${{ steps.meta.outputs.tags }}
           cache-to: type=inline
-          tags: cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ github.sha }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            ASSET_PREFIX=https://storage.yandexcloud.net/${{ secrets.AWS_S3_BUCKET }}
+            ASSET_PREFIX=https://storage.yandexcloud.net/${{ secrets.AWS_S3_BUCKET }}/${{ env.ENVIRONMENT_TAG }}
 
   upload-static:
     name: Upload static to S3
     needs: publish-image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+
     steps:
       - name: Login to Yandex Cloud Container Registry
         id: login-cr
@@ -45,8 +65,8 @@ jobs:
 
       - name: Copy static files from docker image
         run: |
-          docker pull cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ github.sha }}
-          docker run -i --name helper cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ github.sha }} true
+          docker pull cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ needs.publish-image.outputs.docker-image-version }}
+          docker run -i --name helper cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ needs.publish-image.outputs.docker-image-version }} true
           docker cp helper:/app/.next .
           docker rm helper
 
@@ -55,11 +75,14 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ru-central1
-        run: aws s3 --endpoint-url=https://storage.yandexcloud.net sync .next/static s3://${{ secrets.AWS_S3_BUCKET }}/_next/static
+        run: aws s3 --endpoint-url=https://storage.yandexcloud.net sync .next/static s3://${{ secrets.AWS_S3_BUCKET }}/${{ env.ENVIRONMENT_TAG }}/_next/static
 
   deploy:
     name: Deploy
     needs: [publish-image, upload-static]
+    environment:
+      name: ${{ github.event_name == 'pull_request' && format('PR-{0}', github.event.pull_request.number) || 'Production' }}
+      url: https://${{ steps.deploy-sls-container.outputs.id }}.containers.yandexcloud.net/
     runs-on: ubuntu-latest
 
     steps:
@@ -68,7 +91,16 @@ jobs:
         uses: yc-actions/yc-sls-container-deploy@v2
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-          container-name: ${{ secrets.CR_REPOSITORY }}
+          container-name: ${{ secrets.CR_REPOSITORY }}-${{ env.ENVIRONMENT_TAG }}
           folder-id: b1guhjmc4e8mlon8i2vl
           revision-service-account-id: ajecbk36deocemds4lar
-          revision-image-url: cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ github.sha }}
+          revision-image-url: cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ needs.publish-image.outputs.docker-image-version }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Public Serverless Container
+        uses: ./.github/actions/yc-sls-container-public
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          container-id: ${{ steps.deploy-sls-container.outputs.id }}
