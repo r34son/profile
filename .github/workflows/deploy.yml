@@ -5,13 +5,14 @@ on:
     branches: ['master']
   pull_request:
     branches: ['master']
+  workflow_dispatch:
 
 env:
-  ENVIRONMENT_TAG: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'production' }}
+  S3_PATH: ${{ github.event_name == 'pull_request' && format('pr/{0}', github.event.pull_request.number) || 'production' }}
 
 jobs:
-  publish-image:
-    name: Publish image
+  build-push:
+    name: Build and push image
     runs-on: ubuntu-latest
     outputs:
       docker-image-version: ${{ steps.meta.outputs.version }}
@@ -49,11 +50,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            ASSET_PREFIX=https://storage.yandexcloud.net/${{ secrets.AWS_S3_BUCKET }}/${{ env.ENVIRONMENT_TAG }}
+            ASSET_PREFIX=https://cdn.r34s0n.tech/${{ env.S3_PATH }}
 
   upload-static:
     name: Upload static to S3
-    needs: publish-image
+    needs: build-push
     runs-on: ubuntu-latest
 
     steps:
@@ -65,8 +66,8 @@ jobs:
 
       - name: Copy static files from docker image
         run: |
-          docker pull cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ needs.publish-image.outputs.docker-image-version }}
-          docker run -i --name helper cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ needs.publish-image.outputs.docker-image-version }} true
+          docker pull cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ needs.build-push.outputs.docker-image-version }}
+          docker run -i --name helper cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ needs.build-push.outputs.docker-image-version }} true
           docker cp helper:/app/.next .
           docker rm helper
 
@@ -75,11 +76,11 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ru-central1
-        run: aws s3 --endpoint-url=https://storage.yandexcloud.net sync .next/static s3://${{ secrets.AWS_S3_BUCKET }}/${{ env.ENVIRONMENT_TAG }}/_next/static
+        run: aws s3 --endpoint-url=https://storage.yandexcloud.net sync .next/static s3://${{ secrets.AWS_S3_BUCKET }}/${{ env.S3_PATH }}/_next/static
 
   deploy:
     name: Deploy
-    needs: [publish-image, upload-static]
+    needs: [build-push, upload-static]
     environment:
       name: ${{ github.event_name == 'pull_request' && format('PR-{0}', github.event.pull_request.number) || 'Production' }}
       url: https://${{ steps.deploy-sls-container.outputs.id }}.containers.yandexcloud.net/
@@ -91,10 +92,10 @@ jobs:
         uses: yc-actions/yc-sls-container-deploy@v2
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-          container-name: ${{ secrets.CR_REPOSITORY }}-${{ env.ENVIRONMENT_TAG }}
+          container-name: ${{ secrets.CR_REPOSITORY }}-${{ needs.build-push.outputs.docker-image-version }}
           folder-id: b1guhjmc4e8mlon8i2vl
           revision-service-account-id: ajecbk36deocemds4lar
-          revision-image-url: cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ needs.publish-image.outputs.docker-image-version }}
+          revision-image-url: cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}:${{ needs.build-push.outputs.docker-image-version }}
 
       - name: Checkout
         uses: actions/checkout@v4
