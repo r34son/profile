@@ -1,7 +1,8 @@
 import * as core from '@actions/core';
-import { serviceClients, Session } from '@yandex-cloud/nodejs-sdk';
+import { serviceClients, Session, cloudApi } from '@yandex-cloud/nodejs-sdk';
 
-import { SetAccessBindingsRequest } from '@yandex-cloud/nodejs-sdk/dist/generated/yandex/cloud/access/access';
+const SetAccessBindingsRequest =
+  cloudApi.access.access.SetAccessBindingsRequest;
 
 const run = async (): Promise<void> => {
   try {
