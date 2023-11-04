@@ -15,41 +15,49 @@ export const viewport: Viewport = {
   colorScheme: 'dark light',
 };
 
+const title = 'Profile | Iakhub Seitasanov';
+const description =
+  'Explore the profile of Iakhub Seitasanov, a tech enthusiast with a passion for software development and innovation. Stay updated with his insights and latest projects.';
+const name = 'Iakhub Seitasanov';
+const appName = 'Iakhub Seitasanov Profile';
+const url = 'https://github.com/r34son';
+
 export const metadata: Metadata = {
-  applicationName: '',
-  authors: [{ name: 'Next.js Team', url: 'https://nextjs.org' }],
-  keywords: ['react', 'server components'],
+  applicationName: appName,
+  authors: [{ name, url }],
+  keywords: ['profile', 'developer', 'dev', 'innovation'],
   referrer: 'origin',
-  creator: '',
-  publisher: '',
-  robots: '',
+  creator: name,
+  publisher: name,
+  // robots: '',
   icons: [
     { rel: 'icon', url: 'https://example.com/icon.png' },
     { rel: 'apple-touch-icon', url: 'https://example.com/apple-icon.png' },
   ],
-  title: 'Iakhub Seitasanov',
-  description: 'Profile',
+  title,
+  description,
   openGraph: {
-    title: 'Next.js',
-    description: 'The React Framework for the Web',
-    url: 'https://nextjs.org',
-    siteName: 'Next.js',
+    title,
+    description,
+    url,
+    siteName: appName,
     locale: 'en_US',
-    type: 'website',
+    alternateLocale: 'ru_RU',
+    type: 'profile',
   },
   twitter: {
-    title: 'Next.js',
-    description: 'The React Framework for the Web',
-    siteId: '1467726470533754880',
-    creator: '@nextjs',
-    creatorId: '1467726470533754880',
+    title,
+    description,
+    // siteId: '1467726470533754880',
+    creator: name,
+    // creatorId: '1467726470533754880',
   },
   verification: {
-    google: 'google',
-    yandex: 'yandex',
-    yahoo: 'yahoo',
+    // google: 'google',
+    // yandex: 'yandex',
+    // yahoo: 'yahoo',
     other: {
-      me: ['my-email', 'my-link'],
+      me: ['seitasanov.yahub@gmail.com', url],
     },
   },
   category: 'technology',
