@@ -24,7 +24,10 @@ const url = 'https://github.com/r34son';
 
 export const metadata: Metadata = {
   applicationName: appName,
-  authors: [{ name, url }],
+  authors: [
+    { name, url },
+    { name: 'Яхуб Сеитасанов', url },
+  ],
   keywords: ['profile', 'developer', 'dev', 'innovation'],
   referrer: 'origin',
   creator: name,
