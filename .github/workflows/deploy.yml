@@ -50,7 +50,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            ASSET_PREFIX=https://cdn.r34s0n.tech/${{ env.S3_PATH }}
+            ASSET_PREFIX=https://${{ github.event_name == 'pull_request' && format('storage.yandexcloud.net/{0}', secrets.AWS_S3_BUCKET) || 'cdn.r34s0n.tech' }}/${{ env.S3_PATH }}
 
   upload-static:
     name: Upload static to S3

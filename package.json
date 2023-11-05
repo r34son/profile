@@ -26,6 +26,7 @@
     "validate": "run-p format:check lint:check types:check test:unit"
   },
   "dependencies": {
+    "@next/third-parties": "^14.0.1",
     "@nextui-org/react": "^2.2.3",
     "framer-motion": "^10.16.4",
     "next": "14.0.1",

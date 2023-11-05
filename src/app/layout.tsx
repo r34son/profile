@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { GoogleTagManager } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
 import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/react';
 import { Providers } from '@/app/providers';
@@ -85,6 +86,7 @@ export default function RootLayout({
           {children}
         </Providers>
       </body>
+      <GoogleTagManager gtmId="GTM-MW45T8L4" />
     </html>
   );
 }
