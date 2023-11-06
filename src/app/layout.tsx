@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from 'next';
+import { GoogleTagManager } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
 import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/react';
 import { Providers } from '@/app/providers';
 import { ThemeSwitcher } from '@/app/components/ThemeSwitcher';
 import './globals.css';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,7 +26,10 @@ const url = 'https://github.com/r34son';
 
 export const metadata: Metadata = {
   applicationName: appName,
-  authors: [{ name, url }],
+  authors: [
+    { name, url },
+    { name: 'Яхуб Сеитасанов', url },
+  ],
   keywords: ['profile', 'developer', 'dev', 'innovation'],
   referrer: 'origin',
   creator: name,
@@ -71,6 +76,19 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en" className="dark">
       <body className={inter.className}>
+        <Script id="metrika-counter" strategy="afterInteractive">
+          {`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date(); for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }} k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(95478689, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });`}
+        </Script>
+        <noscript>
+          <div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://mc.yandex.ru/watch/95478689"
+              style={{ position: 'absolute', left: -9999 }}
+              alt=""
+            />
+          </div>
+        </noscript>
         <Providers>
           <Navbar position="static">
             <NavbarContent justify="end">
@@ -82,6 +100,7 @@ export default function RootLayout({
           {children}
         </Providers>
       </body>
+      <GoogleTagManager gtmId="GTM-MW45T8L4" />
     </html>
   );
 }

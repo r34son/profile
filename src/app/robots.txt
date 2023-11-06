@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://r34s0n.tech/sitemap.xml
