@@ -7,8 +7,8 @@ import { Inter } from 'next/font/google';
 import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/react';
 import { NextIntlClientProvider, createTranslator } from 'next-intl';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
-import { Providers } from './providers';
-import './globals.css';
+import { Providers } from '../providers';
+import '../globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
