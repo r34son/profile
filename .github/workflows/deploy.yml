@@ -105,3 +105,9 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           container-id: ${{ steps.deploy-sls-container.outputs.id }}
+
+      - name: Purge CDN cache
+        uses: yc-actions/yc-cdn-cache@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          cdn-resource-id: bc8eyazsip6i4r4bqjsa
