@@ -1,5 +1,6 @@
 // @ts-check
 const withPlugins = require('next-compose-plugins');
+const withNextIntl = require('next-intl/plugin')();
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -9,6 +10,7 @@ const nextConfig = {
   output: 'standalone',
   assetPrefix: process.env.ASSET_PREFIX,
   experimental: {
+    optimizeServerReact: true,
     serverComponentsExternalPackages: [
       '@react-aria/visually-hidden',
       '@nextui-org/system',
@@ -55,4 +57,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withPlugins([[withBundleAnalyzer]], nextConfig);
+module.exports = withPlugins([withNextIntl, [withBundleAnalyzer]], nextConfig);
