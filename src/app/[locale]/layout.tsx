@@ -1,49 +1,35 @@
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
-import { notFound } from 'next/navigation';
-import { GoogleTagManager } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
+import { notFound } from 'next/navigation';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { GoogleTagManager } from '@next/third-parties/google';
 import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/react';
-import { NextIntlClientProvider, createTranslator } from 'next-intl';
+import { YMScript } from '@/components/YMScript';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
+import { Locales, locales } from '@/lib/i18n';
 import { Providers } from '../providers';
-import '../globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-interface LayoutProps {
+interface LocaleLayoutProps {
   params: {
-    locale: 'en' | 'ru';
+    locale: Locales;
   };
 }
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
   params: { locale },
-}: PropsWithChildren<LayoutProps>) {
-  let messages;
-  try {
-    messages = (await import(`../../messages/${locale}.json`)).default;
-  } catch (error) {
-    notFound();
-  }
+}: PropsWithChildren<LocaleLayoutProps>) {
+  if (!locales.includes(locale as any)) notFound();
+
+  unstable_setRequestLocale(locale);
+
   return (
     <html suppressHydrationWarning lang={locale} className="dark">
       <body className={inter.className}>
-        <Script id="metrika-counter">
-          {`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date(); for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }} k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js", "ym"); ym(95478689, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });`}
-        </Script>
-        <noscript>
-          <div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://mc.yandex.ru/watch/95478689"
-              style={{ position: 'absolute', left: -9999 }}
-              alt=""
-            />
-          </div>
-        </noscript>
+        <YMScript />
         <Providers>
           <Navbar position="static">
             <NavbarContent justify="end">
@@ -52,9 +38,7 @@ export default async function RootLayout({
               </NavbarItem>
             </NavbarContent>
           </Navbar>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-          </NextIntlClientProvider>
+          {children}
         </Providers>
       </body>
       <GoogleTagManager gtmId="GTM-MW45T8L4" />
@@ -62,7 +46,7 @@ export default async function RootLayout({
   );
 }
 
-export const generateStaticParams = () => [{ locale: 'en' }, { locale: 'ru' }];
+export const generateStaticParams = () => locales.map((locale) => ({ locale }));
 
 export const viewport: Viewport = {
   themeColor: [
@@ -79,14 +63,15 @@ const mapLocaleToOG = {
   ru: 'ru_RU',
 };
 
-export const generateMetadata = async ({ params: { locale } }: LayoutProps) => {
-  const messages = (await import(`../../messages/${locale}.json`)).default;
-  const t = createTranslator({ locale, messages });
+export const generateMetadata = async ({
+  params: { locale },
+}: LocaleLayoutProps) => {
+  const t = await getTranslations({ locale, namespace: 'metadata' });
 
-  const title = t('metadata.title');
-  const description = t('metadata.description');
-  const name = t('metadata.name');
-  const applicationName = t('metadata.applicationName');
+  const title = t('title');
+  const description = t('description');
+  const name = t('name');
+  const applicationName = t('applicationName');
 
   return {
     applicationName,
