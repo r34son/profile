@@ -2,7 +2,9 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import { Button } from '@nextui-org/react';
+import { Moon, Sun } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
@@ -12,18 +14,23 @@ export const ThemeSwitcher = () => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted)
+    return (
+      <Button variant="outline" size="icon">
+        <Skeleton className="w-full h-full" />
+      </Button>
+    );
 
   if (theme === 'dark')
     return (
-      <Button variant="flat" onClick={() => setTheme('light')}>
-        Light
+      <Button variant="outline" size="icon" onClick={() => setTheme('light')}>
+        <Sun />
       </Button>
     );
 
   return (
-    <Button variant="flat" onClick={() => setTheme('dark')}>
-      Dark
+    <Button variant="outline" size="icon" onClick={() => setTheme('dark')}>
+      <Moon />
     </Button>
   );
 };

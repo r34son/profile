@@ -1,7 +1,9 @@
-import { unstable_setRequestLocale } from 'next-intl/server';
-import { Info } from '@/components/blocks/Info';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { Info } from '@/components/sections/Info';
+import { Experience } from '@/components/sections/Experience';
+import { Technologies } from '@/components/sections/Technologies';
+import { Contacts } from '@/components/sections/Contacts';
 import { Locales } from '@/lib/i18n';
-import styles from './page.module.css';
 
 interface HomeProps {
   params: {
@@ -9,12 +11,17 @@ interface HomeProps {
   };
 }
 
-export default function Home({ params: { locale } }: HomeProps) {
+export default async function Home({ params: { locale } }: HomeProps) {
   unstable_setRequestLocale(locale);
 
+  const t = await getTranslations({ locale, namespace: 'header' });
+
   return (
-    <main className={styles.main}>
+    <>
       <Info />
-    </main>
+      <Experience />
+      <Technologies title={t('anchors.technologies')} />
+      <Contacts />
+    </>
   );
 }

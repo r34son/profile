@@ -3,6 +3,24 @@
     "title": "Profile | Iakhub Seitasanov",
     "description": "Explore the profile of Iakhub Seitasanov, a tech enthusiast with a passion for software development and innovation. Stay updated with his insights and latest projects.",
     "name": "Iakhub Seitasanov",
-    "applicationName": "Iakhub Seitasanov Profile"
+    "applicationName": "Iakhub Seitasanov Profile",
+    "keywords": "profile,development,innovation"
+  },
+  "header": {
+    "title": "Profile | Iakhub Seitasanov",
+    "anchors": {
+      "info": "Info",
+      "technologies": "Technologies",
+      "experience": "Experience",
+      "contacts": "Contacts"
+    },
+    "githubButtonText": "View on Github",
+    "localeSelect": {
+      "title": "Change locale",
+      "locales": {
+        "ru": "RU",
+        "en": "EN"
+      }
+    }
   }
 }
