@@ -3,12 +3,12 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { GoogleTagManager } from '@next/third-parties/google';
-import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/react';
+import { Header } from '@/components/Header';
 import { YMScript } from '@/components/YMScript';
-import { ThemeSwitcher } from '@/components/ThemeSwitcher';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Locales, locales } from '@/lib/i18n';
-import { Providers } from '../providers';
+import { Providers } from '@/app/providers';
+import { email, githubUrl } from '@/const';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,22 +26,40 @@ export default async function LocaleLayout({
 
   unstable_setRequestLocale(locale);
 
+  const t = await getTranslations({ locale, namespace: 'header' });
+
   return (
     <html suppressHydrationWarning lang={locale} className="dark">
-      <body className={inter.className}>
+      <body
+        className={`${inter.className} flex flex-col h-screen overflow-hidden`}
+      >
         <YMScript />
         <Providers>
-          <Navbar position="static">
-            <NavbarContent justify="end">
-              <NavbarItem>
-                <ThemeSwitcher />
-              </NavbarItem>
-            </NavbarContent>
-          </Navbar>
-          {children}
+          <Header
+            title={t('title')}
+            anchors={[
+              { title: t('anchors.info'), href: '#info' },
+              { title: t('anchors.experience'), href: '#experience' },
+              { title: t('anchors.technologies'), href: '#technologies' },
+              { title: t('anchors.contacts'), href: '#contacts' },
+            ]}
+            githubButtonText={t('githubButtonText')}
+            localeSelectProps={{
+              title: t('localeSelect.title'),
+              localeNames: locales.reduce(
+                (acc, locale) => ({
+                  ...acc,
+                  [locale]: t(`localeSelect.locales.${locale}`),
+                }),
+                {} as Record<Locales, string>,
+              ),
+            }}
+          />
+          <ScrollArea>
+            <main className="container flex-1 mx-auto p-4">{children}</main>
+          </ScrollArea>
         </Providers>
       </body>
-      <GoogleTagManager gtmId="GTM-MW45T8L4" />
     </html>
   );
 }
@@ -55,8 +73,6 @@ export const viewport: Viewport = {
   ],
   colorScheme: 'dark light',
 };
-
-const url = 'https://github.com/r34son';
 
 const mapLocaleToOG = {
   en: 'en_US',
@@ -75,8 +91,8 @@ export const generateMetadata = async ({
 
   return {
     applicationName,
-    authors: [{ name, url }],
-    keywords: ['profile', 'developer', 'dev', 'innovation'],
+    authors: [{ name, url: githubUrl }],
+    keywords: t('keywords'),
     referrer: 'origin',
     creator: name,
     publisher: name,
@@ -85,7 +101,7 @@ export const generateMetadata = async ({
     openGraph: {
       title,
       description,
-      url,
+      url: githubUrl,
       siteName: applicationName,
       locale: mapLocaleToOG[locale],
       alternateLocale: Object.values(mapLocaleToOG).filter(
@@ -104,7 +120,7 @@ export const generateMetadata = async ({
     },
     verification: {
       other: {
-        me: ['seitasanov.yahub@gmail.com', url],
+        me: [email, githubUrl],
       },
     },
     category: 'technology',

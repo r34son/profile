@@ -2,5 +2,9 @@ import { useTranslations } from 'next-intl';
 
 export const Info = () => {
   const t = useTranslations('metadata');
-  return <h1>{t('title')}</h1>;
+  return (
+    <section id="info" className="h-96">
+      <h1>{t('title')}</h1>
+    </section>
+  );
 };
