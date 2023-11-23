@@ -12,6 +12,7 @@ const nextConfig = {
   experimental: {
     optimizeServerReact: true,
   },
+  transpilePackages: ['swiper'],
 };
 
 module.exports = withPlugins([withNextIntl, [withBundleAnalyzer]], nextConfig);
