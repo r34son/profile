@@ -7,15 +7,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 register();
 
-declare global {
-  namespace React.JSX {
-    interface IntrinsicElements {
-      'swiper-container': any;
-      'swiper-slide': any;
-    }
-  }
-}
-
 interface TechnologiesProps {
   title: string;
 }
@@ -41,6 +32,11 @@ export const Technologies = ({ title }: TechnologiesProps) => {
           effect="coverflow"
           coverflow-effect-modifier="0.6"
           coverflow-effect-slide-shadows="false"
+          breakpoints='{"320": {"slidesPerView": 3}, "480": {"slidesPerView": 4}}'
+          // https://github.com/nolimits4web/swiper/issues/3599#issuecomment-1696670314
+          inject-styles={
+            '[".swiper{display: grid;} .swiper-wrapper{min-width: 0;}"]'
+          }
         >
           {logoClassnames.map((className, index) => (
             <swiper-slide key={index}>
