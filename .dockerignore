@@ -5,8 +5,10 @@ npm-debug.log
 README.md
 .next
 .git
+.gitignore
 .github
 .vscode
+*.md
 
 # Playwright
 /test-results/
