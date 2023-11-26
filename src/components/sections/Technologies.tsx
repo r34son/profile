@@ -34,9 +34,7 @@ export const Technologies = ({ title }: TechnologiesProps) => {
           coverflow-effect-slide-shadows="false"
           breakpoints='{"320": {"slidesPerView": 3}, "480": {"slidesPerView": 4}}'
           // https://github.com/nolimits4web/swiper/issues/3599#issuecomment-1696670314
-          inject-styles={
-            '[".swiper{display: grid;} .swiper-wrapper{min-width: 0;}"]'
-          }
+          inject-styles='[".swiper{display: grid;} .swiper-wrapper{min-width: 0;}"]'
         >
           {logoClassnames.map((className, index) => (
             <swiper-slide key={index}>
