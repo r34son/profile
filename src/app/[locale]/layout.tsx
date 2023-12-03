@@ -56,7 +56,7 @@ export default async function LocaleLayout({
             }}
           />
           <ScrollArea>
-            <main className="container flex-1 mx-auto p-4">{children}</main>
+            <main className="container flex-1">{children}</main>
           </ScrollArea>
         </Providers>
       </body>
@@ -81,7 +81,7 @@ const mapLocaleToOG = {
 
 export const generateMetadata = async ({
   params: { locale },
-}: LocaleLayoutProps) => {
+}: LocaleLayoutProps): Promise<Metadata> => {
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   const title = t('title');
@@ -98,6 +98,7 @@ export const generateMetadata = async ({
     publisher: name,
     title,
     description,
+    metadataBase: new URL('http://localhost:3000'),
     openGraph: {
       title,
       description,
@@ -124,5 +125,5 @@ export const generateMetadata = async ({
       },
     },
     category: 'technology',
-  } as Metadata;
+  };
 };
