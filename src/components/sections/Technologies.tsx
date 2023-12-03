@@ -21,7 +21,7 @@ export const Technologies = ({ title }: TechnologiesProps) => {
 
   return (
     <section id="technologies" className="py-4">
-      <h2 className="prose prose-xl text-center max-w-none mb-8">{title}</h2>
+      <h2 className="text-xl text-center max-w-none mb-8">{title}</h2>
       {mounted ? (
         <swiper-container
           loop

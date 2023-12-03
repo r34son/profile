@@ -43,7 +43,7 @@ export const Header = ({
                   <NavigationMenuItem key={index}>
                     <Link href={href} legacyBehavior passHref>
                       <NavigationMenuLink
-                        className={`${navigationMenuTriggerStyle()} prose prose-neutral dark:prose-invert`}
+                        className={navigationMenuTriggerStyle()}
                       >
                         {title}
                       </NavigationMenuLink>
