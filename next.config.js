@@ -9,9 +9,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   output: 'standalone',
   assetPrefix: process.env.ASSET_PREFIX,
-  experimental: {
-    optimizeServerReact: true,
-  },
 };
 
 module.exports = withPlugins([withNextIntl, [withBundleAnalyzer]], nextConfig);
