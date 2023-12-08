@@ -3,9 +3,11 @@ Dockerfile
 node_modules
 npm-debug.log
 README.md
+.nvmrc
 .next
 .git
 .gitignore
+.prettierignore
 .github
 .vscode
 *.md
@@ -15,3 +17,9 @@ README.md
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+playwright.config.ts
+
+/tests
+
+# Jest
+jest.*
