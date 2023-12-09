@@ -31,7 +31,7 @@ export default async function LocaleLayout({
   return (
     <html suppressHydrationWarning lang={locale} className="dark">
       <body
-        className={`${inter.className} flex flex-col h-screen overflow-hidden`}
+        className={`${inter.className} flex h-screen flex-col overflow-hidden`}
       >
         <YMScript />
         <Providers>

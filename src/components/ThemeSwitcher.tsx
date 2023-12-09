@@ -17,7 +17,7 @@ export const ThemeSwitcher = () => {
   if (!mounted)
     return (
       <Button variant="outline" size="icon">
-        <Skeleton className="w-full h-full" />
+        <Skeleton className="h-full w-full" />
       </Button>
     );
 
