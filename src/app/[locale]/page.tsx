@@ -1,9 +1,9 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Info } from '@/components/sections/Info';
 import { Experience } from '@/components/sections/Experience';
-import { Technologies } from '@/components/sections/Technologies';
 import { Contacts } from '@/components/sections/Contacts';
 import { Locales } from '@/lib/i18n';
+import { DynamicTechnologies } from '@/components/sections/DynamicTechnologies';
 
 interface HomeProps {
   params: {
@@ -20,7 +20,7 @@ export default async function Home({ params: { locale } }: HomeProps) {
     <>
       <Info />
       <Experience />
-      <Technologies title={t('anchors.technologies')} />
+      <DynamicTechnologies title={t('anchors.technologies')} />
       <Contacts />
     </>
   );
