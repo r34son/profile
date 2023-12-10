@@ -1,9 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { register } from 'swiper/element/bundle';
-import { Skeleton } from '@/components/ui/skeleton';
 
 register();
 
@@ -12,43 +10,34 @@ interface TechnologiesProps {
 }
 
 export const Technologies = ({ title }: TechnologiesProps) => {
-  const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <section id="technologies" className="py-4">
       <h2 className="mb-8 max-w-none text-center text-xl">{title}</h2>
-      {mounted ? (
-        <swiper-container
-          loop
-          autoplay
-          autoplay-delay="1000"
-          resize-observer
-          slides-per-view="7"
-          effect="coverflow"
-          coverflow-effect-modifier="0.6"
-          coverflow-effect-slide-shadows="false"
-          breakpoints='{"320": {"slidesPerView": 3}, "480": {"slidesPerView": 4}}'
-          // https://github.com/nolimits4web/swiper/issues/3599#issuecomment-1696670314
-          inject-styles='[".swiper{display: grid;} .swiper-wrapper{min-width: 0;}"]'
-        >
-          {logoClassnames.map((className, index) => (
-            <swiper-slide key={index}>
-              <i
-                className={`text-8xl ${className} ${
-                  theme === 'dark' ? 'colored' : ''
-                }`}
-              />
-            </swiper-slide>
-          ))}
-        </swiper-container>
-      ) : (
-        <Skeleton className="h-24 w-full" />
-      )}
+      <swiper-container
+        loop
+        autoplay
+        autoplay-delay="1000"
+        resize-observer
+        slides-per-view="7"
+        effect="coverflow"
+        coverflow-effect-modifier="0.6"
+        coverflow-effect-slide-shadows="false"
+        breakpoints='{"320": {"slidesPerView": 3}, "480": {"slidesPerView": 4}}'
+        // https://github.com/nolimits4web/swiper/issues/3599#issuecomment-1696670314
+        inject-styles='[".swiper{display: grid;} .swiper-wrapper{min-width: 0;}"]'
+      >
+        {logoClassnames.map((className, index) => (
+          <swiper-slide key={index}>
+            <i
+              className={`text-8xl ${className} ${
+                theme === 'dark' ? 'colored' : ''
+              }`}
+            />
+          </swiper-slide>
+        ))}
+      </swiper-container>
     </section>
   );
 };
