@@ -1,0 +1,69 @@
+name: Lighthouse CI
+
+on:
+  deployment_status:
+
+env:
+  LHCI_COLLECT__URL: ${{ github.event.deployment_status.environment_url }}
+  PUPPETEER_SKIP_DOWNLOAD: true
+
+jobs:
+  lhci-mobile:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment != 'github-pages'
+    name: Lighthouse mobile audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Chrome
+        id: install-chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - run: pnpm lhci:mobile
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          CHROME_PATH: ${{ steps.install-chrome.outputs.chrome-path }}
+
+  lhci-desktop:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment != 'github-pages'
+    name: Lighthouse desktop audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Chrome
+        id: install-chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - run: pnpm lhci:desktop
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          CHROME_PATH: ${{ steps.install-chrome.outputs.chrome-path }}
