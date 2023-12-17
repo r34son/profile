@@ -1,3 +1,10 @@
 {
-  "recommendations": ["lokalise.i18n-ally"]
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "bradlc.vscode-tailwindcss",
+    "ms-playwright.playwright",
+    "lokalise.i18n-ally"
+  ]
 }

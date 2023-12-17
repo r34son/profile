@@ -5,13 +5,13 @@ import { Contacts } from '@/components/sections/Contacts';
 import { Locales } from '@/lib/i18n';
 import { DynamicTechnologies } from '@/components/sections/DynamicTechnologies';
 
-interface HomeProps {
+interface ProfileProps {
   params: {
     locale: Locales;
   };
 }
 
-export default async function Home({ params: { locale } }: HomeProps) {
+export default async function Profile({ params: { locale } }: ProfileProps) {
   unstable_setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'header' });

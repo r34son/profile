@@ -16,20 +16,30 @@ export const ThemeSwitcher = () => {
 
   if (!mounted)
     return (
-      <Button variant="outline" size="icon">
+      <Button variant="outline" size="icon" aria-label="theme">
         <Skeleton className="h-full w-full" />
       </Button>
     );
 
   if (theme === 'dark')
     return (
-      <Button variant="outline" size="icon" onClick={() => setTheme('light')}>
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label="theme"
+        onClick={() => setTheme('light')}
+      >
         <Sun />
       </Button>
     );
 
   return (
-    <Button variant="outline" size="icon" onClick={() => setTheme('dark')}>
+    <Button
+      variant="outline"
+      size="icon"
+      aria-label="theme"
+      onClick={() => setTheme('dark')}
+    >
       <Moon />
     </Button>
   );
