@@ -1,5 +1,5 @@
 {
-  "name": "next",
+  "name": "profile",
   "version": "0.1.0",
   "packageManager": "pnpm@8.12.1",
   "engines": {
@@ -25,9 +25,9 @@
     "test:unit": "jest --passWithNoTests",
     "types:check": "tsc --noEmit",
     "validate": "run-p format:check lint:check types:check test:unit",
-    "lhci:start": "next build --no-lint && cp -r .next/static .next/standalone/.next/ && node .next/standalone/server.js",
-    "lhci:mobile": "lhci autorun",
-    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop"
+    "lhci:start": "NODE_ENV=production next build --no-lint && cp -r .next/static .next/standalone/.next/ && node .next/standalone/server.js",
+    "lhci:mobile": "lhci autorun && lhci open",
+    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop && lhci open"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.0.6",
@@ -39,7 +39,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "devicon": "^2.15.1",
-    "lucide-react": "^0.297.0",
+    "lucide-react": "^0.298.0",
     "next": "14.0.4",
     "next-compose-plugins": "^2.2.1",
     "next-intl": "^3.3.2",
@@ -53,6 +53,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "@lhci/cli": "^0.13.0",
     "@next/bundle-analyzer": "^14.0.4",
     "@playwright/test": "^1.40.1",
@@ -64,6 +65,7 @@
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.2",
     "eslint": "^8.56.0",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^9.1.0",
@@ -131,12 +133,6 @@
           ]
         }
       ]
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "tailwindcss": {},
-      "autoprefixer": {}
     }
   },
   "lint-staged": {
