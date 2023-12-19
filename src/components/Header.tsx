@@ -31,7 +31,11 @@ export const Header = ({
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center justify-between space-x-4 sm:space-x-0">
         <div className="flex gap-6 md:gap-10">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link
+            href="/"
+            className="flex items-center space-x-2"
+            aria-label={title}
+          >
             <h1 className="hidden font-bold sm:inline-block">{title}</h1>
           </Link>
         </div>

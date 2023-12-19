@@ -40,17 +40,18 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
-      - name: Cache pnpm-store
-        uses: actions/cache@v3
-        with:
-          path: pnpm-store
-          key: pnpm-store-${{ hashFiles('Dockerfile') }}
+      # TODO: https://docs.docker.com/build/ci/github-actions/cache/
+      # - name: Cache pnpm-store
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: pnpm-store
+      #     key: pnpm-store-${{ hashFiles('Dockerfile') }}
 
-      - name: Inject pnpm-store into docker
-        uses: reproducible-containers/buildkit-cache-dance@v2.1.3
-        with:
-          cache-source: pnpm-store
-          cache-target: /pnpm/store
+      # - name: Inject pnpm-store into docker
+      #   uses: reproducible-containers/buildkit-cache-dance@v2.1.3
+      #   with:
+      #     cache-source: pnpm-store
+      #     cache-target: /pnpm/store
 
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         uses: docker/build-push-action@v5
@@ -59,8 +60,8 @@ jobs:
           provenance: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
           build-args: |
             ASSET_PREFIX=https://${{ github.event_name == 'pull_request' && format('storage.yandexcloud.net/{0}', secrets.AWS_S3_BUCKET) || 'cdn.r34s0n.tech' }}/${{ env.S3_PATH }}
 
