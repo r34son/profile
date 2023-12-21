@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
@@ -27,14 +28,15 @@ export default async function LocaleLayout({
   unstable_setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'header' });
+  const nonce = headers().get('x-nonce')!;
 
   return (
     <html suppressHydrationWarning lang={locale} className="dark">
       <body
         className={`${inter.className} flex h-screen flex-col overflow-hidden`}
       >
-        <YMScript />
-        <Providers>
+        <YMScript nonce={nonce} />
+        <Providers nonce={nonce}>
           <Header
             title={t('title')}
             anchors={[

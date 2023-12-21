@@ -1,6 +1,9 @@
-FROM node:18-slim AS base
+FROM node:20.10.0-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+ENV NEXT_TELEMETRY_DISABLED=1
+ARG ASSET_PREFIX
+ENV ASSET_PREFIX=$ASSET_PREFIX
 RUN corepack enable
 COPY . /app
 WORKDIR /app
@@ -10,14 +13,11 @@ FROM base AS prod-deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
 FROM base AS build
-ARG ASSET_PREFIX
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN NEXT_TELEMETRY_DISABLED=1 ASSET_PREFIX=$ASSET_PREFIX pnpm run build
+RUN pnpm run build
 
 FROM base
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-
+ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
