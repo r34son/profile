@@ -101,6 +101,7 @@ export const generateMetadata = async ({
     title,
     description,
     metadataBase: new URL('http://localhost:3000'),
+    generator: 'Next.js',
     openGraph: {
       title,
       description,
@@ -118,6 +119,7 @@ export const generateMetadata = async ({
       creator: name,
     },
     appleWebApp: {
+      title,
       capable: true,
       statusBarStyle: 'black-translucent',
     },

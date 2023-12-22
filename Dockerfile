@@ -30,7 +30,7 @@ COPY --from=prod-deps /app/node_modules /app/node_modules
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=build --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=build --chown=nextjs:nodejs /app/.next/static ./.next/static
-# COPY --from=build /app/public ./public
+COPY --from=build --chown=nextjs:nodejs /app/public ./public
 
 USER nextjs
 

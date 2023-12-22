@@ -2,5 +2,10 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "i18n-ally.localesPaths": ["src/messages"],
   "i18n-ally.keystyle": "nested",
-  "npm.packageManager": "pnpm"
+  "npm.packageManager": "pnpm",
+  "css.validate": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always"
 }

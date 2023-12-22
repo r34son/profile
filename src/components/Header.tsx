@@ -33,6 +33,7 @@ export const Header = ({
         <div className="flex gap-6 md:gap-10">
           <Link
             href="/"
+            prefetch={false}
             className="flex items-center space-x-2"
             aria-label={title}
           >
