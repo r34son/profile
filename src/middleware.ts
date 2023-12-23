@@ -47,7 +47,7 @@ export default function middleware(request: NextRequest) {
       process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
     };
     style-src 'self' ${assetPrefix} 'unsafe-inline';
-    img-src 'self' blob: data: ${mcDomains};
+    img-src 'self' blob: data: ${assetPrefix} ${mcDomains};
     connect-src 'self' ${mcDomains};
     child-src blob: ${mcDomains};
     frame-src blob: ${mcDomains};
@@ -81,9 +81,11 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - manifest.webmanifest (manifest file)
+     * - icon (icons)
      */
     {
-      source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+      source: '/((?!api|_next/static|_next/image|favicon.ico|manifest|icon).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },

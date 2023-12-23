@@ -11,13 +11,12 @@ module.exports = {
       chromePath: !isCI && puppeteer.executablePath(),
     },
     assert: {
-      preset: 'lighthouse:no-pwa',
+      preset: 'lighthouse:recommended',
       assertions: {
-        'categories:accessibility': 'off',
-
         // TODO:
         'unused-javascript': 'off',
         'total-byte-weight': 'off',
+        'content-width': 'off',
 
         // App router doesn`t have way to inline critical css
         'render-blocking-resources': 'off',
