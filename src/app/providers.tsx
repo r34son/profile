@@ -12,6 +12,7 @@ export const Providers = ({
   nonce,
 }: PropsWithChildren<ProviderProps>) => {
   return (
+    // https://github.com/pacocoursey/next-themes/pull/223
     <ThemeProvider
       enableSystem
       disableTransitionOnChange
