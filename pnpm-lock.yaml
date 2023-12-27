@@ -14,9 +14,6 @@ dependencies:
   '@radix-ui/react-navigation-menu':
     specifier: ^1.1.4
     version: 1.1.4(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
-  '@radix-ui/react-scroll-area':
-    specifier: ^1.0.5
-    version: 1.0.5(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
   '@radix-ui/react-slot':
     specifier: ^1.0.2
     version: 1.0.2(@types/react@18.2.45)(react@18.2.0)
@@ -35,6 +32,12 @@ dependencies:
   devicon:
     specifier: ^2.15.1
     version: 2.15.1
+  embla-carousel-autoplay:
+    specifier: 8.0.0-rc17
+    version: 8.0.0-rc17(embla-carousel@8.0.0-rc17)
+  embla-carousel-react:
+    specifier: 8.0.0-rc17
+    version: 8.0.0-rc17(react@18.2.0)
   lucide-react:
     specifier: ^0.302.0
     version: 0.302.0(react@18.2.0)
@@ -92,8 +95,8 @@ devDependencies:
     specifier: ^1.40.1
     version: 1.40.1
   '@testing-library/jest-dom':
-    specifier: ^6.1.5
-    version: 6.1.5(@types/jest@29.5.11)(jest@29.7.0)
+    specifier: ^6.1.6
+    version: 6.1.6(@types/jest@29.5.11)(jest@29.7.0)
   '@testing-library/react':
     specifier: ^14.1.2
     version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
@@ -177,8 +180,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@adobe/css-tools@4.3.1:
-    resolution: {integrity: sha512-/62yikz7NLScCGAAST5SHdnjaDJQBDq0M2muyRTpf2VQhw6StBg2ALiu73zSJQ4fMVLA+0uBhBHAle7Wg+2kSg==}
+  /@adobe/css-tools@4.3.2:
+    resolution: {integrity: sha512-DA5a1C0gD/pLOvhv33YMrbf2FK3oUzwNl9oOJqE4XVjuEtt6XIakRcsd7eLiOSPkp1kTRQGICTA8cKra/vFbjw==}
     dev: true
 
   /@alloc/quick-lru@5.2.0:
@@ -2397,12 +2400,6 @@ packages:
       - supports-color
     dev: true
 
-  /@radix-ui/number@1.0.1:
-    resolution: {integrity: sha512-T5gIdVO2mmPW3NNhjNgEP3cqMXjXL9UbO0BzWcXfvdBs+BohbQxvd/K5hSVKmn9/lbTdsQVKbUcP5WLCwvUbBg==}
-    dependencies:
-      '@babel/runtime': 7.23.5
-    dev: false
-
   /@radix-ui/primitive@1.0.1:
     resolution: {integrity: sha512-yQ8oGX2GVsEYMWGxcovu1uGWPCxV5BFfeeYxqPmuAzUyLT9qmaMXSAhXpb0WrspIeqYzdJpkh2vHModJPgRIaw==}
     dependencies:
@@ -2795,35 +2792,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@radix-ui/react-scroll-area@1.0.5(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-b6PAgH4GQf9QEn8zbT2XUHpW5z8BzqEc7Kl11TwDrvuTrxlkcjTD5qa/bxgKr+nmuXKu4L/W5UZ4mlP/VG/5Gw==}
-    peerDependencies:
-      '@types/react': '*'
-      '@types/react-dom': '*'
-      react: ^16.8 || ^17.0 || ^18.0
-      react-dom: ^16.8 || ^17.0 || ^18.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-dom':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.23.5
-      '@radix-ui/number': 1.0.1
-      '@radix-ui/primitive': 1.0.1
-      '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.2.45)(react@18.2.0)
-      '@radix-ui/react-context': 1.0.1(@types/react@18.2.45)(react@18.2.0)
-      '@radix-ui/react-direction': 1.0.1(@types/react@18.2.45)(react@18.2.0)
-      '@radix-ui/react-presence': 1.0.1(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-primitive': 1.0.3(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-use-callback-ref': 1.0.1(@types/react@18.2.45)(react@18.2.0)
-      '@radix-ui/react-use-layout-effect': 1.0.1(@types/react@18.2.45)(react@18.2.0)
-      '@types/react': 18.2.45
-      '@types/react-dom': 18.2.18
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /@radix-ui/react-slot@1.0.2(@types/react@18.2.45)(react@18.2.0):
     resolution: {integrity: sha512-YeTpuq4deV+6DusvVUW4ivBgnkHwECUu0BiN43L5UCDFgdhsRUWAghhTF5MbvNTPzmiFOx90asDSUjWuCNapwg==}
     peerDependencies:
@@ -3161,8 +3129,8 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/jest-dom@6.1.5(@types/jest@29.5.11)(jest@29.7.0):
-    resolution: {integrity: sha512-3y04JLW+EceVPy2Em3VwNr95dOKqA8DhR0RJHhHKDZNYXcVXnEK7WIrpj4eYU8SVt/qYZ2aRWt/WgQ+grNES8g==}
+  /@testing-library/jest-dom@6.1.6(@types/jest@29.5.11)(jest@29.7.0):
+    resolution: {integrity: sha512-YwuiOdYEcxhfC2u5iNKlvg2Q5MgbutovP6drq7J1HrCbvR+G58BbtoCoq+L/kNlrNFsu2Kt3jaFAviLVxYHJZg==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
     peerDependencies:
       '@jest/globals': '>= 28'
@@ -3179,7 +3147,7 @@ packages:
       vitest:
         optional: true
     dependencies:
-      '@adobe/css-tools': 4.3.1
+      '@adobe/css-tools': 4.3.2
       '@babel/runtime': 7.23.5
       '@types/jest': 29.5.11
       aria-query: 5.3.0
@@ -5113,6 +5081,36 @@ packages:
 
   /electron-to-chromium@1.4.616:
     resolution: {integrity: sha512-1n7zWYh8eS0L9Uy+GskE0lkBUNK83cXTVJI0pU3mGprFsbfSdAc15VTFbo+A+Bq4pwstmL30AVcEU3Fo463lNg==}
+
+  /embla-carousel-autoplay@8.0.0-rc17(embla-carousel@8.0.0-rc17):
+    resolution: {integrity: sha512-U8YweUZg2DJd3IXxTV3UsjFyJEsQuCHOBRyJxoJZ8r1L/SYbYnk7BbknH6N0yfgzeMn6pL27RPEf0vIz+JtFYw==}
+    peerDependencies:
+      embla-carousel: 8.0.0-rc17
+    dependencies:
+      embla-carousel: 8.0.0-rc17
+    dev: false
+
+  /embla-carousel-react@8.0.0-rc17(react@18.2.0):
+    resolution: {integrity: sha512-x4aFprwFB+PQO9EsHHZsrDxARb0uYNBYn9mr5oDFdBdPez4M8G1r5yidWbUcT9pNUc8AQXC9sGzlfauBfBxVOw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      embla-carousel: 8.0.0-rc17
+      embla-carousel-reactive-utils: 8.0.0-rc17(embla-carousel@8.0.0-rc17)
+      react: 18.2.0
+    dev: false
+
+  /embla-carousel-reactive-utils@8.0.0-rc17(embla-carousel@8.0.0-rc17):
+    resolution: {integrity: sha512-eluEOK/u5HdjYaTLC4bUG3iTCnyX7RsYix3il0aH4ZECOKa5fS+pVK2vrM17Mgw6C5Hyjcr3r3lfJtGerVzVsQ==}
+    peerDependencies:
+      embla-carousel: 8.0.0-rc17
+    dependencies:
+      embla-carousel: 8.0.0-rc17
+    dev: false
+
+  /embla-carousel@8.0.0-rc17:
+    resolution: {integrity: sha512-evF49b88VOitvqFtlvhvKVSu96Y8A+QSFdhok87Bfm8R7OYuk95FT+o8+M1GQLi/EhGDUlT193HTVAR0Wt2neQ==}
+    dev: false
 
   /emittery@0.13.1:
     resolution: {integrity: sha512-DeWwawk6r5yR9jFgnDKYt4sLS0LmHJJi3ZOnb5/JdbYwj3nW+FxQnHIjhBKz8YLC7oRNPVM9NQ47I3CVx34eqQ==}

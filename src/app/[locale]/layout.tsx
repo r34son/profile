@@ -57,9 +57,7 @@ export default async function LocaleLayout({
               ),
             }}
           />
-          <ScrollArea>
-            <main className="container flex-1">{children}</main>
-          </ScrollArea>
+          <main className="container flex-1 overflow-y-auto">{children}</main>
         </Providers>
       </body>
     </html>

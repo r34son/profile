@@ -1,9 +1,12 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { register } from 'swiper/element/bundle';
-
-register();
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 
 interface TechnologiesProps {
   title: string;
@@ -15,29 +18,26 @@ export const Technologies = ({ title }: TechnologiesProps) => {
   return (
     <section id="technologies" className="py-4">
       <h2 className="mb-8 max-w-none text-center text-xl">{title}</h2>
-      <swiper-container
-        loop
-        autoplay
-        autoplay-delay="1000"
-        resize-observer
-        slides-per-view="7"
-        effect="coverflow"
-        coverflow-effect-modifier="0.6"
-        coverflow-effect-slide-shadows="false"
-        breakpoints='{"320": {"slidesPerView": 3}, "480": {"slidesPerView": 4}}'
-        // https://github.com/nolimits4web/swiper/issues/3599#issuecomment-1696670314
-        inject-styles='[".swiper{display: grid;} .swiper-wrapper{min-width: 0;}"]'
+      <Carousel
+        className="w-full"
+        opts={{ loop: true }}
+        plugins={[Autoplay({ delay: 1200 })]}
       >
-        {logoClassnames.map((className, index) => (
-          <swiper-slide key={index}>
-            <i
-              className={`text-8xl ${className} ${
-                theme === 'dark' ? 'colored' : ''
-              }`}
-            />
-          </swiper-slide>
-        ))}
-      </swiper-container>
+        <CarouselContent className="-ml-1">
+          {logoClassnames.map((className, index) => (
+            <CarouselItem
+              key={index}
+              className="flex pl-1 md:basis-1/2 lg:basis-1/3"
+            >
+              <i
+                className={`m-auto text-8xl ${className} ${
+                  theme === 'dark' ? 'colored' : ''
+                }`}
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
     </section>
   );
 };
