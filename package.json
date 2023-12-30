@@ -1,7 +1,9 @@
 {
   "name": "profile",
   "version": "0.1.0",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "packageManager": "pnpm@8.13.1",
   "engines": {
     "node": "20",
@@ -28,7 +30,10 @@
     "validate": "run-p format:check lint:check types:check test:unit",
     "lhci:start": "NODE_ENV=production next build --no-lint && cp -r .next/static .next/standalone/.next/ && node .next/standalone/server.js",
     "lhci:mobile": "lhci autorun; lhci open",
-    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop; lhci open"
+    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop; lhci open",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "chromatic": "chromatic --exit-zero-on-changes"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.0.6",
@@ -37,7 +42,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@yandex/smart-captcha": "^2.5.0",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
+    "clsx": "^2.1.0",
     "devicon": "^2.15.1",
     "embla-carousel-autoplay": "8.0.0-rc17",
     "embla-carousel-react": "8.0.0-rc17",
@@ -61,18 +66,28 @@
     "@lhci/cli": "^0.13.0",
     "@next/bundle-analyzer": "^14.0.4",
     "@playwright/test": "^1.40.1",
+    "@storybook/addon-essentials": "^7.6.6",
+    "@storybook/addon-interactions": "^7.6.6",
+    "@storybook/addon-links": "^7.6.6",
+    "@storybook/addon-themes": "^7.6.6",
+    "@storybook/blocks": "^7.6.6",
+    "@storybook/nextjs": "^7.6.6",
+    "@storybook/react": "^7.6.6",
+    "@storybook/test": "^7.6.6",
     "@testing-library/jest-dom": "^6.1.6",
     "@testing-library/react": "^14.1.2",
     "@types/is-ci": "^3.0.4",
     "@types/jest": "^29.5.11",
     "@types/node": "20.10.0",
-    "@types/react": "^18.2.45",
+    "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.4.16",
+    "chromatic": "^10.2.0",
     "cssnano": "^6.0.2",
     "eslint": "^8.56.0",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-storybook": "^0.6.15",
     "is-ci": "^3.0.1",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
@@ -80,9 +95,10 @@
     "npm-run-all2": "^6.1.1",
     "postcss": "^8.4.32",
     "prettier": "3.1.1",
-    "prettier-plugin-tailwindcss": "^0.5.9",
+    "prettier-plugin-tailwindcss": "^0.5.10",
     "puppeteer": "^21.6.1",
     "simple-git-hooks": "^2.9.0",
+    "storybook": "^7.6.6",
     "stylelint": "^16.1.0",
     "stylelint-config-standard": "^36.0.0",
     "tailwindcss": "^3.4.0",
@@ -113,6 +129,7 @@
   "eslintConfig": {
     "extends": [
       "next/core-web-vitals",
+      "plugin:storybook/recommended",
       "prettier"
     ]
   },
