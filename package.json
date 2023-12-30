@@ -29,8 +29,8 @@
     "types:check": "tsc --noEmit",
     "validate": "run-p format:check lint:check types:check test:unit",
     "lhci:start": "NODE_ENV=production next build --no-lint && cp -r .next/static .next/standalone/.next/ && node .next/standalone/server.js",
-    "lhci:mobile": "lhci autorun; lhci open",
-    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop; lhci open",
+    "lhci:mobile": "lhci autorun",
+    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "chromatic --exit-zero-on-changes"
