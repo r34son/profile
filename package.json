@@ -46,7 +46,7 @@
     "devicon": "^2.15.1",
     "embla-carousel-autoplay": "8.0.0-rc19",
     "embla-carousel-react": "8.0.0-rc19",
-    "lucide-react": "^0.307.0",
+    "lucide-react": "^0.308.0",
     "next": "14.0.4",
     "next-compose-plugins": "^2.2.1",
     "next-intl": "^3.4.1",
