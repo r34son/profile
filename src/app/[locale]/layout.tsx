@@ -2,11 +2,9 @@ import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { headers } from 'next/headers';
 import { Inter } from 'next/font/google';
-import { notFound } from 'next/navigation';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Header } from '@/components/Header';
 import { YMScript } from '@/components/YMScript';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Locales, locales } from '@/lib/i18n';
 import { Providers } from '@/app/providers';
 import { email, githubUrl } from '@/const';
@@ -23,10 +21,7 @@ export default async function LocaleLayout({
   children,
   params: { locale },
 }: PropsWithChildren<LocaleLayoutProps>) {
-  if (!locales.includes(locale as any)) notFound();
-
   unstable_setRequestLocale(locale);
-
   const t = await getTranslations({ locale, namespace: 'header' });
   const nonce = headers().get('x-nonce')!;
 
@@ -57,7 +52,9 @@ export default async function LocaleLayout({
               ),
             }}
           />
-          <main className="container flex-1 overflow-y-auto">{children}</main>
+          <div className="overflow-y-auto">
+            <main className="container flex-1">{children}</main>
+          </div>
         </Providers>
       </body>
     </html>
