@@ -10,7 +10,7 @@ env:
 
 jobs:
   lhci-mobile:
-    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment != 'github-pages'
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview'
     name: Lighthouse mobile audit
     runs-on: ubuntu-latest
     steps:
@@ -40,7 +40,7 @@ jobs:
           CHROME_PATH: ${{ steps.install-chrome.outputs.chrome-path }}
 
   lhci-desktop:
-    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment != 'github-pages'
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview'
     name: Lighthouse desktop audit
     runs-on: ubuntu-latest
     steps:

@@ -95,7 +95,7 @@ jobs:
     name: Deploy
     needs: [build-push]
     environment:
-      name: ${{ github.event_name == 'pull_request' && format('PR-{0}', github.event.pull_request.number) || 'Production' }}
+      name: ${{ github.event_name == 'pull_request' && 'Preview' || 'Production' }}
       url: ${{ github.event_name == 'pull_request' && format('https://{0}.containers.yandexcloud.net', steps.deploy-sls-container.outputs.id) || 'https://r34s0n.tech' }}
     runs-on: ubuntu-latest
 

@@ -9,6 +9,10 @@ on:
 jobs:
   chromatic:
     runs-on: ubuntu-latest
+    environment:
+      name: Storybook
+      url: ${{ steps.chromatic-deploy.outputs.storybookUrl }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,6 +32,7 @@ jobs:
         run: pnpm install
 
       - name: Publish to Chromatic
+        id: chromatic-deploy
         uses: chromaui/action@v1
         with:
           exitZeroOnChanges: true
