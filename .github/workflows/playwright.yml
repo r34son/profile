@@ -49,7 +49,7 @@ jobs:
   deploy:
     name: Deploy playwright report
     environment:
-      name: github-pages
+      name: Playwright report
       url: ${{ steps.deployment.outputs.page_url }}
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
