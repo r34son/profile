@@ -72,7 +72,7 @@
     "@storybook/blocks": "^7.6.8",
     "@storybook/nextjs": "^7.6.8",
     "@storybook/react": "^7.6.8",
-    "@storybook/test": "^7.6.8",
+    "@storybook/test": "^7.6.10",
     "@testing-library/jest-dom": "^6.2.0",
     "@testing-library/react": "^14.1.2",
     "@types/is-ci": "^3.0.4",
