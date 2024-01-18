@@ -27,7 +27,14 @@
     "info": {
       "heading": "Hello! I'm Iakhub, a web developer with passionate inspiration.",
       "subtitle": "My projects are not only technically advanced but also infused with creativity. I work with HTML, CSS, JavaScript (React, NextJS), Node.js, Fastify, MongoDB. I'm inspired by the desire to create not just code but stories that captivate attention and enhance the user experience. <br></br><bold>Ready to bring your idea to life?</bold> Let's create something amazing together!",
-      "callToAction": "Contact with me"
+      "callToAction": "Contact with me",
+      "drawer": {
+        "title": "Contacts",
+        "closeBtnText": "Close"
+      }
+    },
+    "contacts": {
+      "heading": "Contacts"
     }
   }
 }
