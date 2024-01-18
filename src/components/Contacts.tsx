@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Link } from '@/navigation';
+import linkedin from '@/assets/logos/linkedin.png';
 import telegram from '@/assets/logos/telegram.png';
 import gmail from '@/assets/logos/gmail.png';
 
@@ -19,7 +20,16 @@ export const Contacts = () => {
 
 const contacts = [
   {
-    icon: <i className="devicon-linkedin-plain-wordmark colored text-8xl" />,
+    icon: (
+      <Image
+        src={linkedin.src}
+        alt="Linkedin"
+        width={96}
+        height={96}
+        placeholder="blur"
+        blurDataURL={linkedin.blurDataURL}
+      />
+    ),
     ariaLabel: 'Linkedin link',
     link: 'https://www.linkedin.com/in/r34s0n/',
   },
