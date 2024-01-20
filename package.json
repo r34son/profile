@@ -158,5 +158,8 @@
   "simple-git-hooks": {
     "commit-msg": "pnpm exec commitlint --edit",
     "pre-commit": "pnpm exec lint-staged"
+  },
+  "puppeteer": {
+    "skipDownload": true
   }
 }
