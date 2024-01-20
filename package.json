@@ -78,7 +78,7 @@
     "@testing-library/react": "^14.1.2",
     "@types/is-ci": "^3.0.4",
     "@types/jest": "^29.5.11",
-    "@types/node": "20.10.0",
+    "@types/node": "20.11.0",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.4.17",
@@ -158,5 +158,8 @@
   "simple-git-hooks": {
     "commit-msg": "pnpm exec commitlint --edit",
     "pre-commit": "pnpm exec lint-staged"
+  },
+  "puppeteer": {
+    "skipDownload": true
   }
 }

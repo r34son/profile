@@ -6,7 +6,6 @@ on:
 env:
   LHCI_COLLECT__URL: ${{ github.event.deployment_status.environment_url }}/en
   LHCI_UPLOAD__TARGET: temporary-public-storage
-  PUPPETEER_SKIP_DOWNLOAD: true
 
 jobs:
   lhci-mobile:
