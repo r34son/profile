@@ -38,7 +38,9 @@ export default function middleware(request: NextRequest) {
 
   const response = intlMiddleware(request);
 
-  const assetPrefix = `${process.env.ASSET_PREFIX}/` ?? '';
+  const assetPrefix = process.env.ASSET_PREFIX
+    ? `${process.env.ASSET_PREFIX}/`
+    : '';
 
   // https://github.com/radix-ui/primitives/issues/2057
   const cspHeader = `
