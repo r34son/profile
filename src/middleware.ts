@@ -34,7 +34,7 @@ const mcFrameAncestorsDomains = [
   'metrica.yandex.com',
   'metrica.yandex.com.tr',
   'webvisor.com',
-];
+].join(' ');
 
 const intlMiddleware = createIntlMiddleware({
   locales: ['en', 'ru'],
