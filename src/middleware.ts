@@ -27,6 +27,15 @@ const mcDomains = [
   'https://yastatic.net',
 ].join(' ');
 
+// https://yandex.ru/support/metrica/behavior/click-map.html#iframe
+const mcFrameAncestorsDomains = [
+  'metrika.yandex.ru',
+  'metrika.yandex.by',
+  'metrica.yandex.com',
+  'metrica.yandex.com.tr',
+  'webvisor.com',
+];
+
 const intlMiddleware = createIntlMiddleware({
   locales: ['en', 'ru'],
   defaultLocale: 'en',
@@ -57,7 +66,7 @@ export default function middleware(request: NextRequest) {
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors 'none';
+    frame-ancestors 'self' ${mcFrameAncestorsDomains};
     block-all-mixed-content;
     upgrade-insecure-requests;
   `;
