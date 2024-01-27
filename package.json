@@ -109,6 +109,19 @@
       "jsdom": "24.0.0"
     }
   },
+  "browserslist": {
+    "development": [
+      "Chrome 118",
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">=0.75%",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"

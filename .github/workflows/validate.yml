@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: ['master']
 
+env:
+  SKIP_SIMPLE_GIT_HOOKS: 1
+
 jobs:
   validate:
     name: Validate
