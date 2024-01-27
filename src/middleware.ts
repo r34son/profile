@@ -92,11 +92,14 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - sitemap.xml (sitemap file)
+     * - robots.txt (robots file)
      * - manifest.webmanifest (manifest file)
      * - icon (icons)
      */
     {
-      source: '/((?!api|_next/static|_next/image|favicon.ico|manifest|icon).*)',
+      source:
+        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|manifest|icon).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },

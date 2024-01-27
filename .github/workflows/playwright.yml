@@ -3,6 +3,9 @@ name: Playwright Tests
 on:
   deployment_status:
 
+env:
+  SKIP_SIMPLE_GIT_HOOKS: 1
+
 jobs:
   test:
     name: Playwright tests
