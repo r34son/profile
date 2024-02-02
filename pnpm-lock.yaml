@@ -143,8 +143,8 @@ devDependencies:
     specifier: ^10.4.17
     version: 10.4.17(postcss@8.4.33)
   chromatic:
-    specifier: ^10.6.0
-    version: 10.6.0
+    specifier: ^10.7.1
+    version: 10.7.1
   cssnano:
     specifier: ^6.0.3
     version: 6.0.3(postcss@8.4.33)
@@ -6464,16 +6464,16 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /chromatic@10.6.0:
-    resolution: {integrity: sha512-pT8t0lbY6TCf33klkVGvZGgOcse8Tmzd/Y9LLP/XA53fK6sedlRxNEdJkIkV+/c2yKMEPqpmifpcfmHL35LKtw==}
+  /chromatic@10.7.1:
+    resolution: {integrity: sha512-ERxfVxTm8gnbv3bdWeNyUVQ4msbtYc/dZIpt+3TVxqEq4tMlzVCnTFl1rDfJ7Jj1enGFoxvZ+Q2xon7Jfi+cZw==}
     hasBin: true
     peerDependencies:
-      chromatic-cypress: ^0.4.0 || ^1.0.0
-      chromatic-playwright: ^0.4.0 || ^1.0.0
+      '@chromatic-com/cypress': ^0.5.2 || ^1.0.0
+      '@chromatic-com/playwright': ^0.5.2 || ^1.0.0
     peerDependenciesMeta:
-      chromatic-cypress:
+      '@chromatic-com/cypress':
         optional: true
-      chromatic-playwright:
+      '@chromatic-com/playwright':
         optional: true
     dev: true
 
