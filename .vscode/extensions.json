@@ -5,6 +5,7 @@
     "stylelint.vscode-stylelint",
     "bradlc.vscode-tailwindcss",
     "ms-playwright.playwright",
-    "lokalise.i18n-ally"
+    "lokalise.i18n-ally",
+    "hashicorp.terraform"
   ]
 }
