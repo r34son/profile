@@ -1,115 +1,105 @@
 name: Deploy
 
 on:
-  push:
-    branches: ['master']
-  pull_request:
-    branches: ['master']
-  workflow_dispatch:
-
-env:
-  S3_PATH: ${{ github.event_name == 'pull_request' && format('pr/{0}', github.event.pull_request.number) || 'production' }}
-  DOCKER_REGISTRY_PATH: cr.yandex/${{ secrets.CR_REGISTRY }}/${{ secrets.CR_REPOSITORY }}
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        description: Environment name
+        type: string
+      image_id:
+        type: string
+        required: true
+        description: Имя собранного docker-образа
+      stage_name:
+        type: string
+        required: true
+        description: Название стенда
+    secrets:
+      YC_SA_JSON_CREDENTIALS:
+        description: Json, содержащий авторизованные ключи для сервисного аккаунта. Подробнее https://cloud.yandex.ru/docs/container-registry/operations/authentication#sa-json
+      DOCKER_REGISTRY_PATH:
+      DEPLOY_SA_ID:
+      FOLDER_ID:
+    outputs:
+      domain:
+        description: Доменное имя развернутого стенда
+        value: ${{ jobs.deploy-gateway.outputs.domain }}
 
 jobs:
-  build-push:
-    name: Build and push image
+  deploy-container:
+    name: Serverless container
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     outputs:
-      docker-image-version: ${{ steps.meta.outputs.version }}
-
-    steps:
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.DOCKER_REGISTRY_PATH }}
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=sha
-
-      - name: Login to Yandex Cloud Container Registry
-        id: login-cr
-        uses: yc-actions/yc-cr-login@v1
-        with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-
-      # https://docs.docker.com/build/ci/github-actions/cache/
-      - name: Build, tag, and push image to Yandex Cloud Container Registry
-        uses: docker/build-push-action@v5
-        with:
-          push: true
-          provenance: false
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ env.DOCKER_REGISTRY_PATH }}:latest
-          cache-to: type=inline
-          build-args: |
-            ASSET_PREFIX=https://${{ github.event_name == 'pull_request' && format('storage.yandexcloud.net/{0}', secrets.AWS_S3_BUCKET) || 'cdn.r34s0n.tech' }}/${{ env.S3_PATH }}
-
-  upload-static:
-    name: Upload static to S3
-    needs: build-push
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Login to Yandex Cloud Container Registry
-        id: login-cr
-        uses: yc-actions/yc-cr-login@v1
-        with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-
-      - name: Copy static files from docker image
-        run: |
-          docker pull ${{ env.DOCKER_REGISTRY_PATH }}:${{ needs.build-push.outputs.docker-image-version }}
-          docker run -i --name helper ${{ env.DOCKER_REGISTRY_PATH }}:${{ needs.build-push.outputs.docker-image-version }} true
-          docker cp helper:/app/.next .
-          docker rm helper
-
-      - name: Sync static assets to S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ru-central1
-        run: aws s3 --endpoint-url=https://storage.yandexcloud.net sync .next/static s3://${{ secrets.AWS_S3_BUCKET }}/${{ env.S3_PATH }}/_next/static
-
-  deploy:
-    name: Deploy
-    needs: [build-push]
-    environment:
-      name: ${{ github.event_name == 'pull_request' && 'Preview' || 'Production' }}
-      url: ${{ github.event_name == 'pull_request' && format('https://{0}.containers.yandexcloud.net', steps.deploy-sls-container.outputs.id) || 'https://r34s0n.tech' }}
-    runs-on: ubuntu-latest
-
+      container_id: ${{ steps.deploy-sls-container.outputs.id }}
     steps:
       - name: Deploy Serverless Container
         id: deploy-sls-container
         uses: yc-actions/yc-sls-container-deploy@v2
         with:
+          # public: true
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-          container-name: ${{ secrets.CR_REPOSITORY }}-${{ needs.build-push.outputs.docker-image-version }}
-          folder-id: b1guhjmc4e8mlon8i2vl
-          revision-service-account-id: ajecbk36deocemds4lar
-          revision-image-url: ${{ env.DOCKER_REGISTRY_PATH }}:${{ needs.build-push.outputs.docker-image-version }}
+          container-name: ${{ inputs.stage_name }}
+          folder-id: ${{ secrets.FOLDER_ID }}
+          revision-service-account-id: ${{ secrets.DEPLOY_SA_ID }}
+          revision-image-url: ${{ secrets.DOCKER_REGISTRY_PATH }}:${{ inputs.image_id }}
+          # revision-cores:
+          # revision-memory:
+          # revision-core-fraction:
+          revision-concurrency: 8
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Public Serverless Container
-        uses: ./.github/actions/yc-sls-container-public
+  deploy-gateway:
+    name: API Gateway
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: deploy-container
+    outputs:
+      domain: ${{ steps.deploy-gateway.outputs.domain }}
+    steps:
+      - uses: actions/checkout@v4
+      # В YAML-спецификации API Gateway требуется указать идентификатор Serverless Container, в который требуется направлять трафик со стенда.
+      # Поэтому мы шаблонизируем спецификацию API Gateway непосредственно в процессе развертывания, когда id контейнера нам известен
+      - name: Render specification
+        id: render-spec
+        uses: cuchi/jinja2-action@v1.2.2
+        with:
+          template: apigw.yaml.j2
+          output_file: apigw.yaml
+          strict: true
+          variables: |
+            container_id=${{ needs.deploy-container.outputs.container_id }}
+            sa_id=${{ secrets.DEPLOY_SA_ID }}
+      - run: |
+          echo "Rendered spec:"
+          cat apigw.yaml
+      - name: Deploy API Gateway
+        id: deploy-gateway
+        uses: yc-actions/yc-api-gateway-deploy@v2
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-          container-id: ${{ steps.deploy-sls-container.outputs.id }}
+          gateway-name: ${{ inputs.stage_name }}
+          folder-id: ${{ secrets.FOLDER_ID }}
+          spec-file: apigw.yaml
+      # - name: Purge CDN cache
+      #   uses: yc-actions/yc-cdn-cache@v1
+      #   with:
+      #     yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+      #     cdn-resource-id: bc8eyazsip6i4r4bqjsa
 
-      - name: Purge CDN cache
-        uses: yc-actions/yc-cdn-cache@v1
-        with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-          cdn-resource-id: bc8eyazsip6i4r4bqjsa
+  env-url:
+    runs-on: ubuntu-latest
+    needs: deploy-gateway
+    environment:
+      name: ${{ inputs.environment }}
+      url: https://${{ needs.deploy-gateway.outputs.domain }}/
+    steps:
+      - run: echo "Successful deploy to https://${{ needs.deploy-gateway.outputs.domain }}/"
+
+  e2e-test:
+    # Хороший end-to-end тест представляет из себя более сложную конструкцию, чем curl, проверяющий статус ответа главной страницы стенда. Такой простой тест использован для целей демонстрации
+    runs-on: ubuntu-latest
+    needs: deploy-gateway
+    steps:
+      - run: |
+          curl 'https://${{ needs.deploy-gateway.outputs.domain }}/'
