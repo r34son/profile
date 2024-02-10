@@ -1,0 +1,37 @@
+name: Deploy PR
+
+on:
+  pull_request:
+    branches:
+      - master
+
+concurrency:
+  group: pr-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yml
+    with:
+      environment: dev
+    secrets:
+      YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+      DOCKER_REGISTRY_PATH: ${{ secrets.DOCKER_REGISTRY_PATH }}
+      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  deploy:
+    name: Deploy
+    needs: build
+    uses: ./.github/workflows/deploy.yml
+    with:
+      image_id: ${{ needs.build.outputs.docker_image }}
+      stage_name: pr-${{ github.event.number }}
+      environment: dev
+    secrets:
+      YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+      DOCKER_REGISTRY_PATH: ${{ secrets.DOCKER_REGISTRY_PATH }}
+      DEPLOY_SA_ID: ${{ secrets.DEPLOY_SA_ID }}
+      FOLDER_ID: ${{ secrets.FOLDER_ID }}

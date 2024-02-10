@@ -58,6 +58,17 @@ resource "yandex_resourcemanager_folder" "this" {
   }
 }
 
+data "github_repository" "this" {
+  full_name = var.github_repository
+}
+
+resource "github_actions_environment_secret" "FOLDER_ID" {
+  repository      = data.github_repository.this.name
+  environment     = "prod"
+  secret_name     = "FOLDER_ID"
+  plaintext_value = yandex_resourcemanager_folder.this.id
+}
+
 module "bucket" {
   source             = "../../modules/s3"
   bucket_name_prefix = "profile"
