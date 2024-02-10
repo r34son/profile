@@ -70,17 +70,20 @@ jobs:
           variables: |
             container_id=${{ needs.deploy-container.outputs.container_id }}
             sa_id=${{ secrets.DEPLOY_SA_ID }}
+
       - run: |
           echo "Rendered spec:"
           cat apigw.yaml
+
       - name: Deploy API Gateway
         id: deploy-gateway
-        uses: yc-actions/yc-api-gateway-deploy@v1.0.0
+        uses: yc-actions/yc-api-gateway-deploy@v2
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           gateway-name: ${{ inputs.stage_name }}
           folder-id: ${{ secrets.FOLDER_ID }}
           spec-file: apigw.yaml
+
       # - name: Purge CDN cache
       #   uses: yc-actions/yc-cdn-cache@v1
       #   with:
