@@ -21,68 +21,58 @@ on:
       DOCKER_REGISTRY_PATH:
       DEPLOY_SA_ID:
       FOLDER_ID:
+      TF_STATE_AWS_ACCESS_KEY_ID:
+      TF_STATE_AWS_SECRET_ACCESS_KEY:
+
     outputs:
       domain:
         description: Доменное имя развернутого стенда
-        value: ${{ jobs.deploy-gateway.outputs.domain }}
+        value: ${{ jobs.deploy.outputs.domain }}
 
 jobs:
-  deploy-container:
-    name: Serverless container
-    environment: ${{ inputs.environment }}
-    runs-on: ubuntu-latest
+  deploy:
+    name: Terraform
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ steps.terraform-output.outputs.domain }}/
     outputs:
-      container_id: ${{ steps.deploy-sls-container.outputs.id }}
-    steps:
-      - name: Deploy Serverless Container
-        id: deploy-sls-container
-        uses: yc-actions/yc-sls-container-deploy@v2
-        with:
-          # public: true
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-          container-name: ${{ inputs.stage_name }}
-          folder-id: ${{ secrets.FOLDER_ID }}
-          revision-service-account-id: ${{ secrets.DEPLOY_SA_ID }}
-          revision-image-url: ${{ secrets.DOCKER_REGISTRY_PATH }}:${{ inputs.image_id }}
-          # revision-cores:
-          # revision-memory:
-          # revision-core-fraction:
-          revision-concurrency: 8
-
-  deploy-gateway:
-    name: API Gateway
+      domain: ${{ steps.terraform-output.outputs.domain }}
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-    needs: deploy-container
-    outputs:
-      domain: ${{ steps.deploy-gateway.outputs.domain }}
+    env:
+      YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+      TF_CLI_CONFIG_FILE: '${{ github.workspace }}/.github/files/terraformrc'
+      TF_VAR_name_prefix: ${{ inputs.stage_name }}
+      TF_VAR_folder_id: ${{ secrets.FOLDER_ID }}
+      TF_VAR_image_url: ${{ secrets.DOCKER_REGISTRY_PATH }}:${{ inputs.image_id }}
+      TF_VAR_service_account_id: ${{ secrets.DEPLOY_SA_ID }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v4
-      # В YAML-спецификации API Gateway требуется указать идентификатор Serverless Container, в который требуется направлять трафик со стенда.
-      # Поэтому мы шаблонизируем спецификацию API Gateway непосредственно в процессе развертывания, когда id контейнера нам известен
-      - name: Render specification
-        id: render-spec
-        uses: cuchi/jinja2-action@v1.2.2
-        with:
-          template: apigw.yaml.j2
-          output_file: apigw.yaml
-          strict: true
-          variables: |
-            container_id=${{ needs.deploy-container.outputs.container_id }}
-            sa_id=${{ secrets.DEPLOY_SA_ID }}
 
-      - run: |
-          echo "Rendered spec:"
-          cat apigw.yaml
-
-      - name: Deploy API Gateway
-        id: deploy-gateway
-        uses: yc-actions/yc-api-gateway-deploy@v2
+      - name: Terraform setup
+        uses: hashicorp/setup-terraform@v3
         with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-          gateway-name: ${{ inputs.stage_name }}
-          folder-id: ${{ secrets.FOLDER_ID }}
-          spec-file: apigw.yaml
+          terraform_version: '1.7.1'
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        working-directory: deploy/app
+        run: terraform init -backend-config="key=${{ inputs.stage_name }}/terraform.tfstate"
+
+      - name: Terraform Plan
+        id: plan
+        working-directory: deploy/app
+        run: terraform plan -input=false -no-color -out tf.plan
+
+      - name: Terraform Apply
+        working-directory: deploy/app
+        run: terraform apply -input=false tf.plan
+
+      - name: Terraform get output
+        working-directory: deploy/app
+        id: terraform-output
+        run: echo "domain=$(terraform output -raw api_gateway_domain)" >> "$GITHUB_OUTPUT"
 
       # - name: Purge CDN cache
       #   uses: yc-actions/yc-cdn-cache@v1
@@ -90,19 +80,10 @@ jobs:
       #     yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       #     cdn-resource-id: bc8eyazsip6i4r4bqjsa
 
-  env-url:
-    runs-on: ubuntu-latest
-    needs: deploy-gateway
-    environment:
-      name: ${{ inputs.environment }}
-      url: https://${{ needs.deploy-gateway.outputs.domain }}/
-    steps:
-      - run: echo "Successful deploy to https://${{ needs.deploy-gateway.outputs.domain }}/"
-
   e2e-test:
     # Хороший end-to-end тест представляет из себя более сложную конструкцию, чем curl, проверяющий статус ответа главной страницы стенда. Такой простой тест использован для целей демонстрации
     runs-on: ubuntu-latest
-    needs: deploy-gateway
+    needs: deploy
     steps:
       - run: |
-          curl 'https://${{ needs.deploy-gateway.outputs.domain }}/'
+          curl '${{ needs.deploy.outputs.domain }}/'

@@ -35,3 +35,5 @@ jobs:
       DOCKER_REGISTRY_PATH: ${{ secrets.DOCKER_REGISTRY_PATH }}
       DEPLOY_SA_ID: ${{ secrets.DEPLOY_SA_ID }}
       FOLDER_ID: ${{ secrets.FOLDER_ID }}
+      TF_STATE_AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_AWS_ACCESS_KEY_ID }}
+      TF_STATE_AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_AWS_SECRET_ACCESS_KEY }}
