@@ -15,7 +15,7 @@ module "bucket" {
   }
   cors_rule = [{
     allowed_methods = ["GET"]
-    allowed_origins = ["https://*.containers.yandexcloud.net"]
+    allowed_origins = ["https://*.containers.yandexcloud.net", "https://*.apigw.yandexcloud.net"]
     max_age_seconds = 0
   }]
   tags = {

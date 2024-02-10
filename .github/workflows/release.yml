@@ -35,7 +35,7 @@ jobs:
     # needs: release-name
     uses: ./.github/workflows/build.yml
     with:
-      environment: dev
+      environment: prod
     secrets:
       YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       DOCKER_REGISTRY_PATH: ${{ secrets.DOCKER_REGISTRY_PATH }}
