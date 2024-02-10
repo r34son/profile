@@ -1,0 +1,44 @@
+name: Delete stage
+
+on:
+  workflow_call:
+    inputs:
+      stage_name:
+        type: string
+        required: true
+        description: Имя удаляемого стенда
+      environment:
+        type: string
+        required: true
+        description: Окружение, в котором размещен удаляемый стенд
+    secrets:
+      YC_SA_JSON_CREDENTIALS:
+        description: Json, содержащий авторизованные ключи для сервисного аккаунта. Подробнее https://cloud.yandex.ru/docs/container-registry/operations/authentication#sa-json
+      DOCKER_REGISTRY_PATH:
+      DEPLOY_SA_ID:
+      FOLDER_ID:
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    env:
+      YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+      TF_CLI_CONFIG_FILE: '${{ github.workspace }}/.github/files/terraformrc'
+      TF_VAR_name_prefix: ${{ inputs.stage_name }}
+      # TF_VAR_folder_id: ${{ secrets.FOLDER_ID }}
+      # TF_VAR_image_url: ${{ secrets.DOCKER_REGISTRY_PATH }}:${{ inputs.image_id }}
+      # TF_VAR_service_account_id: ${{ secrets.DEPLOY_SA_ID }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Terraform setup
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.7.1'
+          terraform_wrapper: false
+
+      - name: Terraform Apply
+        working-directory: deploy/app
+        run: terraform destroy
