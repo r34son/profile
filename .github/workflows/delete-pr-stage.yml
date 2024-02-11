@@ -1,0 +1,21 @@
+name: Delete PR stage
+
+on:
+  pull_request:
+    types: [closed]
+
+  workflow_dispatch:
+
+jobs:
+  delete:
+    uses: ./.github/workflows/delete-stage.yml
+    secrets:
+      YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+      DOCKER_REGISTRY_PATH: ${{ secrets.DOCKER_REGISTRY_PATH }}
+      DEPLOY_SA_ID: ${{ secrets.DEPLOY_SA_ID }}
+      FOLDER_ID: ${{ secrets.FOLDER_ID }}
+      TF_STATE_AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_AWS_ACCESS_KEY_ID }}
+      TF_STATE_AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_AWS_SECRET_ACCESS_KEY }}
+    with:
+      stage_name: pr-${{ github.event.number }}
+      environment: dev
