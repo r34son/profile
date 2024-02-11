@@ -48,7 +48,7 @@ jobs:
             type=sha
 
       - name: Login to Yandex Cloud Container Registry
-        uses: yc-actions/yc-cr-login@v1
+        uses: yc-actions/yc-cr-login@v2
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
@@ -73,7 +73,7 @@ jobs:
 
     steps:
       - name: Login to Yandex Cloud Container Registry
-        uses: yc-actions/yc-cr-login@v1
+        uses: yc-actions/yc-cr-login@v2
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
