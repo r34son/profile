@@ -23,16 +23,10 @@ on:
 jobs:
   destroy:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-    env:
-      YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-      TF_CLI_CONFIG_FILE: '${{ github.workspace }}/.github/files/terraformrc'
-      TF_VAR_name_prefix: ${{ inputs.stage_name }}
-      # TF_VAR_folder_id: ${{ secrets.FOLDER_ID }}
-      # TF_VAR_image_url: ${{ secrets.DOCKER_REGISTRY_PATH }}:${{ inputs.image_id }}
-      # TF_VAR_service_account_id: ${{ secrets.DEPLOY_SA_ID }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_AWS_SECRET_ACCESS_KEY }}
+    environment:
+      name: ${{ inputs.environment }}
+      url: null
+
     steps:
       - uses: actions/checkout@v4
 
@@ -46,6 +40,20 @@ jobs:
         working-directory: deploy/app
         run: terraform init -backend-config="key=${{ inputs.stage_name }}/terraform.tfstate"
 
-      - name: Terraform Apply
+      - name: Get docker image url
+        id: image-url
+        working-directory: deploy/app
+        run: echo "image_url=$(terraform show -json | jq '.values.root_module.resources[] | select(.type == "yandex_serverless_container") | .values.image[0].url')" >> "$GITHUB_OUTPUT"
+
+      - name: Terraform Destroy
         working-directory: deploy/app
         run: terraform destroy
+        env:
+          YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          TF_CLI_CONFIG_FILE: '${{ github.workspace }}/.github/files/terraformrc'
+          TF_VAR_name_prefix: ${{ inputs.stage_name }}
+          TF_VAR_folder_id: ${{ secrets.FOLDER_ID }}
+          TF_VAR_image_url: ${{ steps.image-url.outputs.image_url }}
+          TF_VAR_service_account_id: ${{ secrets.DEPLOY_SA_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_AWS_SECRET_ACCESS_KEY }}
