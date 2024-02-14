@@ -69,13 +69,13 @@ jobs:
 
       - name: Get deployment id
         id: deployment_id
-        run: echo "deployment_id=$(echo '${{ steps.get-deployments.outputs.data }}' | jq '.[] | select(.environment == "${{ inputs.environment }}" and .sha == "${{ github.sha }}") | .id')" >> "$GITHUB_OUTPUT"
+        run: echo "deployment_id=$(echo "${{ steps.get-deployments.outputs.data }}" | jq '.[] | select(.environment == "${{ inputs.environment }}" and .sha == "${{ github.sha }}") | .id')" >> "$GITHUB_OUTPUT"
 
       - name: Delete deployment
         uses: octokit/request-action@v2.x
         with:
           route: DELETE /repos/{repository}/deployments/{deployment_id}
           repository: ${{ github.repository }}
-          deployment_id: ${{ steps.deployment_id.outputs.deployment_id}}
+          deployment_id: ${{ steps.deployment_id.outputs.deployment_id }}
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
