@@ -23,9 +23,7 @@ on:
 jobs:
   destroy:
     runs-on: ubuntu-latest
-    environment:
-      name: ${{ inputs.environment }}
-      url: null
+    environment: ${{ inputs.environment }}
     env:
       YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       TF_CLI_CONFIG_FILE: '${{ github.workspace }}/.github/files/terraformrc'
@@ -59,3 +57,25 @@ jobs:
         run: terraform destroy
         env:
           TF_VAR_image_url: ${{ steps.image-url.outputs.image_url }}
+
+      - name: Get deployments
+        id: get-deployments
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/{repository}/deployments
+          repository: ${{ github.repository }}
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+      - name: Get deployment id
+        id: deployment_id
+        run: echo "deployment_id=$(echo '${{ steps.get-deployments.outputs.data }}' | jq '.[] | select(.environment == "${{ inputs.environment }}" and .sha == "${{ github.sha }}") | .id')" >> "$GITHUB_OUTPUT"
+
+      - name: Delete deployment
+        uses: octokit/request-action@v2.x
+        with:
+          route: DELETE /repos/{repository}/deployments/{deployment_id}
+          repository: ${{ github.repository }}
+          deployment_id: ${{ steps.deployment_id.outputs.deployment_id}}
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
