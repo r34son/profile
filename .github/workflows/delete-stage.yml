@@ -59,14 +59,6 @@ jobs:
           ENVIRONMENT: ${{ inputs.environment }}
         with:
           script: |
-            console.log(context.payload);
-            console.log({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              environment: process.env.ENVIRONMENT,
-              ref: context.payload.pull_request.head.ref,
-              task: 'deploy',
-            })
             const deployments = await github.rest.repos.listDeployments({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -74,10 +66,8 @@ jobs:
               ref: context.payload.pull_request.head.ref,
               task: 'deploy',
             });
-
-            console.log(deployments)
-
-            await Promise.all([deployments.map(({ id }) => github.rest.repos.deleteDeployment({
+            
+            await Promise.all([deployments.data.map(({ id }) => github.rest.repos.deleteDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               deployment_id: id,
