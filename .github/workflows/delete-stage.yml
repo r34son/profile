@@ -54,7 +54,7 @@ jobs:
 
       - name: Terraform Destroy
         working-directory: deploy/app
-        run: terraform destroy
+        run: terraform destroy -auto-approve
         env:
           TF_VAR_image_url: ${{ steps.image-url.outputs.image_url }}
 
