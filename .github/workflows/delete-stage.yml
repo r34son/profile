@@ -58,8 +58,6 @@ jobs:
         env:
           TF_VAR_image_url: ${{ steps.image-url.outputs.image_url }}
 
-      - run: echo ${{ toJson(github) }}
-
       - name: Get deployments
         id: get-deployments
         uses: octokit/request-action@v2.x
@@ -68,21 +66,23 @@ jobs:
           repository: ${{ github.repository }}
           environment: ${{ inputs.environment }}
           ref: ${{ github.event.pull_request.head.ref }}
+          task: 'deploy'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
-      - name: Get deployment id
-        id: deployment_id
+      - name: Get deployments id
+        id: deployment_ids
         env:
           DEPLOYMENTS: ${{ steps.get-deployments.outputs.data }}
         run: |
-          echo "deployment_id=$(echo "$DEPLOYMENTS" | jq '.[] | .id')" >> "$GITHUB_OUTPUT"
+          echo "deployment_ids=$(echo "$DEPLOYMENTS" | jq '.[] | .id')" >> "$GITHUB_OUTPUT"
+          echo $GITHUB_OUTPUT
 
-      - name: Delete deployment
-        uses: octokit/request-action@v2.x
-        with:
-          route: DELETE /repos/{repository}/deployments/{deployment_id}
-          repository: ${{ github.repository }}
-          deployment_id: ${{ steps.deployment_id.outputs.deployment_id }}
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      # - name: Delete deployment
+      #   uses: octokit/request-action@v2.x
+      #   with:
+      #     route: DELETE /repos/{repository}/deployments/{deployment_id}
+      #     repository: ${{ github.repository }}
+      #     deployment_id: ${{ steps.deployment_id.outputs.deployment_id }}
+      #   env:
+      #     GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
