@@ -65,7 +65,7 @@ jobs:
           route: GET /repos/{repository}/deployments
           repository: ${{ github.repository }}
           environment: ${{ inputs.environment }}
-          sha: ${{ github.sha }}
+          ref: ${{ github.sha }}
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
