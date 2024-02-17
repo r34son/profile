@@ -46,43 +46,30 @@ jobs:
         working-directory: deploy/app
         run: terraform init -backend-config="key=${{ inputs.stage_name }}/terraform.tfstate"
 
-      - name: Get docker image url
-        id: image-url
-        working-directory: deploy/app
-        # https://github.com/hashicorp/terraform/issues/23552
-        run: echo "image_url=$(terraform show -json | jq '.values.root_module.resources[] | select(.type == \"yandex_serverless_container\") | .values.image[0].url')" >> "$GITHUB_OUTPUT"
-
       - name: Terraform Destroy
         working-directory: deploy/app
         run: terraform destroy -auto-approve
         env:
-          TF_VAR_image_url: ${{ steps.image-url.outputs.image_url }}
+          # https://github.com/hashicorp/terraform/issues/23552
+          TF_VAR_image_url: ""
 
-      - name: Get deployments
-        id: get-deployments
-        uses: octokit/request-action@v2.x
+      - name: Delete deployments
+        uses: actions/github-script@v7
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
         with:
-          route: GET /repos/{repository}/deployments
-          repository: ${{ github.repository }}
-          environment: ${{ inputs.environment }}
-          ref: ${{ github.event.pull_request.head.ref }}
-          task: 'deploy'
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          script: |
+            console.log(context);
+            const deployments = await github.rest.repos.listDeployments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              environment: process.env.ENVIRONMENT,
+              ref: context.ref,
+              task: 'deploy',
+            });
 
-      - name: Get deployments id
-        id: deployment_ids
-        env:
-          DEPLOYMENTS: ${{ steps.get-deployments.outputs.data }}
-        run: |
-          echo "deployment_ids=$(echo "$DEPLOYMENTS" | jq '.[] | .id')" >> "$GITHUB_OUTPUT"
-          echo $GITHUB_OUTPUT
-
-      # - name: Delete deployment
-      #   uses: octokit/request-action@v2.x
-      #   with:
-      #     route: DELETE /repos/{repository}/deployments/{deployment_id}
-      #     repository: ${{ github.repository }}
-      #     deployment_id: ${{ steps.deployment_id.outputs.deployment_id }}
-      #   env:
-      #     GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+            await Promise.all([deployments.map(({ id }) => github.rest.repos.deleteDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: id,
+            }))])
