@@ -75,7 +75,7 @@ jobs:
               task: 'deploy',
             });
 
-            console log(deployments)
+            console.log(deployments)
 
             await Promise.all([deployments.map(({ id }) => github.rest.repos.deleteDeployment({
               owner: context.repo.owner,
