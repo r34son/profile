@@ -58,6 +58,8 @@ jobs:
         env:
           TF_VAR_image_url: ${{ steps.image-url.outputs.image_url }}
 
+      - run: echo ${{ toJson(github) }}
+
       - name: Get deployments
         id: get-deployments
         uses: octokit/request-action@v2.x
