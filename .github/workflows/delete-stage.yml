@@ -69,7 +69,7 @@ jobs:
 
       - name: Get deployment id
         id: deployment_id
-        run: echo "deployment_id=$(echo '${{ steps.get-deployments.outputs.data }}' | jq '.[] | select(.environment == \"${{ inputs.environment }}\" and .sha == \"${{ github.sha }}\") | .id')" >> "$GITHUB_ENV"
+        run: echo "deployment_id=$(echo "\${{ steps.get-deployments.outputs.data }}" | jq '.[] | select(.environment == \"${{ inputs.environment }}\" and .sha == \"${{ github.sha }}\") | .id')" >> "$GITHUB_OUTPUT"
 
       - name: Delete deployment
         uses: octokit/request-action@v2.x
