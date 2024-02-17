@@ -59,7 +59,14 @@ jobs:
           ENVIRONMENT: ${{ inputs.environment }}
         with:
           script: |
-            console.log(JSON.stringify(context));
+            console.log(context.payload);
+            console.log({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              environment: process.env.ENVIRONMENT,
+              ref: context.payload.pull_request.head.ref,
+              task: 'deploy',
+            })
             const deployments = await github.rest.repos.listDeployments({
               owner: context.repo.owner,
               repo: context.repo.repo,
