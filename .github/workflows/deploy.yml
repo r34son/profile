@@ -38,6 +38,9 @@ jobs:
     outputs:
       domain: ${{ steps.terraform-output.outputs.domain }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: deploy/app
     env:
       YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       TF_CLI_CONFIG_FILE: '${{ github.workspace }}/.github/files/terraformrc'
@@ -57,20 +60,16 @@ jobs:
           terraform_wrapper: false
 
       - name: Terraform Init
-        working-directory: deploy/app
         run: terraform init -backend-config="key=${{ inputs.stage_name }}/terraform.tfstate"
 
       - name: Terraform Plan
         id: plan
-        working-directory: deploy/app
         run: terraform plan -input=false -no-color -out tf.plan
 
       - name: Terraform Apply
-        working-directory: deploy/app
         run: terraform apply -input=false tf.plan
 
       - name: Terraform get output
-        working-directory: deploy/app
         id: terraform-output
         run: echo "domain=$(terraform output -raw api_gateway_domain)" >> "$GITHUB_OUTPUT"
 
