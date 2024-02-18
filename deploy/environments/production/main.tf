@@ -17,7 +17,7 @@ terraform {
     }
     bucket         = "profile-tf-remote-state"
     region         = "ru-central1"
-    key            = "prod/terraform.tfstate"
+    key            = "production/terraform.tfstate"
     dynamodb_table = "state-lock-table"
 
     skip_s3_checksum            = true
@@ -46,15 +46,15 @@ module "github" {
   source            = "../../modules/github"
   github_user       = var.github_user
   github_repository = var.github_repository
-  environment       = "prod"
+  environment       = "production"
 }
 
 resource "yandex_resourcemanager_folder" "this" {
   cloud_id    = var.cloud_id
-  name        = "prod"
+  name        = "production"
   description = "Production environment"
   labels = {
-    environment = "prod"
+    environment = "production"
   }
 }
 
@@ -64,7 +64,7 @@ data "github_repository" "this" {
 
 resource "github_actions_environment_secret" "FOLDER_ID" {
   repository      = data.github_repository.this.name
-  environment     = "prod"
+  environment     = "production"
   secret_name     = "FOLDER_ID"
   plaintext_value = yandex_resourcemanager_folder.this.id
 }
@@ -74,7 +74,7 @@ module "bucket" {
   bucket_name_prefix = "profile"
   folder_id          = yandex_resourcemanager_folder.this.id
   github_repository  = var.github_repository
-  environment        = "prod"
+  environment        = "production"
 }
 
 module "serverless" {
@@ -82,6 +82,6 @@ module "serverless" {
   folder_id         = yandex_resourcemanager_folder.this.id
   github_repository = var.github_repository
   repository_name   = "profile"
-  environment       = "prod"
+  environment       = "production"
 }
 

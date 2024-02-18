@@ -13,7 +13,7 @@ resource "github_repository_environment" "this" {
     users = [data.github_user.current.id]
   }
   deployment_branch_policy {
-    protected_branches     = var.environment == "prod"
-    custom_branch_policies = var.environment != "prod"
+    protected_branches     = var.environment == "production"
+    custom_branch_policies = var.environment != "production"
   }
 }
