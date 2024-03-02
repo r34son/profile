@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: deploy/app
+        working-directory: deploy/serverless-container
     env:
       YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       TF_CLI_CONFIG_FILE: '${{ github.workspace }}/.github/files/terraformrc'

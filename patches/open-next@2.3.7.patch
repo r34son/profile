@@ -1,0 +1,110 @@
+diff --git a/dist/adapters/event-mapper.js b/dist/adapters/event-mapper.js
+index e0b788447a529b797e468a79cc045ed607723dc5..17e30522475e0322e77d9b6c66a2ad778c2b7418 100644
+--- a/dist/adapters/event-mapper.js
++++ b/dist/adapters/event-mapper.js
+@@ -5,7 +5,7 @@ export function isAPIGatewayProxyEventV2(event) {
+     return event.version === "2.0";
+ }
+ export function isAPIGatewayProxyEvent(event) {
+-    return event.version === undefined && !isCloudFrontRequestEvent(event);
++    return event.version === "1.0" && !isCloudFrontRequestEvent(event);
+ }
+ export function isCloudFrontRequestEvent(event) {
+     return event.Records !== undefined;
+diff --git a/dist/adapters/server-adapter.js b/dist/adapters/server-adapter.js
+index b23b411611bdc2149207982cd95f20159fd90ce0..9a390ccba59cb5c45717c0b23d5ddbbd6d2717d5 100644
+--- a/dist/adapters/server-adapter.js
++++ b/dist/adapters/server-adapter.js
+@@ -42,7 +42,7 @@ globalThis.dynamoClient = new DynamoDBClient(parseDynamoClientConfigFromEnv());
+ /////////////
+ // Handler //
+ /////////////
+-export const handler = lambdaHandler;
++export const handler2 = lambdaHandler;
+ //////////////////////
+ // Helper functions //
+ //////////////////////
+diff --git a/dist/build.js b/dist/build.js
+index af487fee5e7269ce2e57bfac9ea45ee1ed4a16e1..ae6be556de62d9f26b61ca408ee7b89a235880af 100644
+--- a/dist/build.js
++++ b/dist/build.js
+@@ -228,7 +228,7 @@ async function createImageOptimizationBundle() {
+             path.join(__dirname, "adapters", "image-optimization-adapter.js"),
+         ],
+         external: ["sharp", "next"],
+-        outfile: path.join(outputPath, "index.mjs"),
++        outfile: path.join(outputPath, "index.js"),
+         plugins,
+     });
+     // Build Lambda code (2nd pass)
+@@ -236,18 +236,10 @@ async function createImageOptimizationBundle() {
+     //       "next" package. And the "next" package from user's app should
+     //       be used.
+     esbuildSync({
+-        entryPoints: [path.join(outputPath, "index.mjs")],
++        entryPoints: [path.join(outputPath, "index.js")],
+         external: ["sharp"],
+         allowOverwrite: true,
+-        outfile: path.join(outputPath, "index.mjs"),
+-        banner: {
+-            js: [
+-                "import { createRequire as topLevelCreateRequire } from 'module';",
+-                "const require = topLevelCreateRequire(import.meta.url);",
+-                "import bannerUrl from 'url';",
+-                "const __dirname = bannerUrl.fileURLToPath(new URL('.', import.meta.url));",
+-            ].join("\n"),
+-        },
++        outfile: path.join(outputPath, "index.js"),
+     });
+     // Copy over .next/required-server-files.json file
+     fs.mkdirSync(path.join(outputPath, ".next"));
+@@ -514,16 +506,10 @@ async function createServerBundle(monorepoRoot, streaming = false) {
+     }
+     await esbuildAsync({
+         entryPoints: [path.join(__dirname, "adapters", "server-adapter.js")],
+-        external: ["next"],
+-        outfile: path.join(outputPath, packagePath, "index.mjs"),
++        external: ["next", "react", "styled-jsx", "styled-jsx/style"],
++        outfile: path.join(outputPath, packagePath, "index.js"),
+         banner: {
+-            js: [
+-                `globalThis.monorepoPackagePath = "${packagePath}";`,
+-                "import { createRequire as topLevelCreateRequire } from 'module';",
+-                "const require = topLevelCreateRequire(import.meta.url);",
+-                "import bannerUrl from 'url';",
+-                "const __dirname = bannerUrl.fileURLToPath(new URL('.', import.meta.url));",
+-            ].join(""),
++            js: `globalThis.monorepoPackagePath = "${packagePath}";`
+         },
+         plugins,
+     });
+@@ -543,9 +529,9 @@ function addMonorepoEntrypoint(outputPath, packagePath) {
+     //       that re-exports the real handler.
+     // Always use posix path for import path
+     const packagePosixPath = packagePath.split(path.sep).join(path.posix.sep);
+-    fs.writeFileSync(path.join(outputPath, "index.mjs"), [
++    fs.writeFileSync(path.join(outputPath, "index.js"), [
+         `export const handler = async (event, context) => {`,
+-        ` const fn = await import("./${packagePosixPath}/index.mjs");`,
++        ` const fn = await import("./${packagePosixPath}/index.js");`,
+         ` return fn.handler(event, context);`,
+         `};`,
+     ].join(""));
+@@ -639,7 +625,7 @@ function esbuildSync(esbuildOptions) {
+     const { openNextVersion, debug } = options;
+     const result = buildSync({
+         target: "esnext",
+-        format: "esm",
++        format: "cjs",
+         platform: "node",
+         bundle: true,
+         minify: debug ? false : true,
+@@ -663,7 +649,7 @@ async function esbuildAsync(esbuildOptions) {
+     const { openNextVersion, debug } = options;
+     const result = await buildAsync({
+         target: "esnext",
+-        format: "esm",
++        format: "cjs",
+         platform: "node",
+         bundle: true,
+         minify: debug ? false : true,

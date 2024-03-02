@@ -1,9 +1,10 @@
 name: Deploy PR
 
 on:
-  pull_request:
-    branches:
-      - master
+  workflow_dispatch:
+  # pull_request:
+  #   branches:
+  #     - master
 
 concurrency:
   group: pr-${{ github.event.number }}
@@ -12,7 +13,7 @@ concurrency:
 jobs:
   build:
     name: Build
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-container.yml
     with:
       environment: development
     secrets:
@@ -25,7 +26,7 @@ jobs:
   deploy:
     name: Deploy
     needs: build
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy-container.yml
     with:
       image_id: ${{ needs.build.outputs.docker_image }}
       stage_name: pr-${{ github.event.number }}

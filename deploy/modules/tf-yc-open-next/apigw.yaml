@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  title: Profile
+  version: 1.0.0
+paths:
+  /_next/static/{file+}:
+    get:
+      parameters:
+        - name: file
+          in: path
+          required: true
+          schema:
+            type: string
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: ${bucket_name}
+        object: 'assets/_next/static/{file}'
+        service_account_id: ${bucket_service_account_id}
+  /_next/image:
+    x-yc-apigateway-any-method:
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: ${image_optimization_function_id}
+        service_account_id: ${image_optimization_function_service_account_id}
+        payload_format_version: '1.0'
+  /{proxy+}:
+    x-yc-apigateway-any-method:
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: ${server_function_id}
+        service_account_id: ${server_function_service_account_id}
+        payload_format_version: '1.0'
+      parameters:
+        - explode: false
+          in: path
+          name: proxy
+          required: false
+          schema:
+            default: '-'
+            type: string
+          style: simple
