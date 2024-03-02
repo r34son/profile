@@ -5,7 +5,7 @@
 To update screenshots on mac follow this steps:
 
 ```bash
-docker run --rm --network host -v $(pwd):/work/ -w /work/ -it mcr.microsoft.com/playwright:v1.41.2-jammy /bin/bash
+docker run --rm --network host -v $(pwd):/work/ -w /work/ -it mcr.microsoft.com/playwright:v1.42.1-jammy /bin/bash
 ```
 
 ```bash
