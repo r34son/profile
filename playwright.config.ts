@@ -67,6 +67,9 @@ export default defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
+
+  snapshotPathTemplate:
+    '{snapshotDir}/{testFileDir}/{testFileName}-snapshots/{arg}{-projectName}{ext}',
   expect: {
     toHaveScreenshot: { maxDiffPixels: 100 },
   },
