@@ -33,7 +33,7 @@ jobs:
   build:
     name: Build
     # needs: release-name
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-container.yml
     with:
       environment: production
     secrets:
@@ -47,7 +47,7 @@ jobs:
     name: Deploy
     needs:
       - build
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy-container.yml
     with:
       image_id: ${{ needs.build.outputs.docker_image }}
       stage_name: production
