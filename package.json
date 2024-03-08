@@ -97,7 +97,7 @@
     "postcss": "^8.4.35",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
-    "puppeteer": "^22.4.0",
+    "puppeteer": "^22.4.1",
     "simple-git-hooks": "^2.10.0",
     "storybook": "^7.6.17",
     "stylelint": "^16.2.1",
