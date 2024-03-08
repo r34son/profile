@@ -11,14 +11,16 @@ import {
   Drawer,
 } from '@/components/ui/drawer';
 import { Contacts } from '@/components/Contacts';
+import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 
 export const Info = () => {
   const t = useTranslations('sections.info');
   return (
     <section id="info" className="py-48 text-center xl:px-16">
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-        {t('heading')}
-      </h1>
+      <TextGenerateEffect
+        className="mt-8 scroll-m-20 bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text py-4 text-center text-4xl font-extrabold tracking-tight text-transparent md:text-7xl lg:text-5xl"
+        words={t('heading')}
+      />
       <p className="mt-16 leading-7 [text-wrap:balance]">
         {t.rich('subtitle', {
           br: () => <br />,
