@@ -1,9 +1,10 @@
 name: Deploy PR
 
 on:
-  pull_request:
-    branches:
-      - master
+  # pull_request:
+  #   branches:
+  #     - master
+  workflow_dispatch:
 
 concurrency:
   group: pr-${{ github.event.number }}

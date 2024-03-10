@@ -24,30 +24,29 @@ on:
       TF_STATE_AWS_ACCESS_KEY_ID:
       TF_STATE_AWS_SECRET_ACCESS_KEY:
 
-    outputs:
-      domain:
-        description: Доменное имя развернутого стенда
-        value: ${{ jobs.deploy.outputs.domain }}
+    # outputs:
+    #   domain:
+    #     description: Доменное имя развернутого стенда
+    #     value: ${{ jobs.deploy.outputs.domain }}
 
 jobs:
   deploy:
     name: Terraform
     environment:
       name: ${{ inputs.environment }}
-      url: ${{ steps.terraform-output.outputs.domain }}/
-    outputs:
-      domain: ${{ steps.terraform-output.outputs.domain }}
+      # url: ${{ steps.terraform-output.outputs.domain }}/
+    # outputs:
+    #   domain: ${{ steps.terraform-output.outputs.domain }}
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: deploy/app
+        working-directory: deploy/coi-ig
     env:
       YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       TF_CLI_CONFIG_FILE: '${{ github.workspace }}/.github/files/terraformrc'
-      TF_VAR_name_prefix: ${{ inputs.stage_name }}
       TF_VAR_folder_id: ${{ secrets.FOLDER_ID }}
       TF_VAR_image_url: ${{ secrets.DOCKER_REGISTRY_PATH }}:${{ inputs.image_id }}
-      TF_VAR_service_account_id: ${{ secrets.DEPLOY_SA_ID }}
+      TF_VAR_ssh_key: ''
       AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_AWS_SECRET_ACCESS_KEY }}
     steps:
@@ -69,9 +68,9 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -input=false tf.plan
 
-      - name: Terraform get output
-        id: terraform-output
-        run: echo "domain=$(terraform output -raw api_gateway_domain)" >> "$GITHUB_OUTPUT"
+      # - name: Terraform get output
+      #   id: terraform-output
+      #   run: echo "domain=$(terraform output -raw api_gateway_domain)" >> "$GITHUB_OUTPUT"
 
       # - name: Purge CDN cache
       #   uses: yc-actions/yc-cdn-cache@v1
@@ -79,10 +78,10 @@ jobs:
       #     yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       #     cdn-resource-id: bc8eyazsip6i4r4bqjsa
 
-  e2e-test:
-    # Хороший end-to-end тест представляет из себя более сложную конструкцию, чем curl, проверяющий статус ответа главной страницы стенда. Такой простой тест использован для целей демонстрации
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
-      - run: |
-          curl '${{ needs.deploy.outputs.domain }}/'
+  # e2e-test:
+  #   # Хороший end-to-end тест представляет из себя более сложную конструкцию, чем curl, проверяющий статус ответа главной страницы стенда. Такой простой тест использован для целей демонстрации
+  #   runs-on: ubuntu-latest
+  #   needs: deploy
+  #   steps:
+  #     - run: |
+  #         curl '${{ needs.deploy.outputs.domain }}/'

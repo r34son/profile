@@ -1,0 +1,11 @@
+#cloud-config
+groups:
+  - docker
+ssh_pwauth: no
+users:
+  - name: ${user}
+    groups: sudo, docker, systemd-journal
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh-authorized-keys:
+      - '${ssh_key}'

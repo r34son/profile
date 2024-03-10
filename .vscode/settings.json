@@ -17,5 +17,14 @@
   },
   "terraform.experimentalFeatures.validateOnSave": true,
   "terraform.experimentalFeatures.prefillRequiredFields": true,
-  "editor.suggest.preview": true
+  "editor.suggest.preview": true,
+  "git.allowForcePush": true,
+  "git.allowNoVerifyCommit": true,
+  "git.autofetch": true,
+  "git.autoStash": true,
+  "git.defaultBranchName": "master",
+  "git.enableSmartCommit": true,
+  "git.fetchOnPull": false,
+  "git.rebaseWhenSync": true,
+  "git.terminalGitEditor": true
 }
