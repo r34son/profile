@@ -158,8 +158,9 @@ resource "yandex_alb_backend_group" "alb-bg" {
     port             = 3000
     target_group_ids = [yandex_compute_instance_group.ig-with-coi.application_load_balancer.0.target_group_id]
     healthcheck {
-      timeout  = "1s"
-      interval = "2s"
+      timeout          = "1s"
+      interval         = "2s"
+      healthcheck_port = 3000
       http_healthcheck {
         path = "/api/health"
       }
