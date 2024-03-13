@@ -20,3 +20,7 @@ variable "ssh_key" {
   type      = string
   sensitive = true
 }
+
+variable "domain" {
+  type = string
+}
