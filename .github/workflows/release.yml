@@ -52,6 +52,7 @@ jobs:
       image_id: ${{ needs.build.outputs.docker_image }}
       stage_name: production
       environment: production
+      domain: 'r34s0n.tech'
     secrets:
       YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       DOCKER_REGISTRY_PATH: ${{ secrets.DOCKER_REGISTRY_PATH }}

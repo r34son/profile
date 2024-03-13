@@ -6,8 +6,8 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Header } from '@/components/Header';
 import { YMScript } from '@/components/YMScript';
 import { Locales, locales } from '@/lib/i18n';
-import { Providers } from '@/app/providers';
 import { email, githubUrl } from '@/const';
+import { ThemeProvider } from 'next-themes';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,7 +31,13 @@ export default async function LocaleLayout({
         className={`${inter.className} flex h-screen flex-col overflow-hidden`}
       >
         <YMScript nonce={nonce} />
-        <Providers nonce={nonce}>
+        <ThemeProvider
+          enableSystem
+          disableTransitionOnChange
+          attribute="class"
+          defaultTheme="system"
+          nonce={nonce}
+        >
           <Header
             title={t('title')}
             anchors={[
@@ -55,7 +61,7 @@ export default async function LocaleLayout({
           <div className="overflow-y-auto">
             <main className="container flex-1">{children}</main>
           </div>
-        </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

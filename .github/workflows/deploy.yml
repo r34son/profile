@@ -15,6 +15,10 @@ on:
         type: string
         required: true
         description: Название стенда
+      domain:
+        type: string
+        required: true
+        description: Домен
     secrets:
       YC_SA_JSON_CREDENTIALS:
         description: Json, содержащий авторизованные ключи для сервисного аккаунта. Подробнее https://cloud.yandex.ru/docs/container-registry/operations/authentication#sa-json
@@ -47,6 +51,7 @@ jobs:
       TF_VAR_folder_id: ${{ secrets.FOLDER_ID }}
       TF_VAR_image_url: ${{ secrets.DOCKER_REGISTRY_PATH }}:${{ inputs.image_id }}
       TF_VAR_ssh_key: ''
+      TF_VAR_domain: ${{ inputs.domain }}
       AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_AWS_SECRET_ACCESS_KEY }}
     steps:
