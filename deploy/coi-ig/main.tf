@@ -154,7 +154,8 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     max_creating    = 1
     max_expansion   = 1
     max_deleting    = 1
-    strategy        = "opportunistic"
+    # TODO: vm cant stop itself or become unhealthy
+    # strategy        = "opportunistic"
   }
   application_load_balancer {
     target_group_name = "alb-tg"
