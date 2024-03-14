@@ -78,6 +78,20 @@ resource "yandex_vpc_security_group" "alb-vm-sg" {
   name       = "alb-vm-sg"
   network_id = yandex_vpc_network.network.id
 
+  egress {
+    protocol       = "TCP"
+    description    = "ext-http"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 80
+  }
+
+  egress {
+    protocol       = "TCP"
+    description    = "ext-https"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 443
+  }
+
   ingress {
     protocol          = "TCP"
     description       = "balancer"
