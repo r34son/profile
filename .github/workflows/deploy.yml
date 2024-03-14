@@ -27,6 +27,7 @@ on:
       FOLDER_ID:
       TF_STATE_AWS_ACCESS_KEY_ID:
       TF_STATE_AWS_SECRET_ACCESS_KEY:
+      SSH_KEY:
 
     # outputs:
     #   domain:
@@ -50,7 +51,7 @@ jobs:
       TF_CLI_CONFIG_FILE: '${{ github.workspace }}/.github/files/terraformrc'
       TF_VAR_folder_id: ${{ secrets.FOLDER_ID }}
       TF_VAR_image_url: ${{ secrets.DOCKER_REGISTRY_PATH }}:${{ inputs.image_id }}
-      TF_VAR_ssh_key: ''
+      TF_VAR_ssh_key: ${{ secrets.SSH_KEY }}
       TF_VAR_domain: ${{ inputs.domain }}
       AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_AWS_SECRET_ACCESS_KEY }}
