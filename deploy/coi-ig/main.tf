@@ -154,8 +154,7 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     max_creating    = 1
     max_expansion   = 1
     max_deleting    = 1
-    # TODO: vm cant stop itself or become unhealthy
-    # strategy        = "opportunistic"
+    strategy        = "opportunistic"
   }
   application_load_balancer {
     target_group_name = "alb-tg"
@@ -204,7 +203,7 @@ resource "yandex_alb_virtual_host" "alb-host" {
 
 # Создание L7-балансировщика
 resource "yandex_alb_load_balancer" "alb" {
-  name               = "alb-1"
+  name               = "alb"
   network_id         = yandex_vpc_network.network.id
   security_group_ids = [yandex_vpc_security_group.alb-sg.id]
 

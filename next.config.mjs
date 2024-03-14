@@ -12,6 +12,7 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true },
   experimental: {
     swcMinify: true,
+    // instrumentationHook: true,
     outputFileTracingExcludes: {
       '*': [
         'node_modules/@swc/core-darwin-arm64',
