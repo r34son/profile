@@ -11,10 +11,11 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     '@storybook/addon-themes',
+    '@chromatic-com/storybook',
   ],
   framework: {
     name: '@storybook/nextjs',
-    options: { builder: { useSWC: true } },
+    options: {},
   },
   docs: {
     autodocs: 'tag',
