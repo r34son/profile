@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.20",
-    "@commitlint/cli": "^19.1.0",
+    "@commitlint/cli": "^19.2.0",
     "@commitlint/config-conventional": "^19.1.0",
     "@fullhuman/postcss-purgecss": "^5.0.0",
     "@lhci/cli": "^0.13.0",
