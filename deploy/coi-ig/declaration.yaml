@@ -2,7 +2,7 @@ spec:
   containers:
     - image: ${image_url}
       name: app
-      command: ['node server.js > /dev/ttyS1']
+      command: ['node', 'server.js', '>', '/dev/ttyS1']
       volumeMounts:
         - mountPath: /dev/ttyS1
           name: log-port
