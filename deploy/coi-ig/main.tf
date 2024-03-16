@@ -155,12 +155,12 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     max_expansion   = 1
     max_deleting    = 1
   }
-  # health_check {
-  #   http_options {
-  #     port = 3000
-  #     path = "/api/health"
-  #   }
-  # }
+  health_check {
+    http_options {
+      port = 3000
+      path = "/api/health"
+    }
+  }
   application_load_balancer {
     target_group_name = "alb-tg"
   }
