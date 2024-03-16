@@ -1,4 +1,6 @@
 #cloud-config
+runcmd:
+  - [sudo, chmod, 666, /dev/ttyS1]
 groups:
   - docker
 ssh_pwauth: no

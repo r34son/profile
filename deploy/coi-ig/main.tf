@@ -267,6 +267,35 @@ resource "yandex_alb_load_balancer" "alb" {
   }
 }
 
+# https://cloud.yandex.ru/ru/docs/cdn/operations/resources/create-resource
+# https://cloud.yandex.ru/ru/docs/cdn/tutorials/cdn-storage-integration
+# resource "yandex_cdn_origin_group" "cdn_origin_group" {
+#   name     = "cdn_origin_group"
+#   use_next = true
+
+#   origin {
+#     source = "${yandex_alb_load_balancer.alb.listener[0].endpoint[0].address[0].external_ipv4_address[0].address}:80"
+#     backup = false
+#   }
+# }
+
+# resource "yandex_cdn_resource" "my_resource" {
+#   cname           = "cdn.yandexcloud.example"
+#   active          = true
+#   origin_protocol = "http"
+#   origin_group_id = yandex_cdn_origin_group.cdn_origin_group.id
+#   ssl_certificate {
+#     type                   = "certificate_manager"
+#     certificate_manager_id = "<идентификатор_сертификата>"
+#   }
+#   options {
+#     edge_cache_settings    = "345600"
+#     browser_cache_settings = "1800"
+#     ignore_cookie          = true
+#     ignore_query_params    = false
+#   }
+
+# }
 
 # TLS-сертификат сайта
 resource "yandex_cm_certificate" "cm_certificate" {

@@ -9,6 +9,7 @@ env:
   LHCI_UPLOAD__TARGET: temporary-public-storage
 
 jobs:
+  if: !startsWith(github.event.pull_request.head.ref , 'dependabot/')
   lhci-mobile:
     if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview'
     name: Lighthouse mobile audit
