@@ -10,7 +10,6 @@ env:
   SKIP_SIMPLE_GIT_HOOKS: 1
 
 jobs:
-  if: !startsWith(github.event.pull_request.head.ref , 'dependabot/')
   chromatic:
     runs-on: ubuntu-latest
     environment:
