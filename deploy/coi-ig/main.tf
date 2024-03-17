@@ -1,3 +1,8 @@
+locals {
+  app_port         = 3000
+  healthcheck_path = "/api/health"
+}
+
 # Создание сервисного аккаунта для группы ВМ
 resource "yandex_iam_service_account" "ig-sa" {
   name        = "ig-sa"
@@ -96,7 +101,7 @@ resource "yandex_vpc_security_group" "alb-vm-sg" {
     protocol          = "TCP"
     description       = "balancer"
     security_group_id = yandex_vpc_security_group.alb-sg.id
-    port              = 3000
+    port              = local.app_port
   }
 
   ingress {
@@ -156,9 +161,11 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     max_deleting    = 1
   }
   health_check {
+    timeout  = 30
+    interval = 60
     http_options {
-      port = 3000
-      path = "/api/health"
+      port = local.app_port
+      path = local.healthcheck_path
     }
   }
   application_load_balancer {
@@ -174,14 +181,14 @@ resource "yandex_alb_backend_group" "alb-bg" {
 
   http_backend {
     name             = "backend-1"
-    port             = 3000
+    port             = local.app_port
     target_group_ids = [yandex_compute_instance_group.ig-with-coi.application_load_balancer.0.target_group_id]
     healthcheck {
       timeout          = "1s"
       interval         = "2s"
-      healthcheck_port = 3000
+      healthcheck_port = local.app_port
       http_healthcheck {
-        path = "/api/health"
+        path = local.healthcheck_path
       }
     }
   }
