@@ -2,14 +2,3 @@ spec:
   containers:
     - image: ${image_url}
       name: app
-      command: ['node', 'server.js', '>', '/dev/ttyS1']
-      securityContext:
-        privileged: true
-      volumeMounts:
-        - mountPath: /dev/ttyS1
-          name: log-port
-  restartPolicy: Always
-  volumes:
-    - name: log-port
-      hostPath:
-        path: /dev/ttyS1
