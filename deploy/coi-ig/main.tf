@@ -84,22 +84,21 @@ resource "yandex_vpc_security_group" "alb-vm-sg" {
   network_id = yandex_vpc_network.network.id
 
   egress {
-    protocol       = "TCP"
-    description    = "ext-http"
+    protocol       = "ANY"
+    description    = "any"
     v4_cidr_blocks = ["0.0.0.0/0"]
-    port           = 80
   }
 
-  egress {
+  ingress {
     protocol       = "TCP"
-    description    = "ext-https"
-    v4_cidr_blocks = ["0.0.0.0/0"]
-    port           = 443
+    description    = "ig-healthcheck"
+    v4_cidr_blocks = ["198.18.235.0/24", "198.18.248.0/24"]
+    port           = local.app_port
   }
 
   ingress {
     protocol          = "TCP"
-    description       = "balancer"
+    description       = "balancer-healthcheck"
     security_group_id = yandex_vpc_security_group.alb-sg.id
     port              = local.app_port
   }
@@ -118,8 +117,8 @@ data "yandex_compute_image" "container-optimized-image" {
 }
 
 resource "yandex_compute_instance_group" "ig-with-coi" {
-  service_account_id  = yandex_iam_service_account.ig-sa.id
-  deletion_protection = true
+  service_account_id = yandex_iam_service_account.ig-sa.id
+  # deletion_protection = true
   instance_template {
     service_account_id = yandex_iam_service_account.ig-sa.id
     platform_id        = "standard-v3"
@@ -130,6 +129,8 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     boot_disk {
       mode = "READ_WRITE"
       initialize_params {
+        # type     = "network-ssd"
+        # size     = 33
         image_id = data.yandex_compute_image.container-optimized-image.id
       }
     }
@@ -155,10 +156,8 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     zones = ["ru-central1-a"]
   }
   deploy_policy {
-    max_unavailable = 1
-    max_creating    = 1
+    max_unavailable = 0
     max_expansion   = 1
-    max_deleting    = 1
   }
   health_check {
     timeout  = 30
