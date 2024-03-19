@@ -156,7 +156,7 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     zones = ["ru-central1-a"]
   }
   deploy_policy {
-    max_unavailable = 0
+    max_unavailable = 1
     max_expansion   = 1
   }
   health_check {
