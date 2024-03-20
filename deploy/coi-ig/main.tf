@@ -129,8 +129,8 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     boot_disk {
       mode = "READ_WRITE"
       initialize_params {
-        type     = "network-ssd"
-        size     = 33
+        # type     = "network-ssd"
+        # size     = 33
         image_id = data.yandex_compute_image.container-optimized-image.id
       }
     }
@@ -147,17 +147,20 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
       user-data                    = templatefile("${path.module}/cloud_config.yaml", { user = var.vm_user, ssh_key = var.ssh_key })
     }
   }
+  allocation_policy {
+    zones = ["ru-central1-a"]
+  }
   scale_policy {
     fixed_scale {
       size = 1
     }
   }
-  allocation_policy {
-    zones = ["ru-central1-a"]
-  }
   deploy_policy {
-    max_unavailable = 0
-    max_expansion   = 1
+    max_unavailable  = 0
+    max_expansion    = 2
+    max_creating     = 1
+    startup_duration = 180
+    strategy         = "proactive"
   }
   health_check {
     timeout  = 30
@@ -167,6 +170,7 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
       path = local.healthcheck_path
     }
   }
+  max_checking_health_duration = 180
   application_load_balancer {
     target_group_name = "alb-tg"
   }
