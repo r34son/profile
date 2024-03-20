@@ -129,8 +129,8 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     boot_disk {
       mode = "READ_WRITE"
       initialize_params {
-        # type     = "network-ssd"
-        # size     = 33
+        type     = "network-ssd"
+        size     = 33
         image_id = data.yandex_compute_image.container-optimized-image.id
       }
     }
