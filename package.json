@@ -66,7 +66,7 @@
     "vaul": "^0.9.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.2.23",
+    "@chromatic-com/storybook": "^1.2.24",
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
     "@fullhuman/postcss-purgecss": "^5.0.0",
