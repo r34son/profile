@@ -122,8 +122,8 @@ devDependencies:
     specifier: ^8.0.2
     version: 8.0.2(@types/jest@29.5.12)(jest@29.7.0)
   '@storybook/addon-links':
-    specifier: ^8.0.2
-    version: 8.0.2(react@18.2.0)
+    specifier: ^8.0.3
+    version: 8.0.3(react@18.2.0)
   '@storybook/addon-themes':
     specifier: ^8.0.2
     version: 8.0.2
@@ -3999,8 +3999,8 @@ packages:
       - vitest
     dev: true
 
-  /@storybook/addon-links@8.0.2(react@18.2.0):
-    resolution: {integrity: sha512-Y22kCHRQIEE8yhTbWLTR2VMa9KJdMDRpWyYCIMzmTlCWAk1vyMZXC2ERruKIpM7AKKtTMEmNc2qHAmOieHfr3A==}
+  /@storybook/addon-links@8.0.3(react@18.2.0):
+    resolution: {integrity: sha512-pLA7kx+cyS+asluu0h4019C12p+kyKX9gz3llYC/uYxt2s0t64U5aU+FzimAaXl+//KNLfqTtj8PwAYmeJN1xw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     peerDependenciesMeta:
