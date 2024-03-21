@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  app:
+    container_name: app
+    image: ${image_url}
+    restart: always
+    ports:
+      - '3000:3000'
+    depends_on:
+      - fluentbit
+    logging:
+      # Fluent Bit понимает логи в этом формате.
+      driver: fluentd
+      options:
+        # Fluent Bit слушает логи на порту 24224.
+        fluentd-address: localhost:24224
+        # Теги используются для маршрутизации логов.
+        tag: app.logs
+
+  fluentbit:
+    container_name: fluentbit
+    image: cr.yandex/yc/fluent-bit-plugin-yandex:v2.1.1-fluent-bit-2.1.7
+    ports:
+      - 24224:24224
+      - 24224:24224/udp
+    restart: always
+    environment:
+      YC_GROUP_ID: ${yc_group_id}
+    volumes:
+      - /etc/fluentbit/fluentbit.conf:/fluent-bit/etc/fluent-bit.conf
+      - /etc/fluentbit/parsers.conf:/fluent-bit/etc/parsers.conf

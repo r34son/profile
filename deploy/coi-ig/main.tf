@@ -116,6 +116,10 @@ data "yandex_compute_image" "container-optimized-image" {
   family = "container-optimized-image"
 }
 
+data "yandex_logging_group" "default" {
+  name = "default"
+}
+
 resource "yandex_compute_instance_group" "ig-with-coi" {
   service_account_id = yandex_iam_service_account.ig-sa.id
   # deletion_protection = true
@@ -143,8 +147,12 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
       nat                = true
     }
     metadata = {
-      docker-container-declaration = templatefile("${path.module}/declaration.yaml", { image_url = var.image_url })
-      user-data                    = templatefile("${path.module}/cloud_config.yaml", { user = var.vm_user, ssh_key = var.ssh_key })
+      # docker-container-declaration = templatefile("${path.module}/declaration.yaml", { image_url = var.image_url })
+      docker-compose = templatefile("${path.module}/docker-compose.yaml", {
+        image_url   = var.image_url,
+        yc_group_id = data.yandex_logging_group.default.group_id
+      })
+      user-data = templatefile("${path.module}/cloud_config.yaml", { user = var.vm_user, ssh_key = var.ssh_key })
     }
   }
   allocation_policy {
