@@ -65,14 +65,16 @@ jobs:
           terraform_wrapper: false
 
       - name: Terraform Init
-        run: terraform init -backend-config="key=${{ inputs.stage_name }}/terraform.tfstate"
+        run: |
+          terraform init -backend-config="key=${{ inputs.stage_name }}/terraform.tfstate"
+          sudo apt install -y tini
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -input=false -no-color -out tf.plan
+        run: exec tini -s -g -- terraform plan -input=false -no-color -out tf.plan
 
       - name: Terraform Apply
-        run: terraform apply -input=false tf.plan
+        run: exec tini -s -g -- terraform apply -input=false tf.plan
 
       # - name: Terraform get output
       #   id: terraform-output
