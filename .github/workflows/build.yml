@@ -14,6 +14,7 @@ on:
       AWS_S3_BUCKET:
       AWS_ACCESS_KEY_ID:
       AWS_SECRET_ACCESS_KEY:
+      SENTRY_AUTH_TOKEN:
     outputs:
       docker_image:
         description: Полное имя (тег) собранного docker-образа
@@ -63,6 +64,7 @@ jobs:
           cache-to: type=inline
           build-args: |
             ENV=${{ inputs.environment }}
+            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
             ASSET_PREFIX=https://${{ format('storage.yandexcloud.net/{0}', secrets.AWS_S3_BUCKET) }}/${{ env.S3_PATH }}
 
   upload-static:
