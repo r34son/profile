@@ -19,6 +19,8 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-l
 
 FROM base AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+ARG SENTRY_AUTH_TOKEN
+ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
 RUN pnpm run build
 
 FROM base
