@@ -2,6 +2,8 @@ FROM node:20.11.1-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV NEXT_TELEMETRY_DISABLED=1
+ARG ENV
+ENV ENV=$ENV
 ARG ASSET_PREFIX
 ENV ASSET_PREFIX=$ASSET_PREFIX
 RUN corepack enable
@@ -37,7 +39,5 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT 3000
-# set hostname to localhost
-ENV HOSTNAME "0.0.0.0"
 
-CMD ["node", "server.js"]
+CMD HOSTNAME="0.0.0.0" node server.js

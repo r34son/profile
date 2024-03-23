@@ -38,6 +38,14 @@ export const Technologies = ({ title }: TechnologiesProps) => {
           ))}
         </CarouselContent>
       </Carousel>
+      <button
+        type="button"
+        onClick={() => {
+          throw new Error('Sentry Frontend Error');
+        }}
+      >
+        Throw error
+      </button>
     </section>
   );
 };

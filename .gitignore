@@ -102,3 +102,5 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+# Sentry Config File
+.sentryclirc

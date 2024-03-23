@@ -62,6 +62,7 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.DOCKER_REGISTRY_PATH }}:latest
           cache-to: type=inline
           build-args: |
+            ENV=${{ inputs.environment }}
             ASSET_PREFIX=https://${{ format('storage.yandexcloud.net/{0}', secrets.AWS_S3_BUCKET) }}/${{ env.S3_PATH }}
 
   upload-static:
