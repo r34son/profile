@@ -28,5 +28,5 @@ Sentry.init({
     }),
   ],
 
-  environment: process.env.ENV,
+  environment: process.env.NEXT_PUBLIC_ENV,
 });
