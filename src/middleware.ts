@@ -89,6 +89,7 @@ export const config = {
     /*
      * Match all request paths except for the ones starting with:
      * - api (API routes)
+     * - monitoring (sentry tunnel route)
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
@@ -99,7 +100,7 @@ export const config = {
      */
     {
       source:
-        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|manifest|icon).*)',
+        '/((?!api|monitoring|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|manifest|icon).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
