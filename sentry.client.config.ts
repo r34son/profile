@@ -26,6 +26,7 @@ Sentry.init({
       maskAllText: true,
       blockAllMedia: true,
     }),
+    Sentry.browserTracingIntegration({ enableInp: true }),
   ],
 
   environment: process.env.NEXT_PUBLIC_ENV,
