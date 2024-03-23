@@ -26,9 +26,13 @@ write_files:
           Name            yc-logging
           Match           *
           group_id        $${YC_GROUP_ID}
-          message_key     text
+          message_key     log
           level_key       severity
-          default_level   WARN
+          default_level   INFO
+          default_payload {"host":"{{instance/hostname}}"}
+          resource_type   vm
+          resource_id     {{instance/id}}
+          stream_name     {container_name}
           authorization   instance-service-account
     path: /etc/fluentbit/fluentbit.conf
   - content: |

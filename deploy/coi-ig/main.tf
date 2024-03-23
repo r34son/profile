@@ -152,7 +152,10 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
         image_url   = var.image_url,
         yc_group_id = data.yandex_logging_group.default.group_id
       })
-      user-data = templatefile("${path.module}/cloud_config.yaml", { user = var.vm_user, ssh_key = var.ssh_key })
+      user-data = templatefile("${path.module}/cloud_config.yaml", {
+        user    = var.vm_user,
+        ssh_key = var.ssh_key,
+      })
     }
   }
   allocation_policy {
