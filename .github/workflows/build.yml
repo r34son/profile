@@ -60,8 +60,8 @@ jobs:
           provenance: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_REGISTRY_PATH }}:latest
-          cache-to: type=inline
+          # cache-from: type=registry,ref=${{ secrets.DOCKER_REGISTRY_PATH }}:latest
+          # cache-to: type=inline
           build-args: |
             ENV=${{ inputs.environment }}
             SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
