@@ -6,8 +6,9 @@ ARG ENV
 ENV ENV=$ENV
 ARG ASSET_PREFIX
 ENV ASSET_PREFIX=$ASSET_PREFIX
-RUN apt-get update
-RUN apt-get install ca-certificates
+RUN apt-get update && apt-get install -y \
+    ca-certificates  \
+    && rm -rf /var/lib/apt/lists/*
 RUN corepack enable
 COPY . /app
 WORKDIR /app
