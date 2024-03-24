@@ -36,6 +36,8 @@ const mcFrameAncestorsDomains = [
   'webvisor.com',
 ].join(' ');
 
+const reportEndpoint = `https://o4506048860258304.ingest.sentry.io/api/4506959997501440/security/?sentry_key=90b846a21ddfd33d1b051d0bdb689bda&sentry_environment=${process.env.ENV}`;
+
 const intlMiddleware = createIntlMiddleware({
   locales: ['en', 'ru'],
   defaultLocale: 'en',
@@ -59,7 +61,7 @@ export default function middleware(request: NextRequest) {
     };
     style-src 'self' ${assetPrefix} 'unsafe-inline';
     img-src 'self' blob: data: ${assetPrefix} ${mcDomains};
-    connect-src 'self' ${mcDomains};
+    connect-src 'self' ${mcDomains} sentry.io;
     child-src blob: ${mcDomains};
     frame-src blob: ${mcDomains};
     font-src 'self' ${assetPrefix};
@@ -69,6 +71,8 @@ export default function middleware(request: NextRequest) {
     frame-ancestors 'self' ${mcFrameAncestorsDomains};
     block-all-mixed-content;
     upgrade-insecure-requests;
+    report-uri ${reportEndpoint};
+    report-to csp-endpoint
   `;
   // Replace newline characters and spaces
   const contentSecurityPolicyHeaderValue = cspHeader
@@ -79,6 +83,16 @@ export default function middleware(request: NextRequest) {
     'Content-Security-Policy',
     contentSecurityPolicyHeaderValue,
   );
+
+  response.headers.set(
+    'Report-To',
+    `{"group":"csp-endpoint","max_age":10886400,"endpoints":[{"url":"${reportEndpoint}"}],"include_subdomains":true}`,
+  );
+
+  response.headers.set('Expect-CT', `report-uri="${reportEndpoint}"`);
+
+  response.headers.set('Public-Key-Pins', `report-uri="${reportEndpoint}"`);
+
   return response;
 }
 

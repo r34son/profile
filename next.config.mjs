@@ -1,9 +1,9 @@
-import { withSentryConfig } from '@sentry/nextjs';
 // @ts-check
 import withPlugins from 'next-compose-plugins';
 import withNextIntl from 'next-intl/plugin';
 import withPWA from 'next-pwa';
 import withBundleAnalyzer from '@next/bundle-analyzer';
+import { withSentryConfig } from '@sentry/nextjs';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
