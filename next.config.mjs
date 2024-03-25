@@ -51,6 +51,19 @@ const nextConfig = {
       'tailwindcss',
     ],
   },
+  webpack: (config, { webpack }) => {
+    config.plugins.push(
+      // https://docs.sentry.io/platforms/javascript/configuration/tree-shaking/#tree-shaking-optional-code-with-webpack
+      new webpack.DefinePlugin({
+        __SENTRY_DEBUG__: false,
+        __SENTRY_TRACING__: true,
+        __RRWEB_EXCLUDE_IFRAME__: true,
+        __RRWEB_EXCLUDE_SHADOW_DOM__: true,
+        __SENTRY_EXCLUDE_REPLAY_WORKER__: false,
+      }),
+    );
+    return config;
+  },
   headers: async () => [
     {
       source: '/:path*',
