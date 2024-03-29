@@ -1,5 +1,5 @@
 import createIntlMiddleware from 'next-intl/middleware';
-import { type NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 
 // https://yandex.ru/support/metrica/code/install-counter-csp.html#install-counter-csp__urls
 const mcDomains = [
@@ -45,7 +45,6 @@ const intlMiddleware = createIntlMiddleware({
 
 export default function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
-  request.headers.set('x-nonce', nonce);
 
   const response = intlMiddleware(request);
 
@@ -79,6 +78,14 @@ export default function middleware(request: NextRequest) {
     .replace(/\s{2,}/g, ' ')
     .trim();
 
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-nonce', nonce);
+
+  requestHeaders.set(
+    'Content-Security-Policy',
+    contentSecurityPolicyHeaderValue,
+  );
+
   response.headers.set(
     'Content-Security-Policy',
     contentSecurityPolicyHeaderValue,
@@ -93,7 +100,12 @@ export default function middleware(request: NextRequest) {
 
   response.headers.set('Public-Key-Pins', `report-uri="${reportEndpoint}"`);
 
-  return response;
+  return NextResponse.next({
+    ...response,
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export const config = {

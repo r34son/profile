@@ -10,11 +10,16 @@
     "pnpm": "8.x"
   },
   "private": true,
+  "type": "module",
   "scripts": {
     "analyze": "ANALYZE=\"true\" next build --no-lint",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "build:open-next": "open-next build --minify --dangerously-disable-incremental-cache",
+    "build:open-next:debug": "OPEN_NEXT_DEBUG=true open-next build",
+    "serverless-debug-deploy": "serverless-live-debug deploy",
+    "serverless-debug": "serverless-live-debug run",
     "format:check": "prettier . --cache --check",
     "format:fix": "pnpm run format:check --write",
     "lint:check": "run-p --continue-on-error \"lint:*:check\"",
@@ -51,9 +56,9 @@
     "devicon": "^2.16.0",
     "embla-carousel-autoplay": "8.0.0",
     "embla-carousel-react": "8.0.0",
-    "framer-motion": "^11.0.20",
+    "framer-motion": "^11.0.22",
     "lucide-react": "^0.363.0",
-    "next": "14.1.4",
+    "next": "14.2.0-canary.43",
     "next-compose-plugins": "^2.2.1",
     "next-intl": "^3.10.0",
     "next-pwa": "^5.6.0",
@@ -86,7 +91,7 @@
     "@types/is-ci": "^3.0.4",
     "@types/jest": "^29.5.12",
     "@types/node": "20.11.1",
-    "@types/react": "^18.2.70",
+    "@types/react": "^18.2.72",
     "@types/react-dom": "^18.2.22",
     "autoprefixer": "^10.4.19",
     "chromatic": "^11.2.0",
@@ -100,13 +105,14 @@
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.2",
     "npm-run-all2": "^6.1.2",
+    "open-next": "^2.3.8",
     "postcss": "^8.4.38",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
     "puppeteer": "^22.6.1",
     "simple-git-hooks": "^2.11.1",
     "storybook": "^8.0.4",
-    "stylelint": "^16.3.0",
+    "stylelint": "^16.3.1",
     "stylelint-config-standard": "^36.0.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.3"
@@ -114,6 +120,9 @@
   "pnpm": {
     "overrides": {
       "jsdom": "24.0.0"
+    },
+    "patchedDependencies": {
+      "open-next@2.3.8": "patches/open-next@2.3.8.patch"
     }
   },
   "browserslist": {

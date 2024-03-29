@@ -1,0 +1,48 @@
+diff --git a/dist/adapters/event-mapper.js b/dist/adapters/event-mapper.js
+index 222bd449117a7ce54cff480828ed0c4c7daad7c7..ae1882750d9cf939d1eeca95851d3a8c0bd2a2f1 100644
+--- a/dist/adapters/event-mapper.js
++++ b/dist/adapters/event-mapper.js
+@@ -5,7 +5,7 @@ export function isAPIGatewayProxyEventV2(event) {
+     return event.version === "2.0";
+ }
+ export function isAPIGatewayProxyEvent(event) {
+-    return event.version === undefined && !isCloudFrontRequestEvent(event);
++    return event.version === "1.0" && !isCloudFrontRequestEvent(event);
+ }
+ export function isCloudFrontRequestEvent(event) {
+     return event.Records !== undefined;
+diff --git a/dist/build.js b/dist/build.js
+index af487fee5e7269ce2e57bfac9ea45ee1ed4a16e1..4ccd1afde47a039d8d4524cf48c71534ca70e6ce 100644
+--- a/dist/build.js
++++ b/dist/build.js
+@@ -228,7 +228,7 @@ async function createImageOptimizationBundle() {
+             path.join(__dirname, "adapters", "image-optimization-adapter.js"),
+         ],
+         external: ["sharp", "next"],
+-        outfile: path.join(outputPath, "index.mjs"),
++        outfile: path.join(outputPath, "index.js"),
+         plugins,
+     });
+     // Build Lambda code (2nd pass)
+@@ -236,10 +236,10 @@ async function createImageOptimizationBundle() {
+     //       "next" package. And the "next" package from user's app should
+     //       be used.
+     esbuildSync({
+-        entryPoints: [path.join(outputPath, "index.mjs")],
++        entryPoints: [path.join(outputPath, "index.js")],
+         external: ["sharp"],
+         allowOverwrite: true,
+-        outfile: path.join(outputPath, "index.mjs"),
++        outfile: path.join(outputPath, "index.js"),
+         banner: {
+             js: [
+                 "import { createRequire as topLevelCreateRequire } from 'module';",
+@@ -515,7 +515,7 @@ async function createServerBundle(monorepoRoot, streaming = false) {
+     await esbuildAsync({
+         entryPoints: [path.join(__dirname, "adapters", "server-adapter.js")],
+         external: ["next"],
+-        outfile: path.join(outputPath, packagePath, "index.mjs"),
++        outfile: path.join(outputPath, packagePath, "index.js"),
+         banner: {
+             js: [
+                 `globalThis.monorepoPackagePath = "${packagePath}";`,

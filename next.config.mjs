@@ -51,7 +51,10 @@ const nextConfig = {
       'tailwindcss',
     ],
   },
-  webpack: (config, { webpack }) => {
+  webpack: (config, { webpack, isServer }) => {
+    // https://github.com/open-telemetry/opentelemetry-js/issues/4173#issuecomment-1822938936
+    if (isServer) config.ignoreWarnings = [{ module: /@opentelemetry\// }];
+
     config.plugins.push(
       // https://docs.sentry.io/platforms/javascript/configuration/tree-shaking/#tree-shaking-optional-code-with-webpack
       new webpack.DefinePlugin({

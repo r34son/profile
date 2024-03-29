@@ -102,5 +102,12 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
 # Sentry Config File
 .sentryclirc
+
+# @yandex-cloud/serverless-live-debug
+.live-debug
+
+# OpenNext
+.open-next
