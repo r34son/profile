@@ -61,7 +61,7 @@ export default function middleware(request: NextRequest) {
     };
     style-src 'self' ${assetPrefix} 'unsafe-inline';
     img-src 'self' blob: data: ${assetPrefix} ${mcDomains};
-    connect-src 'self' ${mcDomains} sentry.io;
+    connect-src 'self' ${mcDomains} *.sentry.io;
     child-src blob: ${mcDomains};
     frame-src blob: ${mcDomains};
     font-src 'self' ${assetPrefix};
@@ -88,10 +88,6 @@ export default function middleware(request: NextRequest) {
     'Report-To',
     `{"group":"csp-endpoint","max_age":10886400,"endpoints":[{"url":"${reportEndpoint}"}],"include_subdomains":true}`,
   );
-
-  response.headers.set('Expect-CT', `report-uri="${reportEndpoint}"`);
-
-  response.headers.set('Public-Key-Pins', `report-uri="${reportEndpoint}"`);
 
   return response;
 }
