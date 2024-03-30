@@ -97,8 +97,6 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Match only internationalized pathnames
-  // matcher: ['/', '/(en|ru)/:path*'],
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
