@@ -3,7 +3,8 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'daily'
+
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
@@ -13,3 +14,8 @@ updates:
     directory: /
     schedule:
       interval: daily
+
+  - package-ecosystem: 'terraform'
+    directory: '/deploy'
+    schedule:
+      interval: 'daily'
