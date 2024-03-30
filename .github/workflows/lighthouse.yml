@@ -14,15 +14,20 @@ jobs:
     name: Lighthouse mobile audit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
@@ -32,7 +37,7 @@ jobs:
 
       - name: Install Chrome
         id: install-chrome
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@97349de5c98094d4fc9412f31c524d7697115ad8 # v1.5.0
 
       - run: pnpm lhci:mobile
         env:
@@ -44,15 +49,20 @@ jobs:
     name: Lighthouse desktop audit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
@@ -62,7 +72,7 @@ jobs:
 
       - name: Install Chrome
         id: install-chrome
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@97349de5c98094d4fc9412f31c524d7697115ad8 # v1.5.0
 
       - run: pnpm lhci:desktop
         env:
