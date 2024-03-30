@@ -1,33 +1,35 @@
-// This file configures the initialization of Sentry on the client.
-// The config you add here will be used whenever a users loads a page in their browser.
-// https://docs.sentry.io/platforms/javascript/guides/nextjs/
+import {
+  BrowserClient,
+  breadcrumbsIntegration,
+  dedupeIntegration,
+  defaultStackParser,
+  globalHandlersIntegration,
+  makeFetchTransport,
+  linkedErrorsIntegration,
+  setCurrentClient,
+} from '@sentry/nextjs';
+import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
 
-import * as Sentry from '@sentry/nextjs';
-
-Sentry.init({
-  dsn: 'https://90b846a21ddfd33d1b051d0bdb689bda@o4506048860258304.ingest.us.sentry.io/4506959997501440',
-
-  // Adjust this value in production, or use tracesSampler for greater control
-  tracesSampleRate: 1,
-
-  // Setting this option to true will print useful information to the console while you're setting up Sentry.
-  debug: false,
-
-  replaysOnErrorSampleRate: 1.0,
-
-  // This sets the sample rate to be 10%. You may want this to be 100% while
-  // in development and sample at a lower rate in production
+const client = new BrowserClient({
+  dsn: SENTRY_DSN,
+  tracesSampleRate: SENTRY_CAPTURE_RATE,
+  replaysOnErrorSampleRate: 1,
   replaysSessionSampleRate: 0.1,
-
-  // You can remove this option if you're not planning to use the Sentry Session Replay feature:
-  integrations: [
-    Sentry.replayIntegration({
-      // Additional Replay configuration goes in here, for example:
-      maskAllText: true,
-      blockAllMedia: true,
-    }),
-    Sentry.browserTracingIntegration({ enableInp: true }),
-  ],
-
+  transport: makeFetchTransport,
+  stackParser: defaultStackParser,
   environment: process.env.NEXT_PUBLIC_ENV,
+  integrations: [
+    breadcrumbsIntegration(),
+    globalHandlersIntegration(),
+    linkedErrorsIntegration(),
+    dedupeIntegration(),
+  ],
+});
+
+setCurrentClient(client);
+
+// Loads this Dynamically to avoid adding this to the main bundle (initial load)
+import('@sentry/nextjs').then(({ Replay, BrowserTracing }) => {
+  client.addIntegration(new Replay({ maskAllText: false }));
+  client.addIntegration(new BrowserTracing({ enableInp: true }));
 });
