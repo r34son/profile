@@ -1,3 +1,4 @@
+/** @see https://github.com/vercel/next.js/issues/34448 */
 /** @type {import('postcss-load-config').Config} */
 const config = {
   plugins: {

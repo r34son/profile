@@ -10,7 +10,10 @@ env:
 
 jobs:
   lhci-mobile:
-    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview'
+    if: |
+      github.actor != 'dependabot[bot]' && github.event.deployment_status.state == 'success'
+      && github.event.deployment_status.environment_url
+      && (github.event.deployment_status.environment == 'development' || github.event.deployment_status.environment == 'production')
     name: Lighthouse mobile audit
     runs-on: ubuntu-latest
     steps:

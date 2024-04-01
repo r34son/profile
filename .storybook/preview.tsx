@@ -2,12 +2,12 @@ import type { Preview, ReactRenderer } from '@storybook/react';
 import { withThemeByClassName } from '@storybook/addon-themes';
 import { NextIntlClientProvider } from 'next-intl';
 import englishLocale from '@/messages/en.json';
-import '../src/app/globals.css';
+import '@/app/globals.css';
 
 const preview: Preview = {
   parameters: {
     nextjs: { appDirectory: true },
-    actions: { argTypesRegex: '^on[A-Z].*' },
+    actions: { argTypesRegex: '^on.*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
