@@ -3,7 +3,7 @@ import type { StorybookConfig } from '@storybook/nextjs';
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.tsx'],
   logLevel: 'error',
-  // staticDirs: ['../public'],
+  staticDirs: ['../public'],
   typescript: { reactDocgen: false, check: false },
   core: { disableTelemetry: true },
   addons: [
