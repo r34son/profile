@@ -1,4 +1,4 @@
-FROM node:20.12.0-slim@sha256:dcb9e35d8afca163a231cdfad9657d2360947f212faf0fab647f8d11cb1e63a9 AS base
+FROM node:20.12.1-slim@sha256:8f6a8262ea5d8948bbe8bc926b094756a3e11f282163d5e96a66143c1fc839f0 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -38,7 +38,7 @@ COPY --from=prod-deps /app/node_modules /app/node_modules
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=build --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=build --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=build --chown=nextjs:nodejs /app/public ./public
+# COPY --from=build --chown=nextjs:nodejs /app/public ./public
 
 USER nextjs
 

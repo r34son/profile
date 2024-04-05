@@ -1,7 +1,6 @@
 // @ts-check
 import withPlugins from 'next-compose-plugins';
 import withNextIntl from 'next-intl/plugin';
-import withPWA from 'next-pwa';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { withSentryConfig } from '@sentry/nextjs';
 import { SENTRY_EXTENSIONS } from './sentry.constants.mjs';
@@ -15,6 +14,7 @@ const nextConfig = {
   experimental: {
     swcMinify: true,
     instrumentationHook: true,
+    preloadEntriesOnStart: true,
     outputFileTracingExcludes: {
       '*': [
         'node_modules/@swc/core-darwin-arm64',
@@ -89,10 +89,6 @@ export default withSentryConfig(
   withPlugins(
     [
       withNextIntl(),
-      withPWA({
-        dest: 'public',
-        disable: process.env.NODE_ENV === 'development',
-      }),
       withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
     ],
     nextConfig,
