@@ -1,3 +1,4 @@
+// TODO: https://github.com/GoogleChrome/lighthouse-ci/issues/973
 const puppeteer = require('puppeteer');
 const isCI = require('is-ci');
 
@@ -6,6 +7,7 @@ module.exports = {
     collect: {
       startServerCommand: isCI ? '' : 'pnpm lhci:start',
       startServerReadyPattern: 'Ready',
+      startServerReadyTimeout: 60000,
       url: ['http://localhost:3000/en'],
       numberOfRuns: 3,
       chromePath: !isCI && puppeteer.executablePath(),
