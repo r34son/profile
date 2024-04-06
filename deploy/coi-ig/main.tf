@@ -1,6 +1,7 @@
 locals {
   app_port         = 3000
   healthcheck_path = "/api/health"
+  url              = "https://${var.domain}"
 }
 
 # Создание сервисного аккаунта для группы ВМ
@@ -150,6 +151,7 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
       # docker-container-declaration = templatefile("${path.module}/declaration.yaml", { image_url = var.image_url })
       docker-compose = templatefile("${path.module}/docker-compose.yaml", {
         image_url   = var.image_url,
+        url         = local.url,
         yc_group_id = data.yandex_logging_group.default.group_id
       })
       user-data = templatefile("${path.module}/cloud_config.yaml", {
@@ -363,5 +365,5 @@ data "yandex_cm_certificate" "cm_certificate" {
 
 output "domain" {
   description = "Domain"
-  value       = "https://${var.domain}"
+  value       = local.url
 }

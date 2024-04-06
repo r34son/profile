@@ -101,11 +101,7 @@ export const generateMetadata = async ({
     publisher: name,
     title,
     description,
-    metadataBase: new URL(
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3000'
-        : 'https://r34s0n.tech',
-    ),
+    metadataBase: new URL(process.env.URL ?? 'http://localhost:3000'),
     generator: 'Next.js',
     openGraph: {
       title,
