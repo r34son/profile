@@ -19,7 +19,7 @@ export default async function Profile({ params: { locale } }: ProfileProps) {
 
   return (
     <>
-      <BackgroundBeams className="-z-10" />
+      {/* <BackgroundBeams className="-z-10" /> */}
       <Info />
       <Experience />
       <DynamicTechnologies title={t('anchors.technologies')} />

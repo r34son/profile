@@ -360,3 +360,8 @@ data "yandex_cm_certificate" "cm_certificate" {
   certificate_id  = yandex_cm_certificate.cm_certificate.id
   wait_validation = true
 }
+
+output "domain" {
+  description = "Domain"
+  value       = "https://${var.domain}"
+}
