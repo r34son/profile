@@ -4,7 +4,7 @@ import { Experience } from '@/components/sections/Experience';
 import { Contacts } from '@/components/sections/Contacts';
 import { Locales } from '@/lib/i18n';
 import { DynamicTechnologies } from '@/components/sections/DynamicTechnologies';
-import { BackgroundBeams } from '@/components/ui/background-beams';
+// import { BackgroundBeams } from '@/components/ui/background-beams';
 
 interface ProfileProps {
   params: {
