@@ -6,6 +6,8 @@ services:
     restart: always
     ports:
       - '3000:3000'
+    environment:
+      - URL=${url}
     depends_on:
       - fluentbit
     logging:
