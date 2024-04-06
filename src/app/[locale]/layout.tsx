@@ -2,12 +2,13 @@ import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { headers } from 'next/headers';
 import { Inter } from 'next/font/google';
+import { ThemeProvider } from 'next-themes';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { LazyMotionProvider } from '@/components/LazyMotionProvider';
 import { Header } from '@/components/Header';
 import { YMScript } from '@/components/YMScript';
 import { Locales, locales } from '@/lib/i18n';
 import { email, githubUrl } from '@/const';
-import { ThemeProvider } from 'next-themes';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,26 +39,28 @@ export default async function LocaleLayout({
           defaultTheme="system"
           nonce={nonce}
         >
-          <Header
-            title={t('title')}
-            anchors={[
-              { title: t('anchors.info'), href: '#info' },
-              { title: t('anchors.experience'), href: '#experience' },
-              { title: t('anchors.technologies'), href: '#technologies' },
-              { title: t('anchors.contacts'), href: '#contacts' },
-            ]}
-            githubButtonText={t('githubButtonText')}
-            localeSelectProps={{
-              title: t('localeSelect.title'),
-              localeNames: locales.reduce(
-                (acc, locale) => ({
-                  ...acc,
-                  [locale]: t(`localeSelect.locales.${locale}`),
-                }),
-                {} as Record<Locales, string>,
-              ),
-            }}
-          />
+          <LazyMotionProvider>
+            <Header
+              title={t('title')}
+              anchors={[
+                { title: t('anchors.info'), href: '#info' },
+                { title: t('anchors.experience'), href: '#experience' },
+                { title: t('anchors.technologies'), href: '#technologies' },
+                { title: t('anchors.contacts'), href: '#contacts' },
+              ]}
+              githubButtonText={t('githubButtonText')}
+              localeSelectProps={{
+                title: t('localeSelect.title'),
+                localeNames: locales.reduce(
+                  (acc, locale) => ({
+                    ...acc,
+                    [locale]: t(`localeSelect.locales.${locale}`),
+                  }),
+                  {} as Record<Locales, string>,
+                ),
+              }}
+            />
+          </LazyMotionProvider>
           <div className="overflow-y-auto">
             <main className="container flex-1">{children}</main>
           </div>
