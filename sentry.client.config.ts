@@ -7,6 +7,8 @@ import {
   makeFetchTransport,
   linkedErrorsIntegration,
   setCurrentClient,
+  replayIntegration,
+  browserTracingIntegration,
 } from '@sentry/nextjs';
 import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
 
@@ -23,13 +25,9 @@ const client = new BrowserClient({
     globalHandlersIntegration(),
     linkedErrorsIntegration(),
     dedupeIntegration(),
+    replayIntegration({ maskAllText: false }),
+    browserTracingIntegration({ enableInp: true }),
   ],
 });
 
 setCurrentClient(client);
-
-// Loads this Dynamically to avoid adding this to the main bundle (initial load)
-import('@sentry/nextjs').then(({ Replay, BrowserTracing }) => {
-  client.addIntegration(new Replay({ maskAllText: false }));
-  client.addIntegration(new BrowserTracing({ enableInp: true }));
-});
