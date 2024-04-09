@@ -7,8 +7,6 @@ import {
   makeFetchTransport,
   linkedErrorsIntegration,
   setCurrentClient,
-  replayIntegration,
-  browserTracingIntegration,
 } from '@sentry/nextjs';
 import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
 
@@ -25,9 +23,16 @@ const client = new BrowserClient({
     globalHandlersIntegration(),
     linkedErrorsIntegration(),
     dedupeIntegration(),
-    replayIntegration({ maskAllText: false }),
-    browserTracingIntegration({ enableInp: true }),
   ],
 });
 
 setCurrentClient(client);
+
+const lazyLoadSentryIntegrations = async () => {
+  const { addIntegration, replayIntegration, browserTracingIntegration } =
+    await import('@sentry/nextjs');
+  addIntegration(replayIntegration({ maskAllText: false }));
+  addIntegration(browserTracingIntegration({ enableInp: true }));
+};
+
+lazyLoadSentryIntegrations();
