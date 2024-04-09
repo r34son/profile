@@ -108,8 +108,8 @@ devDependencies:
     specifier: ^0.13.0
     version: 0.13.0
   '@next/bundle-analyzer':
-    specifier: 14.2.0-canary.60
-    version: 14.2.0-canary.60
+    specifier: 14.2.0-canary.63
+    version: 14.2.0-canary.63
   '@playwright/test':
     specifier: ^1.43.0
     version: 1.43.0
@@ -2723,8 +2723,8 @@ packages:
       tar-fs: 2.1.1
     dev: true
 
-  /@next/bundle-analyzer@14.2.0-canary.60:
-    resolution: {integrity: sha512-gmsQFZAgPW9+xyfdOH2HI2D4GQemNKryVSLaApKxdM3ErWbsNeNOCw8wCBnJ3gbsPY+gEdmahLDHUjNNQkNDMQ==}
+  /@next/bundle-analyzer@14.2.0-canary.63:
+    resolution: {integrity: sha512-zn7s83fX6925+X+LlCCiQa8s/2cnyiq4mue6aGdayqaiCmNlT53uM3Ki+qNM5wPUkYJFJPuFWpf/TOXnKOKmpA==}
     dependencies:
       webpack-bundle-analyzer: 4.10.1
     transitivePeerDependencies:
