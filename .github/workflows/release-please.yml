@@ -34,15 +34,18 @@ jobs:
           git --no-pager show --name-only
 
       - name: Install pnpm
+        if: ${{ steps.release.outputs.pr }}
         uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
 
       - name: Install Node.js
+        if: ${{ steps.release.outputs.pr }}
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: Install dependencies
+        if: ${{ steps.release.outputs.pr }}
         run: pnpm install
 
       - name: Format CHANGELOG.md
