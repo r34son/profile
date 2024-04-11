@@ -21,7 +21,7 @@ jobs:
 
       # Format changelog, workaround for https://github.com/google-github-actions/release-please-action/issues/542
       # Taken from https://github.com/remarkablemark/release-please-extra-files-demo/blob/master/.github/workflows/release-please.yml
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
         if: ${{ steps.release.outputs.pr }}
         with:
           ref: ${{ fromJson(steps.release.outputs.pr).headBranchName }}
@@ -33,9 +33,21 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git --no-pager show --name-only
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+
+      - name: Install Node.js
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Format CHANGELOG.md
         if: ${{ steps.release.outputs.pr }}
-        run: npx prettier --write CHANGELOG.md
+        run: pnpm exec prettier --write CHANGELOG.md
 
       - name: Commit and push
         if: ${{ steps.release.outputs.pr }}
