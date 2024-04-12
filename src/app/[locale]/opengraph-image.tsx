@@ -2,8 +2,6 @@ import { ImageResponse } from 'next/og';
 import { getTranslations } from 'next-intl/server';
 import { Locales } from '@/lib/i18n';
 
-export const runtime = 'edge';
-
 export const alt = 'r34s0n.tech';
 export const size = {
   width: 800,
