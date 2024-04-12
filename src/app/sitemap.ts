@@ -1,4 +1,4 @@
-import { locales } from '@/lib/i18n';
+import { locales, Locales } from '@/lib/i18n';
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -8,15 +8,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,
+      alternates: {
+        languages: locales.reduce(
+          (acc, locale) => {
+            acc[locale] = `https://r34s0n.tech/${locale}`;
+            return acc;
+          },
+          {} as Record<Locales, string>,
+        ),
+      },
     },
-    ...locales.map(
-      (locale) =>
-        ({
-          url: `https://r34s0n.tech/${locale}`,
-          lastModified: new Date(),
-          changeFrequency: 'monthly',
-          priority: 0.8,
-        }) as const,
-    ),
   ];
 }
