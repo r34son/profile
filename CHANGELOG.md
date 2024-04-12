@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0](https://github.com/r34son/profile/compare/v1.0.0...v1.1.0) (2024-04-12)
+
+### Miscellaneous Chores
+
+- release 1.1.0 ([#390](https://github.com/r34son/profile/issues/390)) ([95869f8](https://github.com/r34son/profile/commit/95869f8dae009c3d0db4452a5d625472fa7b5b8a))
+
 ## 1.0.0 (2024-04-11)
 
 ### Features
