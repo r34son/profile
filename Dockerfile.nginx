@@ -1,0 +1,20 @@
+FROM nginx:latest
+
+# Install openssl for generating SSL/TLS certificates
+RUN apt-get update && apt-get install -y openssl
+
+# Create directory for SSL/TLS certificates
+RUN mkdir -p /etc/nginx/certs
+
+# Generate self-signed SSL/TLS certificate
+RUN openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/nginx/certs/key.pem -out /etc/nginx/certs/cert.pem -days 365 -subj "/C=US/ST=State/L=City/O=Organization/CN=example.com"
+
+# Copy NGINX configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose ports
+EXPOSE 80
+EXPOSE 443
+
+# Start NGINX
+CMD ["nginx", "-g", "daemon off;"]

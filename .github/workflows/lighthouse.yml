@@ -5,7 +5,7 @@ on:
 
 env:
   SKIP_SIMPLE_GIT_HOOKS: 1
-  LHCI_COLLECT__URL: ${{ github.event.deployment_status.environment_url }}/en
+  LHCI_COLLECT__URL: ${{ github.event.deployment_status.environment_url }}en
   LHCI_UPLOAD__TARGET: temporary-public-storage
 
 jobs:
