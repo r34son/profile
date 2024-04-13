@@ -20,7 +20,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-l
 
 FROM base AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-ENV SENTRY_LOG_LEVEL=debug
+ENV SENTRY_LOG_LEVEL=info
 ARG SENTRY_AUTH_TOKEN
 RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
       echo "SENTRY_AUTH_TOKEN is provided, setting environment variable"; \
