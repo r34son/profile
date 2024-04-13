@@ -2,10 +2,12 @@
 
 ## Screenshots
 
+<!-- https://github.com/microsoft/playwright/issues/7575#issuecomment-882376002 -->
+
 To update screenshots on mac follow this steps:
 
 ```bash
-docker run -it --rm --ipc=host -v $(pwd):/work/ -w /work/ mcr.microsoft.com/playwright:v1.43.0-jammy /bin/bash
+docker run -it --rm --ipc=host -v $(pwd):/work/ -w /work/ mcr.microsoft.com/playwright:v1.43.1-jammy /bin/bash
 ```
 
 ```bash

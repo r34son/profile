@@ -1,0 +1,28 @@
+services:
+  playwright:
+    depends_on:
+      - nginx
+    build:
+      dockerfile: Dockerfile.playwright
+    ports:
+      - 9323:9323
+    environment:
+      - PLAYWRIGHT_TEST_BASE_URL=https://nginx
+    volumes:
+      - './tests:/work/tests'
+      - './playwright-report:/work/playwright-report'
+      - './test-results:/work/test-results'
+      - './playwright.config.ts:/work/playwright.config.ts'
+  nginx:
+    depends_on:
+      - next
+    build:
+      dockerfile: Dockerfile.nginx
+    ports:
+      - 80:80
+      - 443:443
+  next:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000

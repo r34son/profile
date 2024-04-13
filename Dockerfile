@@ -21,7 +21,12 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-l
 FROM base AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 ARG SENTRY_AUTH_TOKEN
-ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
+      echo "SENTRY_AUTH_TOKEN is provided, setting environment variable"; \
+      export SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"; \
+    else \
+      echo "SENTRY_AUTH_TOKEN is not provided, skipping environment variable"; \
+    fi
 RUN pnpm run build
 
 FROM base
