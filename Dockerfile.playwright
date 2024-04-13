@@ -3,7 +3,7 @@
 # We do this to ensure our reference images for visual regression tests are the same during development and in CI.
 #
 
-FROM mcr.microsoft.com/playwright:v1.43.1-jammy
+FROM mcr.microsoft.com/playwright:v1.43.1-jammy@sha256:c5ac43242674b2ae56bf2c91aaee3b188f2ffdb7b242c11ffeeeea6e994fd7b3
 
 WORKDIR /work
 
