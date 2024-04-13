@@ -104,6 +104,10 @@ export default withSentryConfig(
     project: 'profile',
     debug: true,
     setCommits: { auto: true },
+    errorHandler: (err, invokeErr, compilation) => {
+      // @ts-ignore
+      compilation.warnings.push('Sentry CLI Plugin: ' + err.message);
+    },
   },
   {
     // For all available options, see:
