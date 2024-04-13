@@ -102,6 +102,8 @@ export default withSentryConfig(
     silent: true,
     org: 'r34s0n',
     project: 'profile',
+    debug: true,
+    setCommits: { auto: true },
   },
   {
     // For all available options, see:
