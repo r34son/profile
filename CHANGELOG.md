@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0](https://github.com/r34son/profile/compare/v1.1.0...v1.2.0) (2024-04-14)
+
+### Features
+
+- added ability to update screnshots locally ([#392](https://github.com/r34son/profile/issues/392)) ([b441155](https://github.com/r34son/profile/commit/b441155a750bd0b7819c67cbc918d8bdc7810545))
+
 ## [1.1.0](https://github.com/r34son/profile/compare/v1.0.0...v1.1.0) (2024-04-12)
 
 ### Miscellaneous Chores
