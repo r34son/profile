@@ -1,8 +1,7 @@
 name: Release application
 on:
-  push:
-    branches:
-      - 'master'
+  release:
+    types: [released]
   # Разрешает ручной вызов действия. Может быть использовано для отката testing и production окружений на ранее собранную версию.
   workflow_dispatch:
 
