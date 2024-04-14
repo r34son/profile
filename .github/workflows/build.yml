@@ -15,6 +15,8 @@ on:
       AWS_ACCESS_KEY_ID:
       AWS_SECRET_ACCESS_KEY:
       SENTRY_AUTH_TOKEN:
+      SENTRY_ORG:
+      SENTRY_PROJECT:
     outputs:
       docker_image:
         description: Полное имя (тег) собранного docker-образа
