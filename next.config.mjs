@@ -99,11 +99,7 @@ export default withSentryConfig(
     // https://github.com/getsentry/sentry-webpack-plugin#options
 
     // Suppresses source map uploading logs during build
-    silent: false,
-    org: 'r34s0n',
-    project: 'profile',
-    debug: true,
-    setCommits: { auto: true },
+    silent: true,
   },
   {
     // For all available options, see:

@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 FROM node:20.12.2-slim@sha256:b797c658cbbd75ea6ebeceed7f5c01e1d4054d2f53b32906090d1648eaccf860 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -16,19 +18,35 @@ WORKDIR /app
 
 
 FROM base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
+# Download dependencies as a separate step to take advantage of Docker's caching.
+# Leverage a cache mount to /pnpm/store to speed up subsequent builds.
+# Leverage bind mounts to package.json and pnpm-lock.yaml to avoid having to copy them
+# into this layer.
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=pnpm-lock.yaml,target=pnpm-lock.yaml \
+    --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --prod --frozen-lockfile
 
 FROM base AS build
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+# Download dependencies as a separate step to take advantage of Docker's caching.
+# Leverage a cache mount to /pnpm/store to speed up subsequent builds.
+# Leverage bind mounts to package.json and pnpm-lock.yaml to avoid having to copy them
+# into this layer.
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=pnpm-lock.yaml,target=pnpm-lock.yaml \
+    --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --frozen-lockfile
 ENV SENTRY_LOG_LEVEL=debug
 ARG SENTRY_AUTH_TOKEN
+ARG SENTRY_ORG
+ARG SENTRY_PROJECT
 RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
       echo "SENTRY_AUTH_TOKEN is provided, setting environment variable"; \
       export SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"; \
     else \
       echo "SENTRY_AUTH_TOKEN is not provided, skipping environment variable"; \
     fi
-RUN pnpm run build
+RUN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT pnpm run build
 
 FROM base
 ENV NODE_ENV=production
