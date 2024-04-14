@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.2](https://github.com/r34son/profile/compare/v1.2.1...v1.2.2) (2024-04-14)
+
+### Bug Fixes
+
+- pass scret ([#402](https://github.com/r34son/profile/issues/402)) ([8279c8d](https://github.com/r34son/profile/commit/8279c8d25d1a8876ce011f94aa24383d587eceb8))
+
 ## [1.2.1](https://github.com/r34son/profile/compare/v1.2.0...v1.2.1) (2024-04-14)
 
 ### Miscellaneous Chores
