@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0](https://github.com/r34son/profile/compare/v1.2.5...v1.3.0) (2024-04-15)
+
+### Features
+
+- added sentry profiling ([#414](https://github.com/r34son/profile/issues/414)) ([57fda18](https://github.com/r34son/profile/commit/57fda18186017bbf2d5f69b4e070a44318501686))
+
 ## [1.2.5](https://github.com/r34son/profile/compare/v1.2.4...v1.2.5) (2024-04-15)
 
 ### Bug Fixes
