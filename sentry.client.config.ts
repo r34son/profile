@@ -6,6 +6,7 @@ import {
   globalHandlersIntegration,
   makeFetchTransport,
   linkedErrorsIntegration,
+  browserProfilingIntegration,
   setCurrentClient,
 } from '@sentry/nextjs';
 import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
@@ -13,6 +14,7 @@ import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
 const client = new BrowserClient({
   dsn: SENTRY_DSN,
   tracesSampleRate: SENTRY_CAPTURE_RATE,
+  profilesSampleRate: SENTRY_CAPTURE_RATE,
   replaysOnErrorSampleRate: 1,
   replaysSessionSampleRate: 0.1,
   transport: makeFetchTransport,
@@ -23,6 +25,7 @@ const client = new BrowserClient({
     globalHandlersIntegration(),
     linkedErrorsIntegration(),
     dedupeIntegration(),
+    browserProfilingIntegration(),
   ],
 });
 

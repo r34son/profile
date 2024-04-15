@@ -13,8 +13,10 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true },
   experimental: {
     swcMinify: true,
+    webpackBuildWorker: true,
     instrumentationHook: true,
     preloadEntriesOnStart: true,
+    serverComponentsExternalPackages: ['@sentry/profiling-node'],
     outputFileTracingExcludes: {
       '*': [
         'node_modules/@swc/core-darwin-arm64',
@@ -80,6 +82,10 @@ const nextConfig = {
         {
           key: 'Referrer-Policy',
           value: 'origin-when-cross-origin',
+        },
+        {
+          key: 'Document-Policy',
+          value: 'js-profiling',
         },
       ],
     },
