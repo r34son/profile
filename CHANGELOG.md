@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.3](https://github.com/r34son/profile/compare/v1.2.2...v1.2.3) (2024-04-15)
+
+### Bug Fixes
+
+- pass created sentry release to webpack plugin ([#404](https://github.com/r34son/profile/issues/404)) ([5d0bbb4](https://github.com/r34son/profile/commit/5d0bbb40403c9443d8b566b4ae89c140ca460a15))
+
 ## [1.2.2](https://github.com/r34son/profile/compare/v1.2.1...v1.2.2) (2024-04-14)
 
 ### Bug Fixes
