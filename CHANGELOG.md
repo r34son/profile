@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.4](https://github.com/r34son/profile/compare/v1.2.3...v1.2.4) (2024-04-15)
+
+### Bug Fixes
+
+- intentionally add runtime error ([#410](https://github.com/r34son/profile/issues/410)) ([f37f56f](https://github.com/r34son/profile/commit/f37f56fb3ffb1c87c4dde274f453cc17224132a6))
+
 ## [1.2.3](https://github.com/r34son/profile/compare/v1.2.2...v1.2.3) (2024-04-15)
 
 ### Bug Fixes
