@@ -40,13 +40,14 @@ ENV SENTRY_LOG_LEVEL=debug
 ARG SENTRY_AUTH_TOKEN
 ARG SENTRY_ORG
 ARG SENTRY_PROJECT
+ARG SENTRY_RELEASE
 RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
       echo "SENTRY_AUTH_TOKEN is provided, setting environment variable"; \
       export SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"; \
     else \
       echo "SENTRY_AUTH_TOKEN is not provided, skipping environment variable"; \
     fi
-RUN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT pnpm run build
+RUN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT SENTRY_RELEASE=$SENTRY_RELEASE pnpm run build
 
 FROM base
 ENV NODE_ENV=production

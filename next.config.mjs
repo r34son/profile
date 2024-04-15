@@ -100,6 +100,7 @@ export default withSentryConfig(
 
     // Suppresses source map uploading logs during build
     silent: true,
+    release: process.env.SENTRY_RELEASE,
   },
   {
     // For all available options, see:
