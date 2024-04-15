@@ -15,6 +15,8 @@ import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 
 export const Info = () => {
   const t = useTranslations('sections.info');
+  // @ts-ignore
+  window.a.b();
   return (
     <section id="info" className="py-48 text-center xl:px-16">
       <TextGenerateEffect
