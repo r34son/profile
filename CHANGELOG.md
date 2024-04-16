@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/r34son/profile/compare/v1.3.0...v1.3.1) (2024-04-16)
+
+
+### Miscellaneous Chores
+
+* added sentry adk debug ([#416](https://github.com/r34son/profile/issues/416)) ([0dbeb1d](https://github.com/r34son/profile/commit/0dbeb1d91e819dc4f11dd8d84c281c7c93f1ff9a))
+
 ## [1.3.0](https://github.com/r34son/profile/compare/v1.2.5...v1.3.0) (2024-04-15)
 
 ### Features
