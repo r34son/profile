@@ -106,7 +106,6 @@ export default withSentryConfig(
         excludeReplayShadowDom: true,
         excludeReplayIframe: true,
       },
-      _experiments: { injectBuildInformation: true },
     },
     widenClientFileUpload: true,
     transpileClientSDK: false,
