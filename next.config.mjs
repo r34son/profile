@@ -3,7 +3,6 @@ import withPlugins from 'next-compose-plugins';
 import withNextIntl from 'next-intl/plugin';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { withSentryConfig } from '@sentry/nextjs';
-import { SENTRY_EXTENSIONS } from './sentry.constants.mjs';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -55,11 +54,9 @@ const nextConfig = {
     //   'tailwindcss',
     // ],
   },
-  webpack: (config, { webpack, isServer }) => {
+  webpack: (config, { isServer }) => {
     // https://github.com/open-telemetry/opentelemetry-js/issues/4173#issuecomment-1822938936
     if (isServer) config.ignoreWarnings = [{ module: /@opentelemetry\// }];
-
-    config.plugins.push(new webpack.DefinePlugin(SENTRY_EXTENSIONS));
 
     return config;
   },
@@ -101,32 +98,19 @@ export default withSentryConfig(
     nextConfig,
   ),
   {
-    // For all available options, see:
-    // https://github.com/getsentry/sentry-webpack-plugin#options
-
-    // Suppresses source map uploading logs during build
     silent: true,
-    release: process.env.SENTRY_RELEASE,
-  },
-  {
-    // For all available options, see:
-    // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-
-    // Upload a larger set of source maps for prettier stack traces (increases build time)
+    release: { create: false },
+    unstable_sentryWebpackPluginOptions: {
+      bundleSizeOptimizations: {
+        excludeDebugStatements: true,
+        excludeReplayShadowDom: true,
+        excludeReplayIframe: true,
+      },
+    },
     widenClientFileUpload: true,
-
-    // Transpiles SDK to be compatible with IE11 (increases bundle size)
     transpileClientSDK: false,
-
-    // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers. (increases server load)
-    // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
-    // side errors will fail.
     tunnelRoute: '/monitoring',
-
-    // Hides source maps from generated client bundles
     hideSourceMaps: true,
-
-    // Automatically tree-shake Sentry logger statements to reduce bundle size
     disableLogger: true,
   },
 );
