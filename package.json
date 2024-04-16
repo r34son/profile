@@ -38,10 +38,6 @@
     "e2e:update": "docker compose  -f docker-compose.playwright.yml run --rm -it --build playwright pnpm exec playwright test --update-snapshots --trace on"
   },
   "dependencies": {
-    "@opentelemetry/auto-instrumentations-node": "^0.44.0",
-    "@opentelemetry/resources": "^1.23.0",
-    "@opentelemetry/sdk-node": "^0.50.0",
-    "@opentelemetry/semantic-conventions": "^1.23.0",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-navigation-menu": "^1.1.4",
     "@radix-ui/react-slot": "^1.0.2",
@@ -116,8 +112,7 @@
   "pnpm": {
     "overrides": {
       "jsdom": "24.0.0",
-      "@storybook/nextjs>postcss-loader": "8.1.1",
-      "@sentry/node>@opentelemetry/sdk-trace-base": "1.23.0"
+      "@storybook/nextjs>postcss-loader": "8.1.1"
     }
   },
   "browserslist": {
