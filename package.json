@@ -46,9 +46,9 @@
     "@radix-ui/react-navigation-menu": "^1.1.4",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.7",
-    "@sentry/nextjs": "^7.110.1",
-    "@sentry/opentelemetry-node": "^7.110.1",
-    "@sentry/profiling-node": "^7.110.1",
+    "@sentry/nextjs": "8.0.0-beta.1",
+    "@sentry/opentelemetry": "8.0.0-beta.1",
+    "@sentry/profiling-node": "8.0.0-beta.1",
     "@yandex/smart-captcha": "^2.6.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -116,7 +116,8 @@
   "pnpm": {
     "overrides": {
       "jsdom": "24.0.0",
-      "@storybook/nextjs>postcss-loader": "8.1.1"
+      "@storybook/nextjs>postcss-loader": "8.1.1",
+      "@sentry/node>@opentelemetry/sdk-trace-base": "1.23.0"
     }
   },
   "browserslist": {

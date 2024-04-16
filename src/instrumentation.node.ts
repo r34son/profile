@@ -1,3 +1,5 @@
+import { init } from '@sentry/nextjs';
+import { nodeProfilingIntegration } from '@sentry/profiling-node';
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { Resource } from '@opentelemetry/resources';
 import {
@@ -7,10 +9,17 @@ import {
   SEMRESATTRS_SERVICE_NAME,
 } from '@opentelemetry/semantic-conventions';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
-import {
-  SentrySpanProcessor,
-  SentryPropagator,
-} from '@sentry/opentelemetry-node';
+import { SentrySpanProcessor, SentryPropagator } from '@sentry/opentelemetry';
+import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
+
+init({
+  dsn: SENTRY_DSN,
+  debug: true,
+  tracesSampleRate: SENTRY_CAPTURE_RATE,
+  profilesSampleRate: SENTRY_CAPTURE_RATE,
+  environment: process.env.ENV,
+  integrations: [nodeProfilingIntegration()],
+});
 
 const sdk = new NodeSDK({
   resource: new Resource({

@@ -36,7 +36,7 @@ const lazyLoadSentryIntegrations = async () => {
   const { addIntegration, replayIntegration, browserTracingIntegration } =
     await import('@sentry/nextjs');
   addIntegration(replayIntegration({ maskAllText: false }));
-  addIntegration(browserTracingIntegration({ enableInp: true }));
+  addIntegration(browserTracingIntegration());
 };
 
 lazyLoadSentryIntegrations();
