@@ -2,10 +2,9 @@
 
 ## [1.4.0](https://github.com/r34son/profile/compare/v1.3.1...v1.4.0) (2024-04-16)
 
-
 ### Features
 
-* updated sentry to v8-beta ([#422](https://github.com/r34son/profile/issues/422)) ([e579d48](https://github.com/r34son/profile/commit/e579d487cc1e35657adf657e44c61c380e0c71f1))
+- updated sentry to v8-beta ([#422](https://github.com/r34son/profile/issues/422)) ([e579d48](https://github.com/r34son/profile/commit/e579d487cc1e35657adf657e44c61c380e0c71f1))
 
 ## [1.3.1](https://github.com/r34son/profile/compare/v1.3.0...v1.3.1) (2024-04-16)
 
