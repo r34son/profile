@@ -88,28 +88,27 @@ const nextConfig = {
   ],
 };
 
-export default withSentryConfig(
-  withPlugins(
-    [
-      withNextIntl(),
-      withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
-    ],
-    nextConfig,
-  ),
-  {
-    silent: true,
-    release: { create: false },
-    unstable_sentryWebpackPluginOptions: {
-      bundleSizeOptimizations: {
-        excludeDebugStatements: true,
-        excludeReplayShadowDom: true,
-        excludeReplayIframe: true,
-      },
-    },
-    widenClientFileUpload: true,
-    transpileClientSDK: false,
-    tunnelRoute: '/monitoring',
-    hideSourceMaps: true,
-    disableLogger: true,
-  },
+export default withPlugins(
+  [
+    withNextIntl(),
+    withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
+    (nextConfig) =>
+      withSentryConfig(nextConfig, {
+        silent: true,
+        release: { create: false },
+        unstable_sentryWebpackPluginOptions: {
+          bundleSizeOptimizations: {
+            excludeDebugStatements: true,
+            excludeReplayShadowDom: true,
+            excludeReplayIframe: true,
+          },
+        },
+        widenClientFileUpload: true,
+        transpileClientSDK: false,
+        tunnelRoute: '/monitoring',
+        hideSourceMaps: true,
+        disableLogger: true,
+      }),
+  ],
+  nextConfig,
 );
