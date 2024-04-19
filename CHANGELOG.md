@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.0](https://github.com/r34son/profile/compare/v1.4.0...v1.5.0) (2024-04-19)
+
+### Features
+
+- move to ssd ([#431](https://github.com/r34son/profile/issues/431)) ([ed35a31](https://github.com/r34son/profile/commit/ed35a3141c35be20d3d60744a8a384f10bd36506))
+
 ## [1.4.0](https://github.com/r34son/profile/compare/v1.3.1...v1.4.0) (2024-04-16)
 
 ### Features
