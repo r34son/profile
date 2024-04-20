@@ -48,7 +48,10 @@ jobs:
           CHROME_PATH: ${{ steps.install-chrome.outputs.chrome-path }}
 
   lhci-desktop:
-    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview'
+    if: |
+      github.actor != 'dependabot[bot]' && github.event.deployment_status.state == 'success'
+      && github.event.deployment_status.environment_url
+      && (github.event.deployment_status.environment == 'development' || github.event.deployment_status.environment == 'production')
     name: Lighthouse desktop audit
     runs-on: ubuntu-latest
     steps:
