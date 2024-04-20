@@ -3,8 +3,6 @@
 FROM node:20.12.2-slim@sha256:b797c658cbbd75ea6ebeceed7f5c01e1d4054d2f53b32906090d1648eaccf860 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-ARG ENV
-ENV ENV=$ENV
 WORKDIR /app
 
 # Install dependencies only when needed
@@ -32,6 +30,7 @@ ARG SENTRY_ORG
 ARG SENTRY_PROJECT
 ARG SENTRY_RELEASE
 ARG ASSET_PREFIX
+ARG ENV
 RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
       echo "SENTRY_AUTH_TOKEN is provided, setting environment variable"; \
       export SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"; \
@@ -44,6 +43,10 @@ RUN SENTRY_ORG=$SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT SENTRY_RELEASE=$SENTRY
 FROM base as runner
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED 1
+ARG ASSET_PREFIX
+ENV ASSET_PREFIX=$ASSET_PREFIX
+ARG ENV
+ENV ENV=$ENV
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs

@@ -102,6 +102,7 @@ export default withPlugins(
             excludeReplayShadowDom: true,
             excludeReplayIframe: true,
           },
+          release: { create: false },
         },
         widenClientFileUpload: true,
         transpileClientSDK: false,
