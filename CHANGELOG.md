@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/r34son/profile/compare/v1.6.2...v1.7.0) (2024-04-20)
+
+
+### Features
+
+* use modern images ([#439](https://github.com/r34son/profile/issues/439)) ([749a521](https://github.com/r34son/profile/commit/749a521d770aec946ff969e8cc1cc38c61f45e3e))
+
 ## [1.6.2](https://github.com/r34son/profile/compare/v1.6.1...v1.6.2) (2024-04-20)
 
 ### Bug Fixes
