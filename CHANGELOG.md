@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.0](https://github.com/r34son/profile/compare/v1.5.0...v1.6.0) (2024-04-20)
+
+### Features
+
+- huge improve docker image ([#433](https://github.com/r34son/profile/issues/433)) ([b64b96f](https://github.com/r34son/profile/commit/b64b96f78207b9545ae2c8ff8482f462cfe22b1a))
+
 ## [1.5.0](https://github.com/r34son/profile/compare/v1.4.0...v1.5.0) (2024-04-19)
 
 ### Features
