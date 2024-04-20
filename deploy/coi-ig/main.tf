@@ -172,7 +172,7 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     max_unavailable  = 0
     max_expansion    = 2
     max_creating     = 1
-    startup_duration = 120
+    startup_duration = 60
     strategy         = "proactive"
   }
   health_check {
@@ -183,7 +183,7 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
       path = local.healthcheck_path
     }
   }
-  max_checking_health_duration = 120
+  max_checking_health_duration = 60
   application_load_balancer {
     target_group_name = "alb-tg"
   }

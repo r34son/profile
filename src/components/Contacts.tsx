@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { Link } from '@/navigation';
-import linkedin from '@/assets/logos/linkedin.png';
-import telegram from '@/assets/logos/telegram.png';
-import gmail from '@/assets/logos/gmail.png';
+import linkedin from '@/assets/logos/linkedin.webp';
+import telegram from '@/assets/logos/telegram.webp';
+import gmail from '@/assets/logos/gmail.webp';
 
 export const Contacts = () => {
   return (
