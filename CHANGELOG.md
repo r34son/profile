@@ -2,10 +2,9 @@
 
 ## [1.6.2](https://github.com/r34son/profile/compare/v1.6.1...v1.6.2) (2024-04-20)
 
-
 ### Bug Fixes
 
-* add envs to base image ([#437](https://github.com/r34son/profile/issues/437)) ([47eace1](https://github.com/r34son/profile/commit/47eace111a19a0b6ac62df6e83c08fccac56ca81))
+- add envs to base image ([#437](https://github.com/r34son/profile/issues/437)) ([47eace1](https://github.com/r34son/profile/commit/47eace111a19a0b6ac62df6e83c08fccac56ca81))
 
 ## [1.6.1](https://github.com/r34son/profile/compare/v1.6.0...v1.6.1) (2024-04-20)
 
