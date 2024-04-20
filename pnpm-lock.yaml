@@ -1011,8 +1011,8 @@ packages:
   '@dual-bundle/import-meta-resolve@4.0.0':
     resolution: {integrity: sha512-ZKXyJeFAzcpKM2kk8ipoGIPUqx9BX52omTGnfwjJvxOCaZTM2wtDK7zN0aIgPRbT9XYAlha0HtmZ+XKteuh0Gw==}
 
-  '@emnapi/runtime@1.1.0':
-    resolution: {integrity: sha512-gCGlE0fJGWalfy+wbFApjhKn6uoSVvopru77IPyxNKkjkaiSx2HxDS7eOYSmo9dcMIhmmIvoxiC3N9TM1c3EaA==}
+  '@emnapi/runtime@1.1.1':
+    resolution: {integrity: sha512-3bfqkzuR1KLx57nZfjr2NLnFOobvyS0aTszaEGCGqmYMVDRaGvgIZbjGSV/MHSSmLgQ/b9JFHQ5xm5WRZYd+XQ==}
 
   '@emotion/use-insertion-effect-with-fallbacks@1.0.1':
     resolution: {integrity: sha512-jT/qyKZ9rzLErtrjGgdkMBn2OP8wl0G3sQlBb3YPryvKHsjvINUhVaPFfP+fpBcOkmrVOVEEHQFJ7nbj2TH2gw==}
@@ -9254,7 +9254,7 @@ snapshots:
 
   '@dual-bundle/import-meta-resolve@4.0.0': {}
 
-  '@emnapi/runtime@1.1.0':
+  '@emnapi/runtime@1.1.1':
     dependencies:
       tslib: 2.6.2
     optional: true
@@ -9550,7 +9550,7 @@ snapshots:
 
   '@img/sharp-wasm32@0.33.3':
     dependencies:
-      '@emnapi/runtime': 1.1.0
+      '@emnapi/runtime': 1.1.1
     optional: true
 
   '@img/sharp-win32-ia32@0.33.3':
