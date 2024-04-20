@@ -16,23 +16,6 @@ const nextConfig = {
     instrumentationHook: true,
     preloadEntriesOnStart: true,
     serverComponentsExternalPackages: ['@sentry/profiling-node'],
-    outputFileTracingExcludes: {
-      '*': [
-        'node_modules/@swc/core-darwin-arm64',
-        'node_modules/@esbuild/darwin-arm64',
-        'node_modules/@img/sharp-libvips-darwin-arm64',
-        'node_modules/@img/sharp-darwin-arm64',
-        'node_modules/caniuse-lite',
-        'node_modules/source-map-js',
-        'node_modules/jest-worker',
-        'node_modules/uglify-js',
-        'node_modules/webpack',
-        'node_modules/esbuild',
-        'node_modules/terser',
-        'node_modules/terser-webpack-plugin',
-        'node_modules/sharp',
-      ],
-    },
     optimizePackageImports: [
       '@floating-ui/core',
       '@floating-ui/utils',

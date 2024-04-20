@@ -29,7 +29,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     corepack enable pnpm && pnpm install --frozen-lockfile
 
 FROM base AS builder
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates  \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=deps /app/node_modules ./node_modules
@@ -68,4 +68,5 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD HOSTNAME="0.0.0.0" node server.js
+# https://nodejs.org/api/cli.html#cli_max_old_space_size_size_in_megabytes
+CMD HOSTNAME="0.0.0.0" node --max-old-space-size=1536 server.js
