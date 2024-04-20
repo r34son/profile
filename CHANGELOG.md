@@ -2,10 +2,9 @@
 
 ## [1.7.1](https://github.com/r34son/profile/compare/v1.7.0...v1.7.1) (2024-04-20)
 
-
 ### Bug Fixes
 
-* remove incorrect excludes ([#441](https://github.com/r34son/profile/issues/441)) ([97940f7](https://github.com/r34son/profile/commit/97940f73a007eb0b16345c50bc67fe756a56df16))
+- remove incorrect excludes ([#441](https://github.com/r34son/profile/issues/441)) ([97940f7](https://github.com/r34son/profile/commit/97940f73a007eb0b16345c50bc67fe756a56df16))
 
 ## [1.7.0](https://github.com/r34son/profile/compare/v1.6.2...v1.7.0) (2024-04-20)
 
