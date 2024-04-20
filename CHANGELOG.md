@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/r34son/profile/compare/v1.6.0...v1.6.1) (2024-04-20)
+
+
+### Bug Fixes
+
+* missing env at runtime ([#435](https://github.com/r34son/profile/issues/435)) ([1c840b8](https://github.com/r34son/profile/commit/1c840b864c52bf6292f27fc3ccb4af60d7e92f9b))
+
 ## [1.6.0](https://github.com/r34son/profile/compare/v1.5.0...v1.6.0) (2024-04-20)
 
 ### Features
