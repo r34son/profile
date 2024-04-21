@@ -2,10 +2,9 @@
 
 ## [1.10.0](https://github.com/r34son/profile/compare/v1.9.0...v1.10.0) (2024-04-21)
 
-
 ### Features
 
-* use node alpine image ([#451](https://github.com/r34son/profile/issues/451)) ([ea6c9c1](https://github.com/r34son/profile/commit/ea6c9c1e5ec3f2b460b0600b3f615f7859342d77))
+- use node alpine image ([#451](https://github.com/r34son/profile/issues/451)) ([ea6c9c1](https://github.com/r34son/profile/commit/ea6c9c1e5ec3f2b460b0600b3f615f7859342d77))
 
 ## [1.9.0](https://github.com/r34son/profile/compare/v1.8.2...v1.9.0) (2024-04-21)
 
