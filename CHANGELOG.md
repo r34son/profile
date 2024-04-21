@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.2](https://github.com/r34son/profile/compare/v1.8.1...v1.8.2) (2024-04-21)
+
+
+### Bug Fixes
+
+* typo in asset prefix ([#447](https://github.com/r34son/profile/issues/447)) ([445a7d4](https://github.com/r34son/profile/commit/445a7d4d3a58d125f8f33f3027594af22b647f7a))
+
 ## [1.8.1](https://github.com/r34son/profile/compare/v1.8.0...v1.8.1) (2024-04-21)
 
 ### Bug Fixes
