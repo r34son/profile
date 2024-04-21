@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:20.12.2-slim@sha256:b797c658cbbd75ea6ebeceed7f5c01e1d4054d2f53b32906090d1648eaccf860 AS base
+FROM node:20.12.2-alpine@sha256:ec0c413b1d84f3f7f67ec986ba885930c57b5318d2eb3abc6960ee05d4f2eb28 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV NEXT_TELEMETRY_DISABLED 1
@@ -18,6 +18,8 @@ WORKDIR /app
 
 # Install dependencies only when needed
 FROM base AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
 COPY package.json pnpm-lock.yaml ./
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /pnpm/store to speed up subsequent builds.
@@ -29,11 +31,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     corepack enable pnpm && pnpm install --frozen-lockfile
 
 FROM base AS builder
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
-    curl \
-    unzip \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache ca-certificates curl unzip 
 COPY --from=deps /app/node_modules ./node_modules
 RUN corepack enable pnpm
 COPY . .
