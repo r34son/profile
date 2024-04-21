@@ -95,4 +95,4 @@ jobs:
             SENTRY_ORG=${{ secrets.SENTRY_ORG }}
             SENTRY_PROJECT=${{ secrets.SENTRY_PROJECT }}
             SENTRY_RELEASE=${{ steps.sentry-release.outputs.version }}
-            ASSET_PREFIX=https://${{ env.awsEndpoint }}/${{ secrets.AWS_S3_BUCKET }}/${{ env.s3Path }}
+            ASSET_PREFIX=${{ env.awsEndpoint }}/${{ secrets.AWS_S3_BUCKET }}/${{ env.s3Path }}
