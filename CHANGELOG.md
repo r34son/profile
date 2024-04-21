@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.3](https://github.com/r34son/profile/compare/v1.10.2...v1.10.3) (2024-04-21)
+
+
+### Bug Fixes
+
+* install python to build aws cli from source ([#458](https://github.com/r34son/profile/issues/458)) ([641bd3a](https://github.com/r34son/profile/commit/641bd3a719fda9677e798db5907b5845b8dd31bd))
+
 ## [1.10.2](https://github.com/r34son/profile/compare/v1.10.1...v1.10.2) (2024-04-21)
 
 ### Bug Fixes
