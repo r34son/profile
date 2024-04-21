@@ -30,7 +30,9 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 FROM base AS builder
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates  \
+    ca-certificates \
+    curl \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=deps /app/node_modules ./node_modules
 RUN corepack enable pnpm
@@ -45,9 +47,9 @@ RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
     fi
 RUN NEXT_PUBLIC_ENV=$ENV pnpm run build
 
-FROM amazon/aws-cli:2.15.40@sha256:e6e010ea349ec624a9f5c4dad2c87a3791b582ff12e2b2da3c5ebbd2349ac560 as upload-static
-
-COPY --from=builder /app/.next/static ./.next/static
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+RUN ./aws/install
 
 ARG AWS_ACCESS_KEY_ID
 ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
@@ -60,7 +62,7 @@ ENV AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL
 ARG AWS_DEFAULT_REGION
 ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
-RUN s3 sync .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
+RUN aws s3 sync .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
 
 FROM base as runner
 ENV NODE_ENV=production
