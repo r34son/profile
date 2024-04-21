@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/r34son/profile/compare/v1.8.0...v1.8.1) (2024-04-21)
+
+
+### Bug Fixes
+
+* docker aws inline ([#445](https://github.com/r34son/profile/issues/445)) ([a38663e](https://github.com/r34son/profile/commit/a38663eda10a0755cdbb263dbdcef382e2218774))
+
 ## [1.8.0](https://github.com/r34son/profile/compare/v1.7.1...v1.8.0) (2024-04-21)
 
 ### Features
