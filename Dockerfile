@@ -31,7 +31,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     corepack enable pnpm && pnpm install --frozen-lockfile
 
 FROM base AS builder
-RUN apk add --no-cache ca-certificates curl unzip 
+RUN apk add --no-cache ca-certificates
 COPY --from=deps /app/node_modules ./node_modules
 RUN corepack enable pnpm
 COPY . .
@@ -45,9 +45,21 @@ RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
     fi
 RUN NEXT_PUBLIC_ENV=$ENV pnpm run build
 
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-RUN unzip -q awscliv2.zip
-RUN ./aws/install
+ENV GLIBC_VER=2.31-r0
+
+# install glibc compatibility for alpine https://github.com/aws/aws-cli/issues/4685#issuecomment-615872019
+RUN apk --no-cache add \
+        binutils \
+        curl \
+    && curl -sL https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub -o /etc/apk/keys/sgerrand.rsa.pub \
+    && curl -sLO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VER}/glibc-${GLIBC_VER}.apk \
+    && curl -sLO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VER}/glibc-bin-${GLIBC_VER}.apk \
+    && apk add --no-cache \
+        glibc-${GLIBC_VER}.apk \
+        glibc-bin-${GLIBC_VER}.apk \
+    && curl -sL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
+    && unzip awscliv2.zip \
+    && aws/install
 
 ARG AWS_ACCESS_KEY_ID
 ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
