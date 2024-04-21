@@ -6,7 +6,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 ENV NEXT_TELEMETRY_DISABLED 1
 ARG ASSET_PREFIX
 ENV ASSET_PREFIX=$ASSET_PREFIX
-ARG ENV
+ARG ENV=development
 ENV ENV=$ENV
 ARG SENTRY_ORG
 ENV SENTRY_ORG=$SENTRY_ORG
@@ -48,7 +48,7 @@ RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
 RUN NEXT_PUBLIC_ENV=$ENV pnpm run build
 
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-RUN unzip awscliv2.zip
+RUN unzip -q awscliv2.zip
 RUN ./aws/install
 
 ARG AWS_ACCESS_KEY_ID
@@ -62,7 +62,7 @@ ENV AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL
 ARG AWS_DEFAULT_REGION
 ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
-RUN aws s3 sync .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
+RUN aws s3 cp --recursive .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
 
 FROM base as runner
 ENV NODE_ENV=production
