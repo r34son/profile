@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.2](https://github.com/r34son/profile/compare/v1.10.1...v1.10.2) (2024-04-21)
+
+
+### Bug Fixes
+
+* install aws cli from source ([#456](https://github.com/r34son/profile/issues/456)) ([af1826e](https://github.com/r34son/profile/commit/af1826e71d8024028a170e4878d88843d9658bb6))
+
 ## [1.10.1](https://github.com/r34son/profile/compare/v1.10.0...v1.10.1) (2024-04-21)
 
 ### Bug Fixes
