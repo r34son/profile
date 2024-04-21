@@ -10,7 +10,6 @@ const nextConfig = {
   assetPrefix: process.env.ASSET_PREFIX,
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
-  generateBuildId: () => process.env.SENTRY_RELEASE ?? null,
   experimental: {
     swcMinify: true,
     webpackBuildWorker: true,
