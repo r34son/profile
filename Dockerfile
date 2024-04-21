@@ -58,6 +58,7 @@ RUN apk add --no-cache \
     libc-dev \
     libffi-dev \
     openssl-dev \
+    python3-dev \
     && curl https://awscli.amazonaws.com/awscli-${AWSCLI_VERSION}.tar.gz | tar -xz \
     && cd awscli-${AWSCLI_VERSION} \
     && ./configure --prefix=/opt/aws-cli/ --with-download-deps \
@@ -75,7 +76,7 @@ ENV AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL
 ARG AWS_DEFAULT_REGION
 ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
-RUN aws s3 cp --recursive .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
+RUN /opt/aws-cli/bin/aws s3 cp --recursive .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
 
 FROM base as runner
 ENV NODE_ENV=production
