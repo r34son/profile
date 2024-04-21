@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/r34son/profile/compare/v1.8.2...v1.9.0) (2024-04-21)
+
+
+### Features
+
+* added next buildId ([#449](https://github.com/r34son/profile/issues/449)) ([dc3c4dc](https://github.com/r34son/profile/commit/dc3c4dcb89ff6e7d10d699256713f8186da4fceb))
+
 ## [1.8.2](https://github.com/r34son/profile/compare/v1.8.1...v1.8.2) (2024-04-21)
 
 ### Bug Fixes
