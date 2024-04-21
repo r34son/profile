@@ -45,13 +45,28 @@ RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
     fi
 RUN NEXT_PUBLIC_ENV=$ENV pnpm run build
 
+FROM amazon/aws-cli:2.15.40@sha256:e6e010ea349ec624a9f5c4dad2c87a3791b582ff12e2b2da3c5ebbd2349ac560 as upload-static
+
+COPY --from=builder /app/.next/static ./.next/static
+
+ARG AWS_ACCESS_KEY_ID
+ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+ARG AWS_S3_BUCKET
+ARG AWS_S3_PATH
+ARG AWS_ENDPOINT_URL
+ENV AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL
+ARG AWS_DEFAULT_REGION
+ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+
+RUN s3 sync .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
+
 FROM base as runner
 ENV NODE_ENV=production
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
-
-# COPY --from=builder /app/public ./public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
@@ -60,7 +75,6 @@ RUN chown nextjs:nodejs .next
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
