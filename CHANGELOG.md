@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.0](https://github.com/r34son/profile/compare/v1.7.1...v1.8.0) (2024-04-21)
+
+### Features
+
+- slimmer docker image ([#443](https://github.com/r34son/profile/issues/443)) ([ecf11c7](https://github.com/r34son/profile/commit/ecf11c7cfcd84b719e267a8a17064f8c54b28b08))
+
 ## [1.7.1](https://github.com/r34son/profile/compare/v1.7.0...v1.7.1) (2024-04-20)
 
 ### Bug Fixes
