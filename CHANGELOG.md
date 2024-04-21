@@ -2,10 +2,9 @@
 
 ## [1.10.1](https://github.com/r34son/profile/compare/v1.10.0...v1.10.1) (2024-04-21)
 
-
 ### Bug Fixes
 
-* added glibc for aws cli ([#454](https://github.com/r34son/profile/issues/454)) ([9047d7a](https://github.com/r34son/profile/commit/9047d7adec3b43ff2fa565f44179c1da17703949))
+- added glibc for aws cli ([#454](https://github.com/r34son/profile/issues/454)) ([9047d7a](https://github.com/r34son/profile/commit/9047d7adec3b43ff2fa565f44179c1da17703949))
 
 ## [1.10.0](https://github.com/r34son/profile/compare/v1.9.0...v1.10.0) (2024-04-21)
 
