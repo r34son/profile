@@ -45,21 +45,24 @@ RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
     fi
 RUN NEXT_PUBLIC_ENV=$ENV pnpm run build
 
-ENV GLIBC_VER=2.31-r0
+# https://github.com/aws/aws-cli/issues/4685#issuecomment-1448812387
+# https://docs.aws.amazon.com/cli/latest/userguide/getting-started-source-install.html#source-getting-started-install-workflows
+ENV AWSCLI_VERSION=2.15.40
 
-# install glibc compatibility for alpine https://github.com/aws/aws-cli/issues/4685#issuecomment-615872019
-RUN apk --no-cache add \
-        binutils \
-        curl \
-    && curl -sL https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub -o /etc/apk/keys/sgerrand.rsa.pub \
-    && curl -sLO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VER}/glibc-${GLIBC_VER}.apk \
-    && curl -sLO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VER}/glibc-bin-${GLIBC_VER}.apk \
-    && apk add --no-cache \
-        glibc-${GLIBC_VER}.apk \
-        glibc-bin-${GLIBC_VER}.apk \
-    && curl -sL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
-    && unzip awscliv2.zip \
-    && aws/install
+RUN apk add --no-cache \
+    curl \
+    make \
+    cmake \
+    gcc \
+    g++ \
+    libc-dev \
+    libffi-dev \
+    openssl-dev \
+    && curl https://awscli.amazonaws.com/awscli-${AWSCLI_VERSION}.tar.gz | tar -xz \
+    && cd awscli-${AWSCLI_VERSION} \
+    && ./configure --prefix=/opt/aws-cli/ --with-download-deps \
+    && make \
+    && make install
 
 ARG AWS_ACCESS_KEY_ID
 ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
