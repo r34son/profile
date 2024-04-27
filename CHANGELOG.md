@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.1](https://github.com/r34son/profile/compare/v1.11.0...v1.11.1) (2024-04-27)
+
+
+### Bug Fixes
+
+* update to latest canary to fix using node api on edge ([#472](https://github.com/r34son/profile/issues/472)) ([82be886](https://github.com/r34son/profile/commit/82be8861ccdd4c60a005115b519e1ac14d05e654))
+
 ## [1.11.0](https://github.com/r34son/profile/compare/v1.10.3...v1.11.0) (2024-04-27)
 
 ### Features
