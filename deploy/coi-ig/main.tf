@@ -2,6 +2,7 @@ locals {
   app_port         = 3000
   healthcheck_path = "/api/health"
   url              = "https://${var.domain}"
+  s3_origin        = "${var.s3_bucket}.storage.yandexcloud.net"
 }
 
 # Создание сервисного аккаунта для группы ВМ
@@ -292,33 +293,33 @@ resource "yandex_alb_load_balancer" "alb" {
 
 # https://cloud.yandex.ru/ru/docs/cdn/operations/resources/create-resource
 # https://cloud.yandex.ru/ru/docs/cdn/tutorials/cdn-storage-integration
-# resource "yandex_cdn_origin_group" "cdn_origin_group" {
-#   name     = "cdn_origin_group"
-#   use_next = true
+resource "yandex_cdn_origin_group" "cdn_origin_group" {
+  name     = "cdn_origin_group"
+  use_next = false
 
-#   origin {
-#     source = "${yandex_alb_load_balancer.alb.listener[0].endpoint[0].address[0].external_ipv4_address[0].address}:80"
-#     backup = false
-#   }
-# }
+  origin {
+    source = local.s3_origin
+    backup = false
+  }
+}
 
-# resource "yandex_cdn_resource" "my_resource" {
-#   cname           = "cdn.yandexcloud.example"
-#   active          = true
-#   origin_protocol = "http"
-#   origin_group_id = yandex_cdn_origin_group.cdn_origin_group.id
-#   ssl_certificate {
-#     type                   = "certificate_manager"
-#     certificate_manager_id = "<идентификатор_сертификата>"
-#   }
-#   options {
-#     edge_cache_settings    = "345600"
-#     browser_cache_settings = "1800"
-#     ignore_cookie          = true
-#     ignore_query_params    = false
-#   }
-
-# }
+resource "yandex_cdn_resource" "cdn_resource" {
+  cname           = "cdn.${var.domain}"
+  active          = true
+  origin_protocol = "https"
+  origin_group_id = yandex_cdn_origin_group.cdn_origin_group.id
+  ssl_certificate {
+    type                   = "certificate_manager"
+    certificate_manager_id = data.yandex_cm_certificate.cm_certificate.id
+  }
+  options {
+    redirect_http_to_https = true
+    gzip_on                = true
+    edge_cache_settings    = "345600"
+    browser_cache_settings = "1800"
+    custom_host_header     = local.s3_origin
+  }
+}
 
 # TLS-сертификат сайта
 resource "yandex_cm_certificate" "cm_certificate" {
@@ -339,13 +340,13 @@ resource "yandex_dns_zone" "alb-zone" {
   public      = true
 }
 
-# Создание ресурсной записи в DNS-зоне
+# Создание ресурсных записей в DNS-зоне
 resource "yandex_dns_recordset" "alb-record" {
   zone_id = yandex_dns_zone.alb-zone.id
   name    = "${var.domain}."
-  ttl     = 600
   type    = "A"
   data    = [yandex_alb_load_balancer.alb.listener[0].endpoint[0].address[0].external_ipv4_address[0].address]
+  ttl     = 600
 }
 
 resource "yandex_dns_recordset" "challenge" {
@@ -354,6 +355,14 @@ resource "yandex_dns_recordset" "challenge" {
   name    = yandex_cm_certificate.cm_certificate.challenges[count.index].dns_name
   type    = yandex_cm_certificate.cm_certificate.challenges[count.index].dns_type
   data    = [yandex_cm_certificate.cm_certificate.challenges[count.index].dns_value]
+  ttl     = 600
+}
+
+resource "yandex_dns_recordset" "cdn-record" {
+  zone_id = yandex_dns_zone.alb-zone.id
+  name    = "${yandex_cdn_resource.cdn_resource.cname}."
+  type    = "CNAME"
+  data    = [yandex_cdn_resource.cdn_resource.provider_cname]
   ttl     = 600
 }
 

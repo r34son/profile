@@ -65,9 +65,6 @@ build-storybook.log
 
 # Terraform
 
-# Terraform lockfile
-.terraform.lock.hcl
-
 # Local .terraform directories
 **/.terraform/*
 
