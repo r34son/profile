@@ -2,10 +2,9 @@
 
 ## [1.11.0](https://github.com/r34son/profile/compare/v1.10.3...v1.11.0) (2024-04-27)
 
-
 ### Features
 
-* added cdn ([#470](https://github.com/r34son/profile/issues/470)) ([265fb53](https://github.com/r34son/profile/commit/265fb53096ab4d34b3baa1f2426499f3f2036368))
+- added cdn ([#470](https://github.com/r34son/profile/issues/470)) ([265fb53](https://github.com/r34son/profile/commit/265fb53096ab4d34b3baa1f2426499f3f2036368))
 
 ## [1.10.3](https://github.com/r34son/profile/compare/v1.10.2...v1.10.3) (2024-04-21)
 
