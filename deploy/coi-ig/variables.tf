@@ -24,3 +24,7 @@ variable "ssh_key" {
 variable "domain" {
   type = string
 }
+
+variable "s3_bucket" {
+  type = string
+}
