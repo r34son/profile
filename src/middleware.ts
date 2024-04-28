@@ -89,6 +89,8 @@ export default function middleware(request: NextRequest) {
     `{"group":"csp-endpoint","max_age":10886400,"endpoints":[{"url":"${reportEndpoint}"}],"include_subdomains":true}`,
   );
 
+  response.headers.append('Link', `<${reportEndpoint}>; rel=dns-prefetch`);
+
   return response;
 }
 
