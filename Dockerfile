@@ -45,25 +45,11 @@ RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
     fi
 RUN NEXT_PUBLIC_ENV=$ENV pnpm run build
 
-# https://github.com/aws/aws-cli/issues/4685#issuecomment-1448812387
-# https://docs.aws.amazon.com/cli/latest/userguide/getting-started-source-install.html#source-getting-started-install-workflows
-ENV AWSCLI_VERSION=2.15.40
 
-RUN apk add --no-cache \
-    curl \
-    make \
-    cmake \
-    gcc \
-    g++ \
-    libc-dev \
-    libffi-dev \
-    openssl-dev \
-    python3-dev \
-    && curl https://awscli.amazonaws.com/awscli-${AWSCLI_VERSION}.tar.gz | tar -xz \
-    && cd awscli-${AWSCLI_VERSION} \
-    && ./configure --prefix=/opt/aws-cli/ --with-download-deps \
-    && make \
-    && make install
+FROM amazon/aws-cli:2.15.40@sha256:e6e010ea349ec624a9f5c4dad2c87a3791b582ff12e2b2da3c5ebbd2349ac560 as upload-static
+
+COPY --from=builder /app/.next/static ./.next/static
+RUN touch /dummy.txt
 
 ARG AWS_ACCESS_KEY_ID
 ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
@@ -76,7 +62,7 @@ ENV AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL
 ARG AWS_DEFAULT_REGION
 ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
-RUN /opt/aws-cli/bin/aws s3 cp --recursive .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
+RUN aws s3 cp --recursive .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
 
 FROM base as runner
 ENV NODE_ENV=production
@@ -91,6 +77,8 @@ RUN chown nextjs:nodejs .next
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+# hack for buildkit, because it skips unreferenced stages during image build
+COPY --from=upload-static --chown=nextjs:nodejs /dummy.txt /dev/null
 
 USER nextjs
 
