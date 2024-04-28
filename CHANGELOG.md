@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.12.0](https://github.com/r34son/profile/compare/v1.11.1...v1.12.0) (2024-04-28)
+
+### Features
+
+- added few preconnects ([#474](https://github.com/r34son/profile/issues/474)) ([4bc46c3](https://github.com/r34son/profile/commit/4bc46c394feb43ae7772d7872f502e8c2b897f23))
+
 ## [1.11.1](https://github.com/r34son/profile/compare/v1.11.0...v1.11.1) (2024-04-27)
 
 ### Bug Fixes
