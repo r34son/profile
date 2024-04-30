@@ -36,12 +36,6 @@ const nextConfig = {
       'tailwindcss',
     ],
   },
-  webpack: (config, { isServer }) => {
-    // https://github.com/open-telemetry/opentelemetry-js/issues/4173#issuecomment-1822938936
-    if (isServer) config.ignoreWarnings = [{ module: /@opentelemetry\// }];
-
-    return config;
-  },
   headers: async () => [
     {
       source: '/:path*',
