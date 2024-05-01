@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/r34son/profile/compare/v1.12.0...v1.13.0) (2024-05-01)
+
+
+### Features
+
+* use package instead of image for aws-cli ([#480](https://github.com/r34son/profile/issues/480)) ([871581e](https://github.com/r34son/profile/commit/871581e4e3765c72ce92a77b735950614e8b19f2))
+
 ## [1.12.0](https://github.com/r34son/profile/compare/v1.11.1...v1.12.0) (2024-04-28)
 
 ### Features
