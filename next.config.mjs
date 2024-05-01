@@ -10,7 +10,9 @@ const nextConfig = {
   assetPrefix: process.env.ASSET_PREFIX,
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
+  compress: false,
   experimental: {
+    ppr: true,
     swcMinify: true,
     webpackBuildWorker: true,
     instrumentationHook: true,
