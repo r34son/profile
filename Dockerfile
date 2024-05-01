@@ -31,7 +31,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     corepack enable pnpm && pnpm install --frozen-lockfile
 
 FROM base AS builder
-RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache ca-certificates aws-cli
 COPY --from=deps /app/node_modules ./node_modules
 RUN corepack enable pnpm
 COPY . .
@@ -44,12 +44,6 @@ RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
       echo "SENTRY_AUTH_TOKEN is not provided, skipping environment variable"; \
     fi
 RUN NEXT_PUBLIC_ENV=$ENV pnpm run build
-
-
-FROM amazon/aws-cli:2.15.40@sha256:e6e010ea349ec624a9f5c4dad2c87a3791b582ff12e2b2da3c5ebbd2349ac560 as upload-static
-
-COPY --from=builder /app/.next/static ./.next/static
-RUN touch /dummy.txt
 
 ARG AWS_ACCESS_KEY_ID
 ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
@@ -77,8 +71,6 @@ RUN chown nextjs:nodejs .next
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-# hack for buildkit, because it skips unreferenced stages during image build
-COPY --from=upload-static --chown=nextjs:nodejs /dummy.txt /dev/null
 
 USER nextjs
 
