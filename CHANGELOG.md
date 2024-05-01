@@ -2,10 +2,9 @@
 
 ## [1.14.0](https://github.com/r34son/profile/compare/v1.13.0...v1.14.0) (2024-05-01)
 
-
 ### Features
 
-* disable compression ([#482](https://github.com/r34son/profile/issues/482)) ([973e9de](https://github.com/r34son/profile/commit/973e9de8ffe1770679b06a81c846626a72b457ef))
+- disable compression ([#482](https://github.com/r34son/profile/issues/482)) ([973e9de](https://github.com/r34son/profile/commit/973e9de8ffe1770679b06a81c846626a72b457ef))
 
 ## [1.13.0](https://github.com/r34son/profile/compare/v1.12.0...v1.13.0) (2024-05-01)
 
