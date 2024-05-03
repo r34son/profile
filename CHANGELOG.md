@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.15.0](https://github.com/r34son/profile/compare/v1.14.0...v1.15.0) (2024-05-03)
+
+### Features
+
+- use recommended sentry setup ([#485](https://github.com/r34son/profile/issues/485)) ([97dc20a](https://github.com/r34son/profile/commit/97dc20a55473f33b8222e68431fee4a6fa0e4b01))
+
 ## [1.14.0](https://github.com/r34son/profile/compare/v1.13.0...v1.14.0) (2024-05-01)
 
 ### Features
