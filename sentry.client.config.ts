@@ -14,7 +14,6 @@ import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
 
 const client = new BrowserClient({
   dsn: SENTRY_DSN,
-  debug: true,
   tracesSampleRate: SENTRY_CAPTURE_RATE,
   profilesSampleRate: SENTRY_CAPTURE_RATE,
   replaysOnErrorSampleRate: 1,
@@ -23,16 +22,17 @@ const client = new BrowserClient({
   stackParser: defaultStackParser,
   environment: process.env.NEXT_PUBLIC_ENV,
   integrations: [
-    breadcrumbsIntegration(),
-    globalHandlersIntegration(),
-    linkedErrorsIntegration(),
     dedupeIntegration(),
+    breadcrumbsIntegration(),
+    linkedErrorsIntegration(),
+    globalHandlersIntegration(),
     browserTracingIntegration(),
     browserProfilingIntegration(),
   ],
 });
 
 setCurrentClient(client);
+client.init();
 
 const lazyLoadSentryIntegrations = async () => {
   const { addIntegration, replayIntegration } = await import('@sentry/nextjs');
