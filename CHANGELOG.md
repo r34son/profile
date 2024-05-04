@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.1](https://github.com/r34son/profile/compare/v1.16.0...v1.16.1) (2024-05-04)
+
+
+### Bug Fixes
+
+* init sentry client sdk ([#489](https://github.com/r34son/profile/issues/489)) ([36eba80](https://github.com/r34son/profile/commit/36eba80f9101f1b9c51c4fb23fd7696f70b16ff9))
+
 ## [1.16.0](https://github.com/r34son/profile/compare/v1.15.0...v1.16.0) (2024-05-04)
 
 ### Features
