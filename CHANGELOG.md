@@ -2,10 +2,9 @@
 
 ## [1.16.0](https://github.com/r34son/profile/compare/v1.15.0...v1.16.0) (2024-05-04)
 
-
 ### Features
 
-* init tracing immediately ([#487](https://github.com/r34son/profile/issues/487)) ([03205e4](https://github.com/r34son/profile/commit/03205e477dc80bfefdb60f47685c6fe050898482))
+- init tracing immediately ([#487](https://github.com/r34son/profile/issues/487)) ([03205e4](https://github.com/r34son/profile/commit/03205e477dc80bfefdb60f47685c6fe050898482))
 
 ## [1.15.0](https://github.com/r34son/profile/compare/v1.14.0...v1.15.0) (2024-05-03)
 
