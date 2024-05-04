@@ -6,6 +6,7 @@ import {
   globalHandlersIntegration,
   makeFetchTransport,
   linkedErrorsIntegration,
+  browserTracingIntegration,
   browserProfilingIntegration,
   setCurrentClient,
 } from '@sentry/nextjs';
@@ -26,6 +27,7 @@ const client = new BrowserClient({
     globalHandlersIntegration(),
     linkedErrorsIntegration(),
     dedupeIntegration(),
+    browserTracingIntegration(),
     browserProfilingIntegration(),
   ],
 });
@@ -33,10 +35,8 @@ const client = new BrowserClient({
 setCurrentClient(client);
 
 const lazyLoadSentryIntegrations = async () => {
-  const { addIntegration, replayIntegration, browserTracingIntegration } =
-    await import('@sentry/nextjs');
+  const { addIntegration, replayIntegration } = await import('@sentry/nextjs');
   addIntegration(replayIntegration({ maskAllText: false }));
-  addIntegration(browserTracingIntegration());
 };
 
 lazyLoadSentryIntegrations();
