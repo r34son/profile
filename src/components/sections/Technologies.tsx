@@ -1,6 +1,6 @@
 'use client';
 
-import { useTheme } from 'next-themes';
+import Image from 'next/image';
 import {
   Carousel,
   CarouselContent,
@@ -13,8 +13,6 @@ interface TechnologiesProps {
 }
 
 export const Technologies = ({ title }: TechnologiesProps) => {
-  const { theme } = useTheme();
-
   return (
     <section id="technologies" className="py-4">
       <h2 className="mb-8 max-w-none text-center text-xl">{title}</h2>
@@ -24,16 +22,12 @@ export const Technologies = ({ title }: TechnologiesProps) => {
         plugins={[Autoplay({ delay: 1200 })]}
       >
         <CarouselContent className="-ml-1">
-          {logoClassnames.map((className, index) => (
+          {logos.map((logoSrc, index) => (
             <CarouselItem
               key={index}
               className="flex pl-1 md:basis-1/2 lg:basis-1/3"
             >
-              <i
-                className={`m-auto text-8xl ${className} ${
-                  theme === 'dark' ? 'colored' : ''
-                }`}
-              />
+              <Image src={logoSrc} width={96} height={96} alt="" />
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -42,25 +36,27 @@ export const Technologies = ({ title }: TechnologiesProps) => {
   );
 };
 
-const logoClassnames = [
-  'devicon-bash-plain',
-  'devicon-nodejs-plain-wordmark',
-  'devicon-nextjs-original-wordmark',
-  'devicon-react-original-wordmark',
-  'devicon-javascript-plain',
-  'devicon-typescript-plain',
-  'devicon-redux-original',
-  'devicon-tailwindcss-original-wordmark',
-  'devicon-webpack-plain-wordmark',
-  'devicon-babel-plain',
-  'devicon-npm-original-wordmark',
-  'devicon-vscode-plain-wordmark',
-  'devicon-storybook-plain-wordmark',
-  'devicon-jest-plain',
-  'devicon-eslint-original-wordmark',
-  'devicon-materialui-plain',
-  'devicon-chrome-plain-wordmark',
-  'devicon-figma-plain',
-  'devicon-github-original-wordmark',
-  'devicon-docker-plain-wordmark',
+const logos = [
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redux/redux-original.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sentry/sentry-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/webpack/webpack-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/npm/npm-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pnpm/pnpm-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/storybook/storybook-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jest/jest-plain.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eslint/eslint-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/materialui/materialui-original.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/chrome/chrome-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original-wordmark.svg',
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original-wordmark.svg',
 ];

@@ -60,7 +60,7 @@ export default function middleware(request: NextRequest) {
       process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
     };
     style-src 'self' ${assetPrefix} 'unsafe-inline';
-    img-src 'self' blob: data: ${assetPrefix} ${mcDomains};
+    img-src 'self' blob: data: ${assetPrefix} ${mcDomains} https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/;
     connect-src 'self' ${mcDomains} *.sentry.io;
     child-src blob: ${mcDomains};
     frame-src blob: ${mcDomains};
