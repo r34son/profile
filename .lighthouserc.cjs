@@ -18,10 +18,6 @@ module.exports = {
         // TODO:
         'unused-javascript': 'off',
         'total-byte-weight': 'off',
-        'content-width': 'off',
-
-        // App router doesn`t have way to inline critical css
-        'render-blocking-resources': 'off',
 
         // Because of YM script
         deprecations: 'off',
