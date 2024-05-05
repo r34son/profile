@@ -2,10 +2,9 @@
 
 ## [1.17.0](https://github.com/r34son/profile/compare/v1.16.1...v1.17.0) (2024-05-05)
 
-
 ### Features
 
-* enable compression back and try http2 ([#491](https://github.com/r34son/profile/issues/491)) ([6a49ce4](https://github.com/r34son/profile/commit/6a49ce481ec9377823b7f0e7c3d39fd98c1ca3d3))
+- enable compression back and try http2 ([#491](https://github.com/r34son/profile/issues/491)) ([6a49ce4](https://github.com/r34son/profile/commit/6a49ce481ec9377823b7f0e7c3d39fd98c1ca3d3))
 
 ## [1.16.1](https://github.com/r34son/profile/compare/v1.16.0...v1.16.1) (2024-05-04)
 
