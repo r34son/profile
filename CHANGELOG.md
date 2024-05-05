@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.1](https://github.com/r34son/profile/compare/v1.17.0...v1.17.1) (2024-05-05)
+
+
+### Bug Fixes
+
+* disable lh pwa assertions ([#493](https://github.com/r34son/profile/issues/493)) ([ec75857](https://github.com/r34son/profile/commit/ec758571d2d33a1f5b8a67cf8a9eaeeef3e620e8))
+
 ## [1.17.0](https://github.com/r34son/profile/compare/v1.16.1...v1.17.0) (2024-05-05)
 
 ### Features
