@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.18.0](https://github.com/r34son/profile/compare/v1.17.1...v1.18.0) (2024-05-05)
+
+
+### Features
+
+* simplify carousel ([#495](https://github.com/r34son/profile/issues/495)) ([a199474](https://github.com/r34son/profile/commit/a199474e444bfb06a25f073fccafa988388aca62))
+
 ## [1.17.1](https://github.com/r34son/profile/compare/v1.17.0...v1.17.1) (2024-05-05)
 
 ### Bug Fixes
