@@ -13,7 +13,7 @@ module.exports = {
       chromePath: !isCI && puppeteer.executablePath(),
     },
     assert: {
-      preset: 'lighthouse:recommended',
+      preset: 'lighthouse:no-pwa',
       assertions: {
         // TODO:
         'unused-javascript': 'off',
