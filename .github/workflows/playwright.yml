@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.43.1-jammy
+      image: mcr.microsoft.com/playwright:v1.44.0-jammy@sha256:3ecb3e59e59c546181f530a710c497d027228ac55f5b0f313618a18f9cfd8edc
     if: |
       github.actor != 'dependabot[bot]' && github.event.deployment_status.state == 'success'
       && github.event.deployment_status.environment_url
