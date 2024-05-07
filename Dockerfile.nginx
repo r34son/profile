@@ -1,4 +1,4 @@
-FROM nginx:latest@sha256:ed6d2c43c8fbcd3eaa44c9dab6d94cb346234476230dc1681227aa72d07181ee
+FROM nginx:latest@sha256:32e76d4f34f80e479964a0fbd4c5b4f6967b5322c8d004e9cf0cb81c93510766
 
 # Install openssl for generating SSL/TLS certificates
 RUN apt-get update && apt-get install -y openssl
