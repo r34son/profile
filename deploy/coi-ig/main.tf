@@ -26,6 +26,22 @@ resource "yandex_resourcemanager_folder_iam_member" "vm-autoscale-sa-role-comput
   ]
 }
 
+resource "yandex_iam_service_account" "monitoring-sa" {
+  name        = "monitoring-sa"
+  description = "Сервисный аккаунт для управления мониторингом."
+}
+
+resource "yandex_resourcemanager_folder_iam_member" "monitoring-editor" {
+  folder_id = var.folder_id
+  role      = "monitoring.editor"
+  member    = "serviceAccount:${yandex_iam_service_account.monitoring-sa.id}"
+}
+
+resource "yandex_iam_service_account_api_key" "monitoring-sa-api-key" {
+  service_account_id = yandex_iam_service_account.monitoring-sa.id
+  description        = "Ключ для записи метрик в Yandex Managed Service for Prometheus®"
+}
+
 # Создание облачной сети
 resource "yandex_vpc_network" "network" {
   name = "vm-network"
@@ -156,8 +172,9 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
         yc_group_id = data.yandex_logging_group.default.group_id
       })
       user-data = templatefile("${path.module}/cloud_config.yaml", {
-        user    = var.vm_user,
-        ssh_key = var.ssh_key,
+        user                  = var.vm_user,
+        ssh_key               = var.ssh_key,
+        prometheus_rw_api_key = yandex_iam_service_account_api_key.monitoring-sa-api-key.secret_key
       })
     }
   }

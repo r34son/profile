@@ -10,13 +10,13 @@ const nextConfig = {
   assetPrefix: process.env.ASSET_PREFIX,
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
+  serverExternalPackages: ['@sentry/profiling-node'],
   experimental: {
     ppr: true,
     swcMinify: true,
     webpackBuildWorker: true,
     instrumentationHook: true,
     preloadEntriesOnStart: true,
-    serverComponentsExternalPackages: ['@sentry/profiling-node'],
     optimizePackageImports: [
       '@floating-ui/core',
       '@floating-ui/utils',
@@ -36,6 +36,13 @@ const nextConfig = {
       '@radix-ui/react-tooltip',
       'tailwindcss',
     ],
+  },
+  webpack: (config, { webpack }) => {
+    // https://github.com/open-telemetry/opentelemetry-js-contrib/pull/2071
+    config.plugins.push(
+      new webpack.IgnorePlugin({ resourceRegExp: /osx-temperature-sensor/ }),
+    );
+    return config;
   },
   headers: async () => [
     {

@@ -1,4 +1,5 @@
 version: '3.7'
+
 services:
   app:
     container_name: app
@@ -31,3 +32,11 @@ services:
     volumes:
       - /etc/fluentbit/fluentbit.conf:/fluent-bit/etc/fluent-bit.conf
       - /etc/fluentbit/parsers.conf:/fluent-bit/etc/parsers.conf
+
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    ports:
+      - 9090:9090
+    restart: always
+    volumes:
+      - '/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
