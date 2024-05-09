@@ -2,10 +2,9 @@
 
 ## [1.19.0](https://github.com/r34son/profile/compare/v1.18.0...v1.19.0) (2024-05-09)
 
-
 ### Features
 
-* prometheus setup ([#507](https://github.com/r34son/profile/issues/507)) ([a37c04a](https://github.com/r34son/profile/commit/a37c04aa6fc3b18d0fd49a89e39e53ee64bacc60))
+- prometheus setup ([#507](https://github.com/r34son/profile/issues/507)) ([a37c04a](https://github.com/r34son/profile/commit/a37c04aa6fc3b18d0fd49a89e39e53ee64bacc60))
 
 ## [1.18.0](https://github.com/r34son/profile/compare/v1.17.1...v1.18.0) (2024-05-05)
 
