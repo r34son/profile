@@ -62,7 +62,7 @@ write_files:
             output:
               plugin: yc_metrics
               config:
-                folder_id: "${folder_id}"
+                folder_id: "$FOLDER_ID"
                 iam:
                   cloud_meta: {}
 
