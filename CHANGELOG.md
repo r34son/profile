@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.19.1](https://github.com/r34son/profile/compare/v1.19.0...v1.19.1) (2024-05-09)
+
+### Bug Fixes
+
+- app hostname ([#509](https://github.com/r34son/profile/issues/509)) ([1091783](https://github.com/r34son/profile/commit/1091783d1305d72f337d5aeac920be72d874cc73))
+
 ## [1.19.0](https://github.com/r34son/profile/compare/v1.18.0...v1.19.0) (2024-05-09)
 
 ### Features
