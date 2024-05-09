@@ -46,7 +46,7 @@ write_files:
         - job_name: 'opentelemetry'
           scrape_interval: 10s
           static_configs:
-            - targets: ['localhost:9464']
+            - targets: ['app:9464']
       remote_write:
         - url: 'https://monitoring.api.cloud.yandex.net/prometheus/workspaces/monahld83gdk2at8l9r9/api/v1/write'
           bearer_token: ${prometheus_rw_api_key}
