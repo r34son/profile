@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.21.1](https://github.com/r34son/profile/compare/v1.21.0...v1.21.1) (2024-05-09)
+
+
+### Bug Fixes
+
+* ua quotes in label values ([#525](https://github.com/r34son/profile/issues/525)) ([7b65715](https://github.com/r34son/profile/commit/7b657158a3d84b31a27083b64b9ad5f8dde9b7f1))
+
 ## [1.21.0](https://github.com/r34son/profile/compare/v1.20.4...v1.21.0) (2024-05-09)
 
 ### Features
