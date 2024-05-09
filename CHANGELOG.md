@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.19.2](https://github.com/r34son/profile/compare/v1.19.1...v1.19.2) (2024-05-09)
+
+### Bug Fixes
+
+- forward metrics port from container ([#511](https://github.com/r34son/profile/issues/511)) ([7644f0a](https://github.com/r34son/profile/commit/7644f0a22c5fc3ca5236bff545c56310a1a73919))
+
 ## [1.19.1](https://github.com/r34son/profile/compare/v1.19.0...v1.19.1) (2024-05-09)
 
 ### Bug Fixes
