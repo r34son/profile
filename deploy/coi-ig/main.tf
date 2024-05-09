@@ -169,12 +169,12 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
       docker-compose = templatefile("${path.module}/docker-compose.yaml", {
         image_url   = var.image_url,
         url         = local.url,
-        yc_group_id = data.yandex_logging_group.default.group_id
+        yc_group_id = data.yandex_logging_group.default.group_id,
+        folder_id   = var.folder_id
       })
       user-data = templatefile("${path.module}/cloud_config.yaml", {
-        user      = var.vm_user,
-        ssh_key   = var.ssh_key,
-        folder_id = var.folder_id
+        user    = var.vm_user,
+        ssh_key = var.ssh_key,
       })
     }
   }
