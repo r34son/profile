@@ -2,10 +2,9 @@
 
 ## [1.20.3](https://github.com/r34son/profile/compare/v1.20.2...v1.20.3) (2024-05-09)
 
-
 ### Bug Fixes
 
-* ua config path ([#519](https://github.com/r34son/profile/issues/519)) ([515e5ca](https://github.com/r34son/profile/commit/515e5ca0e5dff47dad50dce87e5989227d9a614e))
+- ua config path ([#519](https://github.com/r34son/profile/issues/519)) ([515e5ca](https://github.com/r34son/profile/commit/515e5ca0e5dff47dad50dce87e5989227d9a614e))
 
 ## [1.20.2](https://github.com/r34son/profile/compare/v1.20.1...v1.20.2) (2024-05-09)
 
