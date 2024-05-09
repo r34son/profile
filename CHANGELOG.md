@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.20.0](https://github.com/r34son/profile/compare/v1.19.2...v1.20.0) (2024-05-09)
+
+
+### Features
+
+* move to unified agent ([#513](https://github.com/r34son/profile/issues/513)) ([1092e72](https://github.com/r34son/profile/commit/1092e72d9977c77648c33a7144171e9de92fc216))
+
 ## [1.19.2](https://github.com/r34son/profile/compare/v1.19.1...v1.19.2) (2024-05-09)
 
 ### Bug Fixes
