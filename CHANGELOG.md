@@ -2,10 +2,9 @@
 
 ## [1.20.2](https://github.com/r34son/profile/compare/v1.20.1...v1.20.2) (2024-05-09)
 
-
 ### Bug Fixes
 
-* change ua config ([#517](https://github.com/r34son/profile/issues/517)) ([5b79883](https://github.com/r34son/profile/commit/5b798832bc6324089fdb4d96a9eee7dc596de3bc))
+- change ua config ([#517](https://github.com/r34son/profile/issues/517)) ([5b79883](https://github.com/r34son/profile/commit/5b798832bc6324089fdb4d96a9eee7dc596de3bc))
 
 ## [1.20.1](https://github.com/r34son/profile/compare/v1.20.0...v1.20.1) (2024-05-09)
 
