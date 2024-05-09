@@ -2,10 +2,9 @@
 
 ## [1.21.0](https://github.com/r34son/profile/compare/v1.20.4...v1.21.0) (2024-05-09)
 
-
 ### Features
 
-* scrape ua logs ([#523](https://github.com/r34son/profile/issues/523)) ([19a840c](https://github.com/r34son/profile/commit/19a840cba748fafe904c0e1d120c7b8f25dac6d6))
+- scrape ua logs ([#523](https://github.com/r34son/profile/issues/523)) ([19a840c](https://github.com/r34son/profile/commit/19a840cba748fafe904c0e1d120c7b8f25dac6d6))
 
 ## [1.20.4](https://github.com/r34son/profile/compare/v1.20.3...v1.20.4) (2024-05-09)
 
