@@ -13,12 +13,9 @@ services:
     depends_on:
       - fluentbit
     logging:
-      # Fluent Bit понимает логи в этом формате.
       driver: fluentd
       options:
-        # Fluent Bit слушает логи на порту 24224.
         fluentd-address: localhost:24224
-        # Теги используются для маршрутизации логов.
         tag: app.logs
 
   fluentbit:
@@ -42,6 +39,14 @@ services:
     environment:
       PROC_DIRECTORY: /ua_proc
       FOLDER_ID: ${folder_id}
+    depends_on:
+      - app
+      - fluentbit
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ua.logs
     volumes:
       - /proc:/ua_proc
       - /etc/unified_agent/config.yml:/etc/yandex/unified_agent/conf.d/config.yml
