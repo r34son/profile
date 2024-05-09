@@ -6,8 +6,8 @@ services:
     image: ${image_url}
     restart: always
     ports:
-      - '3000:3000'
-      - '9464:9464'
+      - 3000:3000
+      - 9464:9464
     environment:
       - URL=${url}
     depends_on:
@@ -34,10 +34,13 @@ services:
       - /etc/fluentbit/fluentbit.conf:/fluent-bit/etc/fluent-bit.conf
       - /etc/fluentbit/parsers.conf:/fluent-bit/etc/parsers.conf
 
-  prometheus:
-    image: prom/prometheus:v2.52.0
+  unified-agent:
+    container_name: unified-agent
+    image: cr.yandex/yc/unified-agent
     ports:
-      - 9090:9090
-    restart: always
+      - 16241:16241
+    environment:
+      PROC_DIRECTORY: /ua_proc
     volumes:
-      - '/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
+      - /proc:/ua_proc
+      - /etc/yandex/unified_agent/config.yml:/etc/yandex/unified_agent/config.yml

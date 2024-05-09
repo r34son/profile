@@ -42,22 +42,66 @@ write_files:
           Regex  .*
     path: /etc/fluentbit/parsers.conf
   - content: |
-      scrape_configs:
-        - job_name: 'opentelemetry'
-          scrape_interval: 10s
-          static_configs:
-            - targets: ['app:9464']
-      remote_write:
-        - url: 'https://monitoring.api.cloud.yandex.net/prometheus/workspaces/monahld83gdk2at8l9r9/api/v1/write'
-          bearer_token: ${prometheus_rw_api_key}
-          queue_config:
-            max_samples_per_send: 2000
-            min_backoff: 100ms
-            max_backoff: 15s
-            retry_on_http_429: true
-          metadata_config:
-            send: false
-    path: /etc/prometheus/prometheus.yml
+      status:
+        port: "16241"
+
+      storages:
+        - name: main
+          plugin: fs
+          config:
+            directory: /var/lib/yandex/unified_agent/main
+            max_partition_size: 100mb
+            max_segment_size: 10mb
+
+      channels:
+        - name: cloud_monitoring
+          channel:
+            pipe:
+              - storage_ref:
+                  name: main
+            output:
+              plugin: yc_metrics
+              config:
+                folder_id: "${folder_id}"
+                iam:
+                  cloud_meta: {}
+
+      routes:
+        - input:
+            plugin: metrics_pull
+            config:
+              url: http://app:9464/metrics
+              format:
+                prometheus: {}
+              namespace: app
+          channel:
+            channel_ref:
+              name: cloud_monitoring
+
+        - input:
+            plugin: linux_metrics
+            config:
+              namespace: sys
+          channel:
+            channel_ref:
+              name: cloud_monitoring
+
+        - input:
+            plugin: agent_metrics
+            config:
+              namespace: ua
+          channel:
+            pipe:
+              - filter:
+                  plugin: filter_metrics
+                  config:
+                    match: "{scope=health}"
+            channel_ref:
+              name: cloud_monitoring
+
+      import:
+        - /etc/yandex/unified_agent/conf.d/*.yml
+    path: /etc/yandex/unified_agent/config.yml
 
 groups:
   - docker
