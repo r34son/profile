@@ -15,6 +15,13 @@ write_files:
           Parser app_log_parser
           Reserve_Data On
 
+      [FILTER]
+          Name parser
+          Match ua.logs
+          Key_Name log
+          Parser ua_log_parser
+          Reserve_Data On
+
       [INPUT]
           Name              forward
           Listen            0.0.0.0
@@ -38,6 +45,10 @@ write_files:
   - content: |
       [PARSER]
           Name   app_log_parser
+          Format regex
+          Regex  .*
+      [PARSER]
+          Name   ua_log_parser
           Format regex
           Regex  .*
     path: /etc/fluentbit/parsers.conf
