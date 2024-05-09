@@ -44,4 +44,4 @@ services:
       FOLDER_ID: ${folder_id}
     volumes:
       - /proc:/ua_proc
-      - /etc/yandex/unified_agent/config.yml:/etc/yandex/unified_agent/config.yml
+      - /etc/unified_agent/config.yml:/etc/yandex/unified_agent/config.yml
