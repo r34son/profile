@@ -5,7 +5,7 @@ import {
   Resource,
   detectResourcesSync,
   envDetector,
-  processDetector,
+  hostDetector,
 } from '@opentelemetry/resources';
 import {
   SEMRESATTRS_SERVICE_NAME,
@@ -38,7 +38,7 @@ const customResources = new Resource({
 });
 
 const detectedResources = detectResourcesSync({
-  detectors: [envDetector, processDetector],
+  detectors: [envDetector, hostDetector],
 });
 
 const resource = detectedResources.merge(customResources);
