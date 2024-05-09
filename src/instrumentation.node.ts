@@ -5,7 +5,6 @@ import {
   Resource,
   detectResourcesSync,
   envDetector,
-  hostDetector,
   processDetector,
 } from '@opentelemetry/resources';
 import {
@@ -39,7 +38,7 @@ const customResources = new Resource({
 });
 
 const detectedResources = detectResourcesSync({
-  detectors: [envDetector, processDetector, hostDetector],
+  detectors: [envDetector, processDetector],
 });
 
 const resource = detectedResources.merge(customResources);
