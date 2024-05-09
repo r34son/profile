@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.20.4](https://github.com/r34son/profile/compare/v1.20.3...v1.20.4) (2024-05-09)
+
+### Bug Fixes
+
+- remove some labels due to yc limits ([#521](https://github.com/r34son/profile/issues/521)) ([00c93f7](https://github.com/r34son/profile/commit/00c93f79ac8164d1d3ab85a3c7f8eeaa386ada66))
+
 ## [1.20.3](https://github.com/r34son/profile/compare/v1.20.2...v1.20.3) (2024-05-09)
 
 ### Bug Fixes
