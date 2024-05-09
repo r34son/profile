@@ -172,9 +172,9 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
         yc_group_id = data.yandex_logging_group.default.group_id
       })
       user-data = templatefile("${path.module}/cloud_config.yaml", {
-        user                  = var.vm_user,
-        ssh_key               = var.ssh_key,
-        prometheus_rw_api_key = yandex_iam_service_account_api_key.monitoring-sa-api-key.secret_key
+        user      = var.vm_user,
+        ssh_key   = var.ssh_key,
+        folder_id = var.folder_id
       })
     }
   }
