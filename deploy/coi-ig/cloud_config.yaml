@@ -98,10 +98,7 @@ write_files:
                     match: "{scope=health}"
             channel_ref:
               name: cloud_monitoring
-
-      import:
-        - /etc/yandex/unified_agent/conf.d/*.yml
-    path: /etc/yandex/unified_agent/config.yml
+    path: /etc/unified_agent/config.yml
 
 groups:
   - docker

@@ -26,20 +26,13 @@ resource "yandex_resourcemanager_folder_iam_member" "vm-autoscale-sa-role-comput
   ]
 }
 
-resource "yandex_iam_service_account" "monitoring-sa" {
-  name        = "monitoring-sa"
-  description = "Сервисный аккаунт для управления мониторингом."
-}
-
 resource "yandex_resourcemanager_folder_iam_member" "monitoring-editor" {
   folder_id = var.folder_id
   role      = "monitoring.editor"
-  member    = "serviceAccount:${yandex_iam_service_account.monitoring-sa.id}"
-}
-
-resource "yandex_iam_service_account_api_key" "monitoring-sa-api-key" {
-  service_account_id = yandex_iam_service_account.monitoring-sa.id
-  description        = "Ключ для записи метрик в Yandex Managed Service for Prometheus®"
+  member    = "serviceAccount:${yandex_iam_service_account.ig-sa.id}"
+  depends_on = [
+    yandex_iam_service_account.ig-sa,
+  ]
 }
 
 # Создание облачной сети
