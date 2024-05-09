@@ -42,30 +42,6 @@ write_files:
           Regex  .*
     path: /etc/fluentbit/parsers.conf
   - content: |
-      status:
-        port: "16241"
-
-      storages:
-        - name: main
-          plugin: fs
-          config:
-            directory: /var/lib/yandex/unified_agent/main
-            max_partition_size: 100mb
-            max_segment_size: 10mb
-
-      channels:
-        - name: cloud_monitoring
-          channel:
-            pipe:
-              - storage_ref:
-                  name: main
-            output:
-              plugin: yc_metrics
-              config:
-                folder_id: "$FOLDER_ID"
-                iam:
-                  cloud_meta: {}
-
       routes:
         - input:
             plugin: metrics_pull
@@ -75,27 +51,6 @@ write_files:
                 prometheus: {}
               namespace: app
           channel:
-            channel_ref:
-              name: cloud_monitoring
-
-        - input:
-            plugin: linux_metrics
-            config:
-              namespace: sys
-          channel:
-            channel_ref:
-              name: cloud_monitoring
-
-        - input:
-            plugin: agent_metrics
-            config:
-              namespace: ua
-          channel:
-            pipe:
-              - filter:
-                  plugin: filter_metrics
-                  config:
-                    match: "{scope=health}"
             channel_ref:
               name: cloud_monitoring
     path: /etc/unified_agent/config.yml
