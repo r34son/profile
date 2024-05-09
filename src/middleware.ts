@@ -36,7 +36,7 @@ const mcFrameAncestorsDomains = [
   'webvisor.com',
 ].join(' ');
 
-const reportEndpoint = `https://o4506048860258304.ingest.sentry.io/api/4506959997501440/security/?sentry_key=90b846a21ddfd33d1b051d0bdb689bda&sentry_environment=${process.env.ENV}`;
+const reportEndpoint = `https://o4506048860258304.ingest.sentry.io/api/4506959997501440/security/?sentry_key=90b846a21ddfd33d1b051d0bdb689bda&sentry_release=${process.env.SENTRY_RELEASE}&sentry_environment=${process.env.SENTRY_ENVIRONMENT}`;
 
 const intlMiddleware = createIntlMiddleware({
   locales: ['en', 'ru'],

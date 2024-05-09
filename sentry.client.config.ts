@@ -20,7 +20,6 @@ const client = new BrowserClient({
   replaysSessionSampleRate: 0.1,
   transport: makeFetchTransport,
   stackParser: defaultStackParser,
-  environment: process.env.NEXT_PUBLIC_ENV,
   integrations: [
     dedupeIntegration(),
     breadcrumbsIntegration(),

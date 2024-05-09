@@ -13,7 +13,7 @@
   "type": "module",
   "scripts": {
     "analyze": "ANALYZE=true next build --no-lint",
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "format:check": "prettier . --cache --check",
@@ -38,13 +38,20 @@
     "e2e:update": "docker compose  -f docker-compose.playwright.yml run --rm -it --build playwright pnpm exec playwright test --update-snapshots --trace on"
   },
   "dependencies": {
+    "@opentelemetry/exporter-prometheus": "^0.51.1",
+    "@opentelemetry/host-metrics": "^0.35.1",
+    "@opentelemetry/instrumentation": "^0.51.1",
+    "@opentelemetry/instrumentation-runtime-node": "^0.4.0",
+    "@opentelemetry/resources": "^1.24.1",
+    "@opentelemetry/sdk-metrics": "^1.24.1",
+    "@opentelemetry/semantic-conventions": "^1.24.1",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-navigation-menu": "^1.1.4",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.7",
-    "@sentry/nextjs": "8.0.0-rc.1",
-    "@sentry/opentelemetry": "8.0.0-rc.1",
-    "@sentry/profiling-node": "8.0.0-rc.1",
+    "@sentry/nextjs": "8.0.0-rc.2",
+    "@sentry/opentelemetry": "8.0.0-rc.2",
+    "@sentry/profiling-node": "8.0.0-rc.2",
     "@yandex/smart-captcha": "^2.6.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -52,9 +59,9 @@
     "embla-carousel-react": "8.0.4",
     "framer-motion": "^11.1.9",
     "lucide-react": "^0.378.0",
-    "next": "14.3.0-canary.44",
+    "next": "14.3.0-canary.51",
     "next-compose-plugins": "^2.2.1",
-    "next-intl": "^3.12.2",
+    "next-intl": "^3.13.0",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -83,11 +90,11 @@
     "@testing-library/react": "^15.0.7",
     "@types/is-ci": "^3.0.4",
     "@types/jest": "^29.5.12",
-    "@types/node": "20.12.10",
+    "@types/node": "20.12.11",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",
-    "chromatic": "^11.3.1",
+    "chromatic": "^11.3.2",
     "cssnano": "^7.0.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.3",
@@ -112,6 +119,12 @@
     "overrides": {
       "jsdom": "24.0.0",
       "@storybook/nextjs>postcss-loader": "8.1.1"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "next>react": "18",
+        "next>react-dom": "18"
+      }
     }
   },
   "browserslist": {
