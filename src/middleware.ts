@@ -55,9 +55,10 @@ export default function middleware(request: NextRequest) {
 
   // https://github.com/emilkowalski/vaul/issues/283
   // https://github.com/radix-ui/primitives/issues/2057
+  // https://developer.chrome.com/docs/lighthouse/best-practices/csp-xss#how_to_develop_a_strict_csp
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}' https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js;
+    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline' https:;
     style-src 'self' ${assetPrefix} 'unsafe-inline';
     img-src 'self' blob: data: ${assetPrefix} ${mcDomains} https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/;
     connect-src 'self' ${mcDomains} *.sentry.io;
@@ -65,7 +66,7 @@ export default function middleware(request: NextRequest) {
     frame-src blob: ${mcDomains};
     font-src 'self' ${assetPrefix};
     object-src 'none';
-    base-uri 'self';
+    base-uri 'none';
     form-action 'self';
     frame-ancestors 'self' ${mcFrameAncestorsDomains};
     block-all-mixed-content;
