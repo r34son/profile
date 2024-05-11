@@ -13,7 +13,6 @@ const nextConfig = {
   serverExternalPackages: ['@sentry/profiling-node'],
   experimental: {
     ppr: true,
-    swcMinify: true,
     webpackBuildWorker: true,
     instrumentationHook: true,
     preloadEntriesOnStart: true,
