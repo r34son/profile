@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.22.0](https://github.com/r34son/profile/compare/v1.21.1...v1.22.0) (2024-05-11)
+
+### Features
+
+- stricter csp ([#530](https://github.com/r34son/profile/issues/530)) ([6b49230](https://github.com/r34son/profile/commit/6b49230c914846e946da54232d012410a00a2530))
+
 ## [1.21.1](https://github.com/r34son/profile/compare/v1.21.0...v1.21.1) (2024-05-09)
 
 ### Bug Fixes
