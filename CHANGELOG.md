@@ -2,10 +2,9 @@
 
 ## [1.22.1](https://github.com/r34son/profile/compare/v1.22.0...v1.22.1) (2024-05-11)
 
-
 ### Bug Fixes
 
-* allow dynamic scripts ([#532](https://github.com/r34son/profile/issues/532)) ([9f426cb](https://github.com/r34son/profile/commit/9f426cb858c4a6068daa3b2d40b31425b7be0991))
+- allow dynamic scripts ([#532](https://github.com/r34son/profile/issues/532)) ([9f426cb](https://github.com/r34son/profile/commit/9f426cb858c4a6068daa3b2d40b31425b7be0991))
 
 ## [1.22.0](https://github.com/r34son/profile/compare/v1.21.1...v1.22.0) (2024-05-11)
 
