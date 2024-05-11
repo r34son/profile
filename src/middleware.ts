@@ -53,12 +53,11 @@ export default function middleware(request: NextRequest) {
     ? `${process.env.ASSET_PREFIX}/`
     : '';
 
+  // https://github.com/emilkowalski/vaul/issues/283
   // https://github.com/radix-ui/primitives/issues/2057
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline' https: ${
-      process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
-    };
+    script-src 'self' 'nonce-${nonce}' https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js;
     style-src 'self' ${assetPrefix} 'unsafe-inline';
     img-src 'self' blob: data: ${assetPrefix} ${mcDomains} https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/;
     connect-src 'self' ${mcDomains} *.sentry.io;
