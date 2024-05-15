@@ -40,7 +40,7 @@ jobs:
 
       - name: Install Chrome
         id: install-chrome
-        uses: browser-actions/setup-chrome@361a23fcf94a523a91c9cfae6f11c2a5c2d87f64 # v1.6.1
+        uses: browser-actions/setup-chrome@9683066f53b47e92c4104e1bd5535aff208c3530 # v1.6.2
 
       - run: pnpm lhci:mobile
         env:
@@ -78,7 +78,7 @@ jobs:
 
       - name: Install Chrome
         id: install-chrome
-        uses: browser-actions/setup-chrome@361a23fcf94a523a91c9cfae6f11c2a5c2d87f64 # v1.6.1
+        uses: browser-actions/setup-chrome@9683066f53b47e92c4104e1bd5535aff208c3530 # v1.6.2
 
       - run: pnpm lhci:desktop
         env:
