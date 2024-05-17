@@ -90,12 +90,6 @@ jobs:
         id: terraform-output
         run: echo "domain=$(terraform output -raw domain)" >> "$GITHUB_OUTPUT"
 
-      # - name: Purge CDN cache
-      #   uses: yc-actions/yc-cdn-cache@v1
-      #   with:
-      #     yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-      #     cdn-resource-id: bc8eyazsip6i4r4bqjsa
-
   e2e-test:
     # Хороший end-to-end тест представляет из себя более сложную конструкцию, чем curl, проверяющий статус ответа главной страницы стенда. Такой простой тест использован для целей демонстрации
     runs-on: ubuntu-latest

@@ -13,6 +13,7 @@ const nextConfig = {
   serverExternalPackages: ['@sentry/profiling-node'],
   experimental: {
     ppr: true,
+    reactCompiler: true,
     webpackBuildWorker: true,
     instrumentationHook: true,
     preloadEntriesOnStart: true,
@@ -90,7 +91,6 @@ export default withPlugins(
         },
         reactComponentAnnotation: { enabled: true },
         widenClientFileUpload: true,
-        transpileClientSDK: false,
         tunnelRoute: '/monitoring',
         hideSourceMaps: true,
         disableLogger: true,

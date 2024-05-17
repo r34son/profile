@@ -56,6 +56,7 @@ export default function middleware(request: NextRequest) {
   // https://github.com/emilkowalski/vaul/issues/283
   // https://github.com/radix-ui/primitives/issues/2057
   // https://developer.chrome.com/docs/lighthouse/best-practices/csp-xss#how_to_develop_a_strict_csp
+  // require-trusted-types-for 'script';
   const cspHeader = `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline' https:;
