@@ -329,7 +329,8 @@ resource "yandex_cdn_resource" "cdn_resource" {
     gzip_on                = true
     edge_cache_settings    = "345600"
     browser_cache_settings = "1800"
-    custom_host_header     = local.s3_origin
+    # https://yandex.cloud/ru/docs/cdn/concepts/servers-to-origins-host#best-practices
+    custom_host_header = local.s3_origin
   }
 }
 
