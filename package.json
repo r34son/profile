@@ -55,16 +55,16 @@
     "@yandex/smart-captcha": "^2.6.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "embla-carousel-autoplay": "8.1.0",
-    "embla-carousel-react": "8.1.0",
+    "embla-carousel-autoplay": "8.1.1",
+    "embla-carousel-react": "8.1.1",
     "framer-motion": "^11.2.4",
     "lucide-react": "^0.378.0",
-    "next": "14.3.0-canary.68",
+    "next": "14.3.0-canary.70",
     "next-compose-plugins": "^2.2.1",
     "next-intl": "^3.14.0",
     "next-themes": "^0.3.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "19.0.0-rc-3f1436cca1-20240516",
+    "react-dom": "19.0.0-rc-3f1436cca1-20240516",
     "sharp": "^0.33.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
@@ -94,7 +94,7 @@
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",
-    "babel-plugin-react-compiler": "0.0.0-experimental-c23de8d-20240515",
+    "babel-plugin-react-compiler": "0.0.0-experimental-592953e-20240517",
     "chromatic": "^11.3.5",
     "cssnano": "^7.0.1",
     "eslint": "^8.57.0",
@@ -122,8 +122,8 @@
     },
     "peerDependencyRules": {
       "allowedVersions": {
-        "next>react": "18",
-        "next>react-dom": "18"
+        "react": "19.0.0-rc-3f1436cca1-20240516",
+        "react-dom": "19.0.0-rc-3f1436cca1-20240516"
       }
     }
   },

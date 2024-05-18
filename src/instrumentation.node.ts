@@ -28,7 +28,7 @@ const { endpoint, port } = PrometheusExporter.DEFAULT_OPTIONS;
 
 const exporter = new PrometheusExporter({}, () => {
   console.log(
-    `prometheus scrape endpoint: http://${process.env.HOSTNAME || 'localhost'}:${port}${endpoint}`,
+    ` ✓ Prometheus scrape endpoint: http://${process.env.HOSTNAME || 'localhost'}:${port}${endpoint}`,
   );
 });
 
