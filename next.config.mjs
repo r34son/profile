@@ -16,7 +16,6 @@ const nextConfig = {
     reactCompiler: true,
     webpackBuildWorker: true,
     instrumentationHook: true,
-    preloadEntriesOnStart: true,
     optimizePackageImports: [
       '@floating-ui/core',
       '@floating-ui/utils',
