@@ -2,10 +2,9 @@
 
 ## [1.23.0](https://github.com/r34son/profile/compare/v1.22.1...v1.23.0) (2024-05-23)
 
-
 ### Features
 
-* update to next@rc ([#548](https://github.com/r34son/profile/issues/548)) ([9fae780](https://github.com/r34son/profile/commit/9fae7809b6588427e9db64128c545b1cb3112a9d))
+- update to next@rc ([#548](https://github.com/r34son/profile/issues/548)) ([9fae780](https://github.com/r34son/profile/commit/9fae7809b6588427e9db64128c545b1cb3112a9d))
 
 ## [1.22.1](https://github.com/r34son/profile/compare/v1.22.0...v1.22.1) (2024-05-11)
 
