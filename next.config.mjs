@@ -36,13 +36,6 @@ const nextConfig = {
       'tailwindcss',
     ],
   },
-  webpack: (config, { webpack }) => {
-    // https://github.com/open-telemetry/opentelemetry-js-contrib/pull/2071
-    config.plugins.push(
-      new webpack.IgnorePlugin({ resourceRegExp: /osx-temperature-sensor/ }),
-    );
-    return config;
-  },
   headers: async () => [
     {
       source: '/:path*',
