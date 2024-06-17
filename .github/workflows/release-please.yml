@@ -21,7 +21,7 @@ jobs:
 
       # Format changelog, workaround for https://github.com/google-github-actions/release-please-action/issues/542
       # Taken from https://github.com/remarkablemark/release-please-extra-files-demo/blob/master/.github/workflows/release-please.yml
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         if: ${{ steps.release.outputs.pr }}
         with:
           ref: ${{ fromJson(steps.release.outputs.pr).headBranchName }}
