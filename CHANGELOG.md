@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.0](https://github.com/r34son/profile/compare/v1.23.0...v1.24.0) (2024-06-17)
+
+
+### Features
+
+* update to eslint 9 ([#569](https://github.com/r34son/profile/issues/569)) ([c806f8b](https://github.com/r34son/profile/commit/c806f8b397e04c9cdae62fca0b27e7f2c07f7553))
+
 ## [1.23.0](https://github.com/r34son/profile/compare/v1.22.1...v1.23.0) (2024-05-23)
 
 ### Features
