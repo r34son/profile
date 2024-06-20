@@ -76,7 +76,7 @@ jobs:
 
       # https://docs.docker.com/build/ci/github-actions/cache/
       - name: Build, tag, and push image to Yandex Cloud Container Registry
-        uses: docker/build-push-action@94f8f8c2eec4bc3f1d78c1755580779804cb87b2 # v6.0.1
+        uses: docker/build-push-action@f6010ea70151369b06f0194be1051fbbdff851b2 # v6.0.2
         env:
           awsEndpoint: https://storage.yandexcloud.net
           staticPath: ${{ github.event_name == 'pull_request' && format('pr/{0}', github.event.pull_request.number) || format('releases/{0}', steps.sentry-release.outputs.version) }}
