@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.25.0](https://github.com/r34son/profile/compare/v1.24.0...v1.25.0) (2024-06-20)
+
+
+### Features
+
+* update deps ([#573](https://github.com/r34son/profile/issues/573)) ([ca4e170](https://github.com/r34son/profile/commit/ca4e170aa2d090d59edf5f096c864bbfddec1f7d))
+
 ## [1.24.0](https://github.com/r34son/profile/compare/v1.23.0...v1.24.0) (2024-06-17)
 
 ### Features
