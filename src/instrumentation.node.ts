@@ -1,5 +1,6 @@
 import { init } from '@sentry/nextjs';
 import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
+// @ts-ignore https://github.com/getsentry/sentry-javascript/pull/12564
 import { nodeProfilingIntegration } from '@sentry/profiling-node';
 import {
   Resource,
