@@ -1,5 +1,6 @@
 'use client'; // https://github.com/shadcn-ui/ui/issues/1918
 
+// eslint-disable-next-line no-restricted-imports
 import Link from 'next/link';
 import { Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
