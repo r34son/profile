@@ -14,7 +14,6 @@ const nextConfig = {
   experimental: {
     ppr: true,
     reactCompiler: true,
-    webpackBuildWorker: true,
     instrumentationHook: true,
     preloadEntriesOnStart: true,
     optimizePackageImports: [
