@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.28.0](https://github.com/r34son/profile/compare/v1.27.0...v1.28.0) (2024-06-23)
+
+### Features
+
+- improve dockerfile ([#580](https://github.com/r34son/profile/issues/580)) ([cf1674c](https://github.com/r34son/profile/commit/cf1674c520f2aed500aecf1f6beb4a6e857ecc50))
+
 ## [1.27.0](https://github.com/r34son/profile/compare/v1.26.0...v1.27.0) (2024-06-22)
 
 ### Features
