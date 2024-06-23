@@ -3,7 +3,7 @@
 FROM node:20.14.0-alpine@sha256:66c7d989b6dabba6b4305b88f40912679aebd9f387a5b16ffa76dfb9ae90b060 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 ARG ASSET_PREFIX
 ENV ASSET_PREFIX=$ASSET_PREFIX
 ARG SENTRY_ORG
@@ -58,7 +58,7 @@ ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
 RUN aws s3 cp --recursive .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
 
-FROM base as runner
+FROM base AS runner
 ENV NODE_ENV=production
 
 RUN addgroup --system --gid 1001 nodejs
@@ -76,7 +76,8 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
 
 # https://nodejs.org/api/cli.html#cli_max_old_space_size_size_in_megabytes
-CMD HOSTNAME="0.0.0.0" node --max-old-space-size=1536 server.js
+CMD ["node", "--max-old-space-size=1536", "server.js"]

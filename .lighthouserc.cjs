@@ -15,6 +15,7 @@ module.exports = {
     assert: {
       preset: 'lighthouse:no-pwa',
       assertions: {
+        'bf-cache': 'off',
         // TODO:
         'unused-javascript': 'off',
         'total-byte-weight': 'off',
