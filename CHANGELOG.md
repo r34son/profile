@@ -2,10 +2,9 @@
 
 ## [1.29.0](https://github.com/r34son/profile/compare/v1.28.0...v1.29.0) (2024-06-25)
 
-
 ### Features
 
-* update deps ([#584](https://github.com/r34son/profile/issues/584)) ([4976753](https://github.com/r34son/profile/commit/497675368f2938a5b59f16e29e78a9d9d206617e))
+- update deps ([#584](https://github.com/r34son/profile/issues/584)) ([4976753](https://github.com/r34son/profile/commit/497675368f2938a5b59f16e29e78a9d9d206617e))
 
 ## [1.28.0](https://github.com/r34son/profile/compare/v1.27.0...v1.28.0) (2024-06-23)
 
