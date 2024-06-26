@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:20.15.0-alpine@sha256:0ccc08fadfe696f2959f59404ce0d90461c834a7465c4a563c62c0fef4089885 AS base
+FROM node:20.15.0-alpine@sha256:df01469346db2bf1cfc1f7261aeab86b2960efa840fe2bd46d83ff339f463665 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV NEXT_TELEMETRY_DISABLED=1
