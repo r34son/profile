@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.30.0](https://github.com/r34son/profile/compare/v1.29.0...v1.30.0) (2024-06-27)
+
+
+### Features
+
+* update deps and tf providers ([#588](https://github.com/r34son/profile/issues/588)) ([1495b80](https://github.com/r34son/profile/commit/1495b80b0063e511b0eb43315f6dd85a14bb45c3))
+
 ## [1.29.0](https://github.com/r34son/profile/compare/v1.28.0...v1.29.0) (2024-06-25)
 
 ### Features
