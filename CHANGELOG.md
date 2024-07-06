@@ -2,10 +2,9 @@
 
 ## [1.34.0](https://github.com/r34son/profile/compare/v1.33.0...v1.34.0) (2024-07-06)
 
-
 ### Features
 
-* decrease bundle budget ([#602](https://github.com/r34son/profile/issues/602)) ([e3647cf](https://github.com/r34son/profile/commit/e3647cf72343e595b0b6899da66bad4e715afba1))
+- decrease bundle budget ([#602](https://github.com/r34son/profile/issues/602)) ([e3647cf](https://github.com/r34son/profile/commit/e3647cf72343e595b0b6899da66bad4e715afba1))
 
 ## [1.33.0](https://github.com/r34son/profile/compare/v1.32.0...v1.33.0) (2024-07-06)
 
