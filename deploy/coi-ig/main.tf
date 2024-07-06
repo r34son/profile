@@ -379,6 +379,14 @@ resource "yandex_dns_recordset" "cdn-record" {
   ttl     = 600
 }
 
+resource "yandex_dns_recordset" "site-verification-record" {
+  zone_id = yandex_dns_zone.alb-zone.id
+  name    = "${var.domain}."
+  type    = "TXT"
+  data    = ["google-site-verification=lzUzlEdWS1BzCr6rUpsXHXETI0lw2l_1u8ZyHXv81-E", "yandex-verification: 9cc460b35e8af7d5"]
+  ttl     = 600
+}
+
 data "yandex_cm_certificate" "cm_certificate" {
   depends_on      = [yandex_dns_recordset.challenge]
   certificate_id  = yandex_cm_certificate.cm_certificate.id
