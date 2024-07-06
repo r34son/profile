@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.32.0](https://github.com/r34son/profile/compare/v1.31.0...v1.32.0) (2024-07-06)
+
+### Features
+
+- update deps and add site verification ([#597](https://github.com/r34son/profile/issues/597)) ([801fc7f](https://github.com/r34son/profile/commit/801fc7f1b823b6e7cae720755b621d4b7dc74ade))
+
 ## [1.31.0](https://github.com/r34son/profile/compare/v1.30.0...v1.31.0) (2024-07-03)
 
 ### Features
