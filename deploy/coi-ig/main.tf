@@ -176,13 +176,14 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
   }
   scale_policy {
     fixed_scale {
-      size = 1
+      size = 2
     }
   }
   deploy_policy {
-    max_unavailable  = 0
-    max_expansion    = 2
-    max_creating     = 1
+    max_unavailable  = 1
+    max_expansion    = 0
+    max_creating     = 0
+    max_deleting     = 0
     startup_duration = 60
     strategy         = "proactive"
   }
@@ -284,7 +285,9 @@ resource "yandex_alb_load_balancer" "alb" {
       default_handler {
         http_handler {
           http_router_id = yandex_alb_http_router.alb-router.id
-          http2_options {}
+          http2_options {
+            max_concurrent_streams = 0
+          }
         }
         certificate_ids = [data.yandex_cm_certificate.cm_certificate.id]
       }
@@ -294,7 +297,9 @@ resource "yandex_alb_load_balancer" "alb" {
         handler {
           http_handler {
             http_router_id = yandex_alb_http_router.alb-router.id
-            http2_options {}
+            http2_options {
+              max_concurrent_streams = 0
+            }
           }
           certificate_ids = [data.yandex_cm_certificate.cm_certificate.id]
         }
