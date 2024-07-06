@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.33.0](https://github.com/r34son/profile/compare/v1.32.0...v1.33.0) (2024-07-06)
+
+
+### Features
+
+* tweak scaling ([#599](https://github.com/r34son/profile/issues/599)) ([63735bc](https://github.com/r34son/profile/commit/63735bc855ef13933da7cc741c1da1087bb49df3))
+
 ## [1.32.0](https://github.com/r34son/profile/compare/v1.31.0...v1.32.0) (2024-07-06)
 
 ### Features
