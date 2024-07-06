@@ -192,7 +192,7 @@
   },
   "nextBundleAnalysis": {
     "budget": 358400,
-    "budgetPercentIncreaseRed": 20,
+    "budgetPercentIncreaseRed": 10,
     "minimumChangeThreshold": 0,
     "showDetails": true
   }
