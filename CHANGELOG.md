@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.36.1](https://github.com/r34son/profile/compare/v1.36.0...v1.36.1) (2024-07-07)
+
+### Bug Fixes
+
+- pipe journal to tty ([#608](https://github.com/r34son/profile/issues/608)) ([2f997a1](https://github.com/r34son/profile/commit/2f997a1d5d272e88dbdea540c6502c7e97f0c3a7))
+
 ## [1.36.0](https://github.com/r34son/profile/compare/v1.35.0...v1.36.0) (2024-07-07)
 
 ### Features
