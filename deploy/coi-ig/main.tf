@@ -184,7 +184,7 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
     max_expansion    = 0
     max_creating     = 0
     max_deleting     = 0
-    startup_duration = 60
+    startup_duration = 120
     strategy         = "proactive"
   }
   health_check {
