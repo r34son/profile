@@ -176,13 +176,14 @@ resource "yandex_compute_instance_group" "ig-with-coi" {
   }
   scale_policy {
     fixed_scale {
-      size = 1
+      size = 2
     }
   }
   deploy_policy {
-    max_unavailable  = 0
-    max_expansion    = 2
-    max_creating     = 1
+    max_unavailable  = 1
+    max_expansion    = 0
+    max_creating     = 0
+    max_deleting     = 0
     startup_duration = 60
     strategy         = "proactive"
   }
