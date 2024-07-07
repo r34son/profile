@@ -34,7 +34,7 @@ write_files:
           Match           *
           group_id        $${YC_GROUP_ID}
           message_key     log
-          level_key       severity
+          level_key       level
           default_level   INFO
           default_payload {"host":"{{instance/hostname}}"}
           resource_type   vm
@@ -50,9 +50,14 @@ write_files:
       [PARSER]
           Name   ua_log_parser
           Format regex
-          Regex  .*
+          Regex  ^(?<time>[^ ]+) (?<severity>\d+) (?<unique_id>\d+) (?<level>[A-Z]+) (?<message>.*?)(?:, revision \[(?<revision>\d+)\])?(?: \[:(?<service_id>\d+)\])?$
+          Time_Key    time
+          Time_Format %Y-%m-%dT%H:%M:%S.%NZ
+          Time_Keep   On
     path: /etc/fluentbit/parsers.conf
   - content: |
+      agent_log:
+        priority: INFO
       routes:
         - input:
             plugin: metrics_pull
