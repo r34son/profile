@@ -2,10 +2,9 @@
 
 ## [1.36.2](https://github.com/r34son/profile/compare/v1.36.1...v1.36.2) (2024-07-07)
 
-
 ### Bug Fixes
 
-* increase startup duration ([#610](https://github.com/r34son/profile/issues/610)) ([65cd573](https://github.com/r34son/profile/commit/65cd573f75d293408ee4210d75f6c6d25da14acd))
+- increase startup duration ([#610](https://github.com/r34son/profile/issues/610)) ([65cd573](https://github.com/r34son/profile/commit/65cd573f75d293408ee4210d75f6c6d25da14acd))
 
 ## [1.36.1](https://github.com/r34son/profile/compare/v1.36.0...v1.36.1) (2024-07-07)
 
