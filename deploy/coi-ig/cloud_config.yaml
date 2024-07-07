@@ -73,10 +73,9 @@ write_files:
   - content: |
       [Journal]
       ForwardToConsole=yes
-      TTYPath=/dev/ttyS0
+      TTYPath=/dev/ttyS1
       MaxLevelConsole=info
-    append: true
-    path: /etc/systemd/journald.conf
+    path: /etc/systemd/journald.conf.d/fw-tty12.conf
 
 groups:
   - docker
