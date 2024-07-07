@@ -70,6 +70,13 @@ write_files:
             channel_ref:
               name: cloud_monitoring
     path: /etc/unified_agent/config.yml
+  - content: |
+      [Journal]
+      ForwardToConsole=yes
+      TTYPath=/dev/ttyS0
+      MaxLevelConsole=info
+    append: true
+    path: /etc/systemd/journald.conf
 
 groups:
   - docker
