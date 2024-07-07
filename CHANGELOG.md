@@ -2,10 +2,9 @@
 
 ## [1.36.0](https://github.com/r34son/profile/compare/v1.35.0...v1.36.0) (2024-07-07)
 
-
 ### Features
 
-* added ua logs parsing ([#606](https://github.com/r34son/profile/issues/606)) ([14553d1](https://github.com/r34son/profile/commit/14553d1dd0bbc3d66855aef6f092a9ad02921051))
+- added ua logs parsing ([#606](https://github.com/r34son/profile/issues/606)) ([14553d1](https://github.com/r34son/profile/commit/14553d1dd0bbc3d66855aef6f092a9ad02921051))
 
 ## [1.35.0](https://github.com/r34son/profile/compare/v1.34.0...v1.35.0) (2024-07-07)
 
