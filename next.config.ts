@@ -1,11 +1,11 @@
-// @ts-check
+// @ts-expect-error no typings
 import withPlugins from 'next-compose-plugins';
 import withNextIntl from 'next-intl/plugin';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { withSentryConfig } from '@sentry/nextjs';
+import { NextConfig } from 'next';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   output: 'standalone',
   assetPrefix: process.env.ASSET_PREFIX,
   eslint: { ignoreDuringBuilds: true },
@@ -69,7 +69,7 @@ export default withPlugins(
   [
     withNextIntl(),
     withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
-    (nextConfig) =>
+    (nextConfig: NextConfig) =>
       withSentryConfig(nextConfig, {
         silent: true,
         release: { create: false },
