@@ -1,9 +1,9 @@
+import type { NextConfig } from 'next';
 // @ts-expect-error no typings
 import withPlugins from 'next-compose-plugins';
 import withNextIntl from 'next-intl/plugin';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { withSentryConfig } from '@sentry/nextjs';
-import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   output: 'standalone',
@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   serverExternalPackages: ['@sentry/profiling-node'],
+  devIndicators: {
+    appIsrStatus: true,
+  },
   experimental: {
     ppr: true,
     reactCompiler: true,
