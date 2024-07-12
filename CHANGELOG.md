@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.37.1](https://github.com/r34son/profile/compare/v1.37.0...v1.37.1) (2024-07-12)
+
+
+### Bug Fixes
+
+* update deps ([#620](https://github.com/r34son/profile/issues/620)) ([848ae55](https://github.com/r34son/profile/commit/848ae5530e7bb7e83c99e6b0b9a7bdf844b6efa8))
+
 ## [1.37.0](https://github.com/r34son/profile/compare/v1.36.2...v1.37.0) (2024-07-10)
 
 ### Features
