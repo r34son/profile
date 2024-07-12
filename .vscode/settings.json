@@ -27,6 +27,5 @@
   "git.enableSmartCommit": true,
   "git.fetchOnPull": false,
   "git.rebaseWhenSync": true,
-  "terminal.integrated.defaultProfile.osx": "zsh",
-  "versionlens.npm.prereleaseTagFilter": ["canary", "beta", "rc"]
+  "terminal.integrated.defaultProfile.osx": "zsh"
 }

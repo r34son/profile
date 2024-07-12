@@ -50,7 +50,7 @@ write_files:
       [PARSER]
           Name   ua_log_parser
           Format regex
-          Regex  ^(?<time>[^ ]+) (?<severity>\d+) (?<unique_id>\d+) (?<level>[A-Z]+) (?<message>.*?)(?:, revision \[(?<revision>\d+)\])?(?: \[:(?<service_id>\d+)\])?$
+          Regex  ^(?<time>[^ ]+) (?<severity>\d+) (?<unique_id>\d+) (?<level>[A-Z]+) (?<log>.*?)(?:, revision \[(?<revision>\d+)\])?(?: \[:(?<service_id>\d+)\])?$
           Time_Key    time
           Time_Format %Y-%m-%dT%H:%M:%S.%NZ
           Time_Keep   On
@@ -70,12 +70,6 @@ write_files:
             channel_ref:
               name: cloud_monitoring
     path: /etc/unified_agent/config.yml
-  - content: |
-      [Journal]
-      ForwardToConsole=yes
-      TTYPath=/dev/ttyS1
-      MaxLevelConsole=info
-    path: /etc/systemd/journald.conf.d/fw-tty12.conf
 
 groups:
   - docker
