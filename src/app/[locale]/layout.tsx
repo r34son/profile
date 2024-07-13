@@ -7,6 +7,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { LazyMotionProvider } from '@/components/LazyMotionProvider';
 import { Header } from '@/components/Header';
 import { YMScript } from '@/components/YMScript';
+import { Captcha } from '@/components/Captcha';
 import { Locales, locales } from '@/lib/i18n';
 import { email, githubUrl } from '@/const';
 
@@ -31,6 +32,7 @@ export default async function LocaleLayout({
       <body
         className={`${inter.className} flex h-screen flex-col overflow-hidden`}
       >
+        <Captcha />
         <YMScript nonce={nonce} />
         <ThemeProvider
           enableSystem

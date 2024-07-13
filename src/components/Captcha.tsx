@@ -1,29 +1,22 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useLocale } from 'next-intl';
 import {
   InvisibleSmartCaptcha,
-  InvisibleSmartCaptchaProps,
+  type InvisibleSmartCaptchaProps,
 } from '@yandex/smart-captcha';
+import { captureException, captureMessage } from '@sentry/nextjs';
 
-export const Captcha = ({
-  visible: visibleProp,
-  onChallengeHidden,
-  ...restProps
-}: Omit<InvisibleSmartCaptchaProps, 'sitekey'>) => {
-  const [visible, setVisible] = useState(false);
-
-  const handleChallengeHidden = useCallback(() => {
-    setVisible(false);
-    onChallengeHidden?.();
-  }, [onChallengeHidden]);
+export const Captcha = () => {
+  const locale = useLocale() as InvisibleSmartCaptchaProps['language'];
 
   return (
     <InvisibleSmartCaptcha
-      {...restProps}
-      sitekey={process.env.NEXT_PUBLIC_YCAPTCHA_SITEKEY!}
-      onChallengeHidden={handleChallengeHidden}
-      visible={visibleProp || visible}
+      visible
+      sitekey="ysc1_xaaIVbCrCSFWZJ1FLnJpv0ahxnBWEMY3hi018frx8eb4fee4"
+      language={locale}
+      onJavascriptError={captureException}
+      onNetworkError={() => captureMessage('SmartCaptcha: Network Error')}
     />
   );
 };
