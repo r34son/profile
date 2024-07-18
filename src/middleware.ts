@@ -64,8 +64,8 @@ export default function middleware(request: NextRequest) {
     img-src 'self' blob: data: ${assetPrefix} ${mcDomains} https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/;
     connect-src 'self' ${mcDomains} *.sentry.io;
     child-src blob: ${mcDomains};
-    frame-src blob: ${mcDomains};
-    font-src 'self' ${assetPrefix};
+    frame-src blob: https://smartcaptcha.yandexcloud.net ${mcDomains};
+    font-src 'self' https://yastatic.net/s3/home/fonts/ys/1/ ${assetPrefix};
     object-src 'none';
     base-uri 'none';
     form-action 'self';

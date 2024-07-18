@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     ppr: true,
+    typedEnv: true,
     reactCompiler: true,
     instrumentationHook: true,
     preloadEntriesOnStart: true,

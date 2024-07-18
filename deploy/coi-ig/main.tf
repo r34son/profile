@@ -388,6 +388,13 @@ resource "yandex_dns_recordset" "site-verification-record" {
   ttl     = 600
 }
 
+resource "yandex_smartcaptcha_captcha" "smartcaptcha" {
+  complexity     = "HARD"
+  pre_check_type = "SLIDER"
+  challenge_type = "IMAGE_TEXT"
+  allowed_sites  = [var.domain, "localhost"]
+}
+
 data "yandex_cm_certificate" "cm_certificate" {
   depends_on      = [yandex_dns_recordset.challenge]
   certificate_id  = yandex_cm_certificate.cm_certificate.id
