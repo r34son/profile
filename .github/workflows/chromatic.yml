@@ -42,7 +42,7 @@ jobs:
 
       - name: Publish to Chromatic
         id: chromatic-deploy
-        uses: chromaui/action@b984808b772126a9f44b2b7737b131b68a2ede32 # v11.7.1
+        uses: chromaui/action@f97d80abb2d138049b301ad64f2a63604a1ae63a # v11.10.0
         with:
           exitZeroOnChanges: true
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
