@@ -4,9 +4,9 @@
   "sideEffects": [
     "*.css"
   ],
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "pnpm@9.12.3",
   "engines": {
-    "node": "20",
+    "node": "22",
     "pnpm": "9.x"
   },
   "private": true,
@@ -72,11 +72,11 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
-    "@eslint/compat": "^1.1.1",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@eslint/compat": "^1.2.2",
     "@eslint/eslintrc": "^3.1.0",
-    "@eslint/js": "^9.7.0",
+    "@eslint/js": "^9.14.0",
     "@lhci/cli": "^0.14.0",
     "@next/bundle-analyzer": "15.0.0-canary.75",
     "@playwright/test": "^1.45.2",
@@ -118,7 +118,7 @@
     "stylelint": "^16.7.0",
     "stylelint-config-standard": "^36.0.1",
     "tailwindcss": "^3.4.6",
-    "typescript": "^5.5.3"
+    "typescript": "^5.6.3"
   },
   "pnpm": {
     "overrides": {
