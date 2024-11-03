@@ -14,7 +14,7 @@ import {
   SENTRY_PROJECT_ID,
   SENTRY_PUBLIC_KEY,
 } from 'sentry.constants.mjs';
-import { locales } from '@/i18n';
+import { routing } from '@/i18n/routing';
 
 // https://yandex.ru/support/metrica/code/install-counter-csp.html#install-counter-csp__urls
 const mcDomains = [
@@ -53,7 +53,7 @@ const mcFrameAncestorsDomains = [
 
 const reportUri = `https://${SENTRY_HOST}/api/${SENTRY_PROJECT_ID}/security/?sentry_key=${SENTRY_PUBLIC_KEY}&sentry_release=${process.env.SENTRY_RELEASE}&sentry_environment=${process.env.SENTRY_ENVIRONMENT}`;
 
-const intlMiddleware = createIntlMiddleware({ locales, defaultLocale: 'en' });
+const intlMiddleware = createIntlMiddleware(routing);
 
 const assetPrefix = process.env.ASSET_PREFIX
   ? `${process.env.ASSET_PREFIX}/`
@@ -95,7 +95,6 @@ export default function middleware(
   event: NextFetchEvent,
 ) {
   const response = intlMiddleware(request);
-  // @ts-expect-error https://github.com/pnpm/pnpm/issues/6382
   return cspMiddleware(request, event, response);
 }
 

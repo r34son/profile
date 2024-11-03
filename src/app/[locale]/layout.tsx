@@ -3,29 +3,29 @@ import type { Metadata, Viewport } from 'next';
 import { headers } from 'next/headers';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { LazyMotionProvider } from '@/components/LazyMotionProvider';
 import { Header } from '@/components/Header';
 import { YMScript } from '@/components/YMScript';
 import { Captcha } from '@/components/Captcha';
-import { Locales, locales } from '@/i18n';
 import { email, githubUrl } from '@/const';
+import { routing } from '@/i18n/routing';
 
 const inter = Inter({ subsets: ['latin'] });
 
 interface LocaleLayoutProps {
-  params: {
-    locale: Locales;
-  };
+  params: Promise<{ locale: string }>;
 }
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: PropsWithChildren<LocaleLayoutProps>) {
-  unstable_setRequestLocale(locale);
+  const { locale } = await params;
+
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'header' });
-  const nonce = headers().get('x-nonce')!;
+  const nonce = (await headers()).get('x-nonce')!;
 
   return (
     <html suppressHydrationWarning lang={locale} className="dark">
@@ -53,12 +53,12 @@ export default async function LocaleLayout({
               githubButtonText={t('githubButtonText')}
               localeSelectProps={{
                 title: t('localeSelect.title'),
-                localeNames: locales.reduce(
+                localeNames: routing.locales.reduce(
                   (acc, locale) => ({
                     ...acc,
                     [locale]: t(`localeSelect.locales.${locale}`),
                   }),
-                  {} as Record<Locales, string>,
+                  {} as Record<string, string>,
                 ),
               }}
             />
@@ -72,7 +72,8 @@ export default async function LocaleLayout({
   );
 }
 
-export const generateStaticParams = () => locales.map((locale) => ({ locale }));
+export const generateStaticParams = () =>
+  routing.locales.map((locale) => ({ locale }));
 
 export const viewport: Viewport = {
   themeColor: [
@@ -82,14 +83,16 @@ export const viewport: Viewport = {
   colorScheme: 'dark light',
 };
 
-const mapLocaleToOG = {
+const mapLocaleToOG: Record<string, string> = {
   en: 'en_US',
   ru: 'ru_RU',
 };
 
-export const generateMetadata = async ({
-  params: { locale },
-}: LocaleLayoutProps): Promise<Metadata> => {
+export const generateMetadata = async (
+  props: LocaleLayoutProps,
+): Promise<Metadata> => {
+  const { locale } = await props.params;
+
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   const title = t('title');

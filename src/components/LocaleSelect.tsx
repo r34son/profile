@@ -5,13 +5,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Locales, locales } from '@/i18n';
-import { Link } from '@/navigation';
+import { Link, routing } from '@/i18n/routing';
 import { Globe } from 'lucide-react';
 
 export interface LocaleSelectProps {
   title: string;
-  localeNames: Record<Locales, string>;
+  localeNames: Record<string, string>;
 }
 
 export const LocaleSelect = ({ title, localeNames }: LocaleSelectProps) => {
@@ -24,7 +23,7 @@ export const LocaleSelect = ({ title, localeNames }: LocaleSelectProps) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-[2rem]">
-        {locales.map((locale) => (
+        {routing.locales.map((locale) => (
           <DropdownMenuItem key={locale}>
             <Link href="/" locale={locale}>
               {localeNames[locale]}

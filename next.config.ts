@@ -14,11 +14,10 @@ const nextConfig: NextConfig = {
   devIndicators: {
     appIsrStatus: true,
   },
+  transpilePackages: ['next-csp'],
   experimental: {
-    ppr: true,
     typedEnv: true,
     reactCompiler: true,
-    instrumentationHook: true,
     preloadEntriesOnStart: true,
     optimizePackageImports: [
       '@floating-ui/core',
@@ -77,13 +76,10 @@ export default withPlugins(
       withSentryConfig(nextConfig, {
         silent: true,
         release: { create: false },
-        unstable_sentryWebpackPluginOptions: {
-          bundleSizeOptimizations: {
-            excludeDebugStatements: true,
-            excludeReplayShadowDom: true,
-            excludeReplayIframe: true,
-          },
-          release: { create: false },
+        bundleSizeOptimizations: {
+          excludeDebugStatements: true,
+          excludeReplayShadowDom: true,
+          excludeReplayIframe: true,
         },
         // https://github.com/getsentry/sentry-javascript/issues/12645
         // sourcemaps: {

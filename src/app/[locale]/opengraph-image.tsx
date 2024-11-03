@@ -1,6 +1,5 @@
 import { ImageResponse } from 'next/og';
 import { getTranslations } from 'next-intl/server';
-import { Locales } from '@/i18n';
 
 export const alt = 'r34s0n.tech';
 export const size = {
@@ -12,11 +11,12 @@ export const contentType = 'image/png';
 
 interface OGImageProps {
   params: {
-    locale: Locales;
+    locale: string;
   };
 }
 
-export default async function OGImage({ params: { locale } }: OGImageProps) {
+export default async function OGImage({ params }: OGImageProps) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   return new ImageResponse(
