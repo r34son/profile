@@ -2,7 +2,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Info } from '@/components/sections/Info';
 import { Experience } from '@/components/sections/Experience';
 import { Contacts } from '@/components/sections/Contacts';
-import { Locales } from '@/lib/i18n';
+import { Locales } from '@/i18n';
 import { Technologies } from '@/components/sections/Technologies';
 // import { BackgroundBeams } from '@/components/ui/background-beams';
 

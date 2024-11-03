@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { getTranslations } from 'next-intl/server';
-import { Locales } from '@/lib/i18n';
+import { Locales } from '@/i18n';
 
 export const alt = 'r34s0n.tech';
 export const size = {

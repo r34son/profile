@@ -1,5 +1,20 @@
 import createIntlMiddleware from 'next-intl/middleware';
-import { type NextRequest } from 'next/server';
+import type { NextFetchEvent, NextRequest } from 'next/server';
+import createCspMiddleware, {
+  INLINE,
+  NONCE,
+  STRICT_DYNAMIC,
+  NONE,
+  SELF,
+  BLOB,
+  DATA,
+} from 'next-csp';
+import {
+  SENTRY_HOST,
+  SENTRY_PROJECT_ID,
+  SENTRY_PUBLIC_KEY,
+} from 'sentry.constants.mjs';
+import { locales } from '@/i18n';
 
 // https://yandex.ru/support/metrica/code/install-counter-csp.html#install-counter-csp__urls
 const mcDomains = [
@@ -36,63 +51,52 @@ const mcFrameAncestorsDomains = [
   'webvisor.com',
 ].join(' ');
 
-const reportEndpoint = `https://o4506048860258304.ingest.sentry.io/api/4506959997501440/security/?sentry_key=90b846a21ddfd33d1b051d0bdb689bda&sentry_release=${process.env.SENTRY_RELEASE}&sentry_environment=${process.env.SENTRY_ENVIRONMENT}`;
+const reportUri = `https://${SENTRY_HOST}/api/${SENTRY_PROJECT_ID}/security/?sentry_key=${SENTRY_PUBLIC_KEY}&sentry_release=${process.env.SENTRY_RELEASE}&sentry_environment=${process.env.SENTRY_ENVIRONMENT}`;
 
-const intlMiddleware = createIntlMiddleware({
-  locales: ['en', 'ru'],
-  defaultLocale: 'en',
+const intlMiddleware = createIntlMiddleware({ locales, defaultLocale: 'en' });
+
+const assetPrefix = process.env.ASSET_PREFIX
+  ? `${process.env.ASSET_PREFIX}/`
+  : '';
+
+// https://github.com/emilkowalski/vaul/issues/283
+// https://github.com/radix-ui/primitives/issues/2057
+// https://developer.chrome.com/docs/lighthouse/best-practices/csp-xss#how_to_develop_a_strict_csp
+// require-trusted-types-for 'script';
+const cspMiddleware = createCspMiddleware({
+  directives: {
+    'default-src': [SELF],
+    'script-src': [SELF, NONCE, STRICT_DYNAMIC, INLINE, 'https:'],
+    'style-src': [SELF, assetPrefix, INLINE],
+    'img-src': [
+      SELF,
+      BLOB,
+      DATA,
+      assetPrefix,
+      mcDomains,
+      'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/',
+    ],
+    'connect-src': [SELF, mcDomains, '*.sentry.io'],
+    'child-src': [BLOB, mcDomains],
+    'frame-src': [BLOB, 'https://smartcaptcha.yandexcloud.net', mcDomains],
+    'font-src': [SELF, 'https://yastatic.net/s3/home/fonts/ys/1/', assetPrefix],
+    'object-src': [NONE],
+    'base-uri': [NONE],
+    'form-action': [SELF],
+    'frame-ancestors': [SELF, mcFrameAncestorsDomains],
+    'block-all-mixed-content': true,
+    'upgrade-insecure-requests': true,
+  },
+  reportUri,
 });
 
-export default function middleware(request: NextRequest) {
-  const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
-  request.headers.set('x-nonce', nonce);
-
+export default function middleware(
+  request: NextRequest,
+  event: NextFetchEvent,
+) {
   const response = intlMiddleware(request);
-
-  const assetPrefix = process.env.ASSET_PREFIX
-    ? `${process.env.ASSET_PREFIX}/`
-    : '';
-
-  // https://github.com/emilkowalski/vaul/issues/283
-  // https://github.com/radix-ui/primitives/issues/2057
-  // https://developer.chrome.com/docs/lighthouse/best-practices/csp-xss#how_to_develop_a_strict_csp
-  // require-trusted-types-for 'script';
-  const cspHeader = `
-    default-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline' https:;
-    style-src 'self' ${assetPrefix} 'unsafe-inline';
-    img-src 'self' blob: data: ${assetPrefix} ${mcDomains} https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/;
-    connect-src 'self' ${mcDomains} *.sentry.io;
-    child-src blob: ${mcDomains};
-    frame-src blob: https://smartcaptcha.yandexcloud.net ${mcDomains};
-    font-src 'self' https://yastatic.net/s3/home/fonts/ys/1/ ${assetPrefix};
-    object-src 'none';
-    base-uri 'none';
-    form-action 'self';
-    frame-ancestors 'self' ${mcFrameAncestorsDomains};
-    block-all-mixed-content;
-    upgrade-insecure-requests;
-    report-uri ${reportEndpoint};
-    report-to csp-endpoint
-  `;
-  // Replace newline characters and spaces
-  const contentSecurityPolicyHeaderValue = cspHeader
-    .replace(/\s{2,}/g, ' ')
-    .trim();
-
-  response.headers.set(
-    'Content-Security-Policy',
-    contentSecurityPolicyHeaderValue,
-  );
-
-  response.headers.set(
-    'Report-To',
-    `{"group":"csp-endpoint","max_age":10886400,"endpoints":[{"url":"${reportEndpoint}"}],"include_subdomains":true}`,
-  );
-
-  response.headers.append('Link', `<${reportEndpoint}>; rel=dns-prefetch`);
-
-  return response;
+  // @ts-expect-error https://github.com/pnpm/pnpm/issues/6382
+  return cspMiddleware(request, event, response);
 }
 
 export const config = {

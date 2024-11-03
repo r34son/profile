@@ -8,7 +8,7 @@ import { LazyMotionProvider } from '@/components/LazyMotionProvider';
 import { Header } from '@/components/Header';
 import { YMScript } from '@/components/YMScript';
 import { Captcha } from '@/components/Captcha';
-import { Locales, locales } from '@/lib/i18n';
+import { Locales, locales } from '@/i18n';
 import { email, githubUrl } from '@/const';
 
 const inter = Inter({ subsets: ['latin'] });

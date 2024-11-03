@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Locales, locales } from '@/lib/i18n';
+import { Locales, locales } from '@/i18n';
 import { Link } from '@/navigation';
 import { Globe } from 'lucide-react';
 
