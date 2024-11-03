@@ -61,6 +61,7 @@
     "lucide-react": "^0.412.0",
     "next": "15.0.0-canary.75",
     "next-compose-plugins": "^2.2.1",
+    "next-csp": "workspace:^",
     "next-intl": "^3.17.2",
     "next-themes": "^0.3.0",
     "react": "19.0.0-rc-fb9a90fa48-20240614",

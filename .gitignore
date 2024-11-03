@@ -14,6 +14,7 @@ node_modules
 
 # production
 /build
+dist
 
 # misc
 .DS_Store
@@ -46,18 +47,6 @@ next-env.d.ts
 
 # Lighthouse CI
 .lighthouseci
-
-# next-pwa
-/public/precache.*.*.js
-/public/sw.js
-/public/workbox-*.js
-/public/worker-*.js
-/public/fallback-*.js
-/public/precache.*.*.js.map
-/public/sw.js.map
-/public/workbox-*.js.map
-/public/worker-*.js.map
-/public/fallback-*.js
 
 # Storybook
 storybook-static
