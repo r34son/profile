@@ -1,22 +1,18 @@
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import { fixupConfigRules, includeIgnoreFile } from '@eslint/compat';
 import { FlatCompat } from '@eslint/eslintrc';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: import.meta.dirname,
   recommendedConfig: js.configs.recommended,
   allConfig: js.configs.all,
 });
-const gitignorePath = path.resolve(__dirname, '.gitignore');
 
-/** @type {import("eslint").Linter.FlatConfig[]} */
+/** @type {import("eslint").Linter.Config[]} */
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [
-  includeIgnoreFile(gitignorePath),
+  includeIgnoreFile(path.resolve(import.meta.dirname, '.gitignore')),
   ...fixupConfigRules(
     compat.extends('next/core-web-vitals', 'plugin:storybook/recommended'),
   ),
@@ -24,12 +20,12 @@ export default [
     // 'https://next-intl-docs.vercel.app/docs/workflows/linting'
     name: 'next-intl navigation',
     rules: {
-      // Consistently import navigation APIs from `@/navigation`
+      // Consistently import navigation APIs from `@/i18n/routing`
       'no-restricted-imports': [
         'error',
         {
           name: 'next/link',
-          message: 'Please import from `@/navigation` instead.',
+          message: 'Please import from `@/i18n/routing` instead.',
         },
         {
           name: 'next/navigation',
@@ -39,7 +35,7 @@ export default [
             'useRouter',
             'usePathname',
           ],
-          message: 'Please import from `@/navigation` instead.',
+          message: 'Please import from `@/i18n/routing` instead.',
         },
       ],
     },
