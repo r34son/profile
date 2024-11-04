@@ -1,5 +1,4 @@
 import { init } from '@sentry/nextjs';
-import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
 import { nodeProfilingIntegration } from '@sentry/profiling-node';
 import {
   Resource,
@@ -8,14 +7,16 @@ import {
   hostDetector,
 } from '@opentelemetry/resources';
 import {
-  SEMRESATTRS_SERVICE_NAME,
-  SEMRESATTRS_SERVICE_VERSION,
+  ATTR_SERVICE_NAME,
+  ATTR_SERVICE_VERSION,
 } from '@opentelemetry/semantic-conventions';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
 import { RuntimeNodeInstrumentation } from '@opentelemetry/instrumentation-runtime-node';
 import { MeterProvider } from '@opentelemetry/sdk-metrics';
 import { HostMetrics } from '@opentelemetry/host-metrics';
 import { PrometheusExporter } from '@opentelemetry/exporter-prometheus';
+
+import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
 
 init({
   dsn: SENTRY_DSN,
@@ -33,8 +34,8 @@ const exporter = new PrometheusExporter({}, () => {
 });
 
 const customResources = new Resource({
-  [SEMRESATTRS_SERVICE_NAME]: 'next-app',
-  [SEMRESATTRS_SERVICE_VERSION]: process.env.SENTRY_RELEASE,
+  [ATTR_SERVICE_NAME]: 'next-app',
+  [ATTR_SERVICE_VERSION]: process.env.SENTRY_RELEASE,
 });
 
 const detectedResources = detectResourcesSync({

@@ -15,6 +15,7 @@ const preview: Preview = {
       },
     },
   },
+  tags: ['autodocs'],
   decorators: [
     (Story) => (
       <NextIntlClientProvider locale="en" messages={englishLocale}>

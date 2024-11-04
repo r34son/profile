@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 import linkedin from '@/assets/logos/linkedin.webp';
 import telegram from '@/assets/logos/telegram.webp';
 import gmail from '@/assets/logos/gmail.webp';

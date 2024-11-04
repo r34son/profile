@@ -1,5 +1,5 @@
-import { locales, Locales } from '@/i18n';
-import { MetadataRoute } from 'next';
+import { type MetadataRoute } from 'next';
+import { routing } from '@/i18n/routing';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -9,12 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 1,
       alternates: {
-        languages: locales.reduce(
+        languages: routing.locales.reduce(
           (acc, locale) => {
             acc[locale] = `https://r34s0n.tech/${locale}`;
             return acc;
           },
-          {} as Record<Locales, string>,
+          {} as Record<string, string>,
         ),
       },
     },
