@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.38.1](https://github.com/r34son/profile/compare/v1.38.0...v1.38.1) (2024-11-04)
+
+### Bug Fixes
+
+- docker build ([#708](https://github.com/r34son/profile/issues/708)) ([eac7d72](https://github.com/r34son/profile/commit/eac7d7223a42a61e133c212e21b79d6f4eb67ad9))
+
+## [1.38.0](https://github.com/r34son/profile/compare/v1.37.1...v1.38.0) (2024-11-04)
+
+### Features
+
+- next@15 ([#706](https://github.com/r34son/profile/issues/706)) ([474439d](https://github.com/r34son/profile/commit/474439d22d06ef1ea9120ec9e89f81885e376811))
+
 ## [1.37.1](https://github.com/r34son/profile/compare/v1.37.0...v1.37.1) (2024-07-12)
 
 ### Bug Fixes

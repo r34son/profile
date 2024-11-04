@@ -20,7 +20,7 @@ WORKDIR /app
 FROM base AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
-COPY package.json pnpm-lock.yaml ./
+COPY packages package.json pnpm-lock.yaml .npmrc ./
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /pnpm/store to speed up subsequent builds.
 # Leverage bind mounts to package.json and pnpm-lock.yaml to avoid having to copy them
