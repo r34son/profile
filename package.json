@@ -59,7 +59,7 @@
     "embla-carousel-react": "8.3.1",
     "framer-motion": "^11.11.11",
     "lucide-react": "^0.454.0",
-    "next": "15.0.2",
+    "next": "15.1.2",
     "next-compose-plugins": "^2.2.1",
     "next-csp": "workspace:^",
     "next-intl": "^3.24.0",
