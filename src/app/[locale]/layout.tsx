@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import { headers } from 'next/headers';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
+import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { LazyMotionProvider } from '@/components/LazyMotionProvider';
 import { Header } from '@/components/Header';
@@ -32,7 +33,9 @@ export default async function LocaleLayout({
       <body
         className={`${inter.className} flex h-screen flex-col overflow-hidden`}
       >
-        <Captcha />
+        <NextIntlClientProvider locale={locale}>
+          <Captcha />
+        </NextIntlClientProvider>
         <YMScript nonce={nonce} />
         <ThemeProvider
           enableSystem
