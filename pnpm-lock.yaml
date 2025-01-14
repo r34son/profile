@@ -66,8 +66,8 @@ importers:
         specifier: 8.5.2
         version: 8.5.2(react@19.0.0)
       framer-motion:
-        specifier: ^11.17.1
-        version: 11.17.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^11.18.0
+        version: 11.18.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       lucide-react:
         specifier: ^0.471.1
         version: 0.471.1(react@19.0.0)
@@ -4432,8 +4432,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.17.1:
-    resolution: {integrity: sha512-w6hMreGHgLk2M4Wso955zgG6y7xx0sNBs2pKh9RAyoi9cUuhsh3ry8lArbBCs42wpe5zfeC14SI5EdpV/ucOEA==}
+  framer-motion@11.18.0:
+    resolution: {integrity: sha512-Vmjl5Al7XqKHzDFnVqzi1H9hzn5w4eN/bdqXTymVpU2UuMQuz9w6UPdsL9dFBeH7loBlnu4qcEXME+nvbkcIOw==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -12951,7 +12951,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.17.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  framer-motion@11.18.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       motion-dom: 11.16.4
       motion-utils: 11.16.0
