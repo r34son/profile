@@ -78,10 +78,9 @@ export default withPlugins(
           excludeReplayShadowDom: true,
           excludeReplayIframe: true,
         },
-        // https://github.com/getsentry/sentry-javascript/issues/12645
-        // sourcemaps: {
-        //   deleteSourcemapsAfterUpload: true,
-        // },
+        sourcemaps: {
+          deleteSourcemapsAfterUpload: true,
+        },
         reactComponentAnnotation: { enabled: true },
         widenClientFileUpload: true,
         tunnelRoute: '/monitoring',
