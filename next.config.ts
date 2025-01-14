@@ -11,9 +11,6 @@ const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   serverExternalPackages: ['@sentry/profiling-node'],
-  devIndicators: {
-    appIsrStatus: true,
-  },
   transpilePackages: ['next-csp'],
   experimental: {
     typedEnv: true,
