@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.40.0](https://github.com/r34son/profile/compare/v1.39.0...v1.40.0) (2025-01-14)
+
+
+### Features
+
+* delete sourcemaps ([#741](https://github.com/r34son/profile/issues/741)) ([3524199](https://github.com/r34son/profile/commit/3524199951bb3ee371db1d5335d675ba7d76c328))
+
 ## [1.39.0](https://github.com/r34son/profile/compare/v1.38.1...v1.39.0) (2025-01-14)
 
 ### Features
