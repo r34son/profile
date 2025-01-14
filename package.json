@@ -52,7 +52,7 @@
     "@sentry/nextjs": "8.48.0",
     "@sentry/opentelemetry": "8.48.0",
     "@sentry/profiling-node": "8.48.0",
-    "@yandex/smart-captcha": "^2.6.2",
+    "@yandex/smart-captcha": "^2.6.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "8.5.2",
