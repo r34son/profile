@@ -10,7 +10,7 @@ import {
   browserProfilingIntegration,
   setCurrentClient,
 } from '@sentry/nextjs';
-import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
+import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants';
 
 const client = new BrowserClient({
   dsn: SENTRY_DSN,

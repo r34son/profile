@@ -13,7 +13,7 @@ import {
   SENTRY_HOST,
   SENTRY_PROJECT_ID,
   SENTRY_PUBLIC_KEY,
-} from 'sentry.constants.mjs';
+} from 'sentry.constants';
 import { routing } from '@/i18n/routing';
 
 // https://yandex.ru/support/metrica/code/install-counter-csp.html#install-counter-csp__urls

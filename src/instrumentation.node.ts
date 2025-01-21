@@ -16,7 +16,7 @@ import { MeterProvider } from '@opentelemetry/sdk-metrics';
 import { HostMetrics } from '@opentelemetry/host-metrics';
 import { PrometheusExporter } from '@opentelemetry/exporter-prometheus';
 
-import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants.mjs';
+import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants';
 
 init({
   dsn: SENTRY_DSN,
