@@ -1,3 +1,4 @@
+import { type Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Info } from '@/components/sections/Info';
 import { Experience } from '@/components/sections/Experience';
@@ -6,7 +7,7 @@ import { Technologies } from '@/components/sections/Technologies';
 // import { BackgroundBeams } from '@/components/ui/background-beams';
 
 interface ProfileProps {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }
 
 export default async function Profile(props: ProfileProps) {

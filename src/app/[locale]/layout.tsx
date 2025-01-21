@@ -1,9 +1,10 @@
 import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
+import { notFound } from 'next/navigation';
 import { headers } from 'next/headers';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
-import { NextIntlClientProvider } from 'next-intl';
+import { type Locale, hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { LazyMotionProvider } from '@/components/LazyMotionProvider';
 import { Header } from '@/components/Header';
@@ -23,6 +24,10 @@ export default async function LocaleLayout({
   params,
 }: PropsWithChildren<LocaleLayoutProps>) {
   const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'header' });
@@ -96,7 +101,10 @@ export const generateMetadata = async (
 ): Promise<Metadata> => {
   const { locale } = await props.params;
 
-  const t = await getTranslations({ locale, namespace: 'metadata' });
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: 'metadata',
+  });
 
   const title = t('title');
   const description = t('description');
