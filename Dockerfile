@@ -35,20 +35,8 @@ RUN apk add --no-cache ca-certificates aws-cli
 COPY --from=deps /app/node_modules ./node_modules
 RUN corepack enable pnpm
 COPY . .
+RUN --mount=type=secret,id=sentry-auth-token,env=SENTRY_AUTH_TOKEN pnpm run build
 
-ARG SENTRY_AUTH_TOKEN
-RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then \
-      echo "SENTRY_AUTH_TOKEN is provided, setting environment variable"; \
-      export SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"; \
-    else \
-      echo "SENTRY_AUTH_TOKEN is not provided, skipping environment variable"; \
-    fi
-RUN pnpm run build
-
-ARG AWS_ACCESS_KEY_ID
-ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-ARG AWS_SECRET_ACCESS_KEY
-ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 ARG AWS_S3_BUCKET
 ARG AWS_S3_PATH
 ARG AWS_ENDPOINT_URL
@@ -56,7 +44,9 @@ ENV AWS_ENDPOINT_URL=$AWS_ENDPOINT_URL
 ARG AWS_DEFAULT_REGION
 ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
-RUN aws s3 cp --recursive .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
+RUN --mount=type=secret,id=aws-key-id,env=AWS_ACCESS_KEY_ID \
+    --mount=type=secret,id=aws-secret-key,env=AWS_SECRET_ACCESS_KEY \
+    aws s3 cp --recursive .next/static s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/_next/static
 
 FROM base AS runner
 ENV NODE_ENV=production

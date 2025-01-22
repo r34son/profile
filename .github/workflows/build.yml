@@ -89,14 +89,15 @@ jobs:
           # cache-to: type=inline
           build-args: |
             ENV=${{ inputs.environment }}
-            AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
             AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET }}
             AWS_ENDPOINT_URL=${{ env.awsEndpoint }}
             AWS_DEFAULT_REGION=ru-central1
             AWS_S3_PATH=${{ env.staticPath }}
-            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
             SENTRY_ORG=${{ secrets.SENTRY_ORG }}
             SENTRY_PROJECT=${{ secrets.SENTRY_PROJECT }}
             SENTRY_RELEASE=${{ steps.sentry-release.outputs.version }}
             ASSET_PREFIX=https://${{ inputs.cdn }}/${{ env.staticPath }}
+          secrets: |
+            "sentry-auth-token=${{ secrets.SENTRY_AUTH_TOKEN }}"
+            "aws-key-id=${{ secrets.AWS_ACCESS_KEY_ID }}"
+            "aws-secret-key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
