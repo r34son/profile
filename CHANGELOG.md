@@ -2,12 +2,11 @@
 
 ## [1.41.0](https://github.com/r34son/profile/compare/v1.40.0...v1.41.0) (2025-01-22)
 
-
 ### Features
 
-* update deps ([#748](https://github.com/r34son/profile/issues/748)) ([d6f6f5d](https://github.com/r34son/profile/commit/d6f6f5d530f3ff66d526e9850cf67b513af91d1b))
-* update deps ([#757](https://github.com/r34son/profile/issues/757)) ([e230b0b](https://github.com/r34son/profile/commit/e230b0b984d0daa2447df195348e635d275223cf))
-* update deps ([#762](https://github.com/r34son/profile/issues/762)) ([de773b5](https://github.com/r34son/profile/commit/de773b5a007448a784d4e91a101f50c7fcb2c3e4))
+- update deps ([#748](https://github.com/r34son/profile/issues/748)) ([d6f6f5d](https://github.com/r34son/profile/commit/d6f6f5d530f3ff66d526e9850cf67b513af91d1b))
+- update deps ([#757](https://github.com/r34son/profile/issues/757)) ([e230b0b](https://github.com/r34son/profile/commit/e230b0b984d0daa2447df195348e635d275223cf))
+- update deps ([#762](https://github.com/r34son/profile/issues/762)) ([de773b5](https://github.com/r34son/profile/commit/de773b5a007448a784d4e91a101f50c7fcb2c3e4))
 
 ## [1.40.0](https://github.com/r34son/profile/compare/v1.39.0...v1.40.0) (2025-01-14)
 
