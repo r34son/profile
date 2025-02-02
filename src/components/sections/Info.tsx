@@ -19,14 +19,14 @@ export const Info = () => {
   return (
     <section id="info" className="py-48 text-center xl:px-16">
       <TextGenerateEffect
-        className="mt-8 scroll-m-20 bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text py-4 text-center text-4xl font-extrabold tracking-tight text-transparent md:text-7xl lg:text-5xl"
+        className="mt-8 scroll-m-20 bg-linear-to-br from-slate-300 to-slate-500 bg-clip-text py-4 text-center text-4xl font-extrabold tracking-tight text-transparent md:text-7xl lg:text-5xl"
         words={t('heading')}
       />
       <p className="mt-16 leading-7 [text-wrap:balance]">
         {t.rich('subtitle', {
           br: () => <br />,
           bold: (chunks) => (
-            <span className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-lg font-bold text-transparent">
+            <span className="bg-linear-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-lg font-bold text-transparent">
               {chunks}
             </span>
           ),
@@ -34,7 +34,7 @@ export const Info = () => {
       </p>
       <div className="mt-24 flex items-center justify-center">
         <div className="relative">
-          <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 opacity-75 blur"></div>
+          <div className="absolute -inset-1 rounded-lg bg-linear-to-r from-rose-400 via-fuchsia-500 to-indigo-500 opacity-75 blur-sm"></div>
           <Drawer>
             <DrawerTrigger asChild>
               <Button

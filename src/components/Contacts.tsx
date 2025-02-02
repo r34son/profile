@@ -9,7 +9,7 @@ export const Contacts = () => {
     <div className="flex gap-2 p-4 pb-0">
       {contacts.map(({ icon, ariaLabel, link }, index) => (
         <Link key={index} href={link} aria-label={ariaLabel}>
-          <div className="rounded-lg border bg-card p-2 text-card-foreground shadow-sm">
+          <div className="bg-card text-card-foreground rounded-lg border p-2 shadow-xs">
             {icon}
           </div>
         </Link>

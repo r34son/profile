@@ -40,41 +40,41 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider locale={locale}>
           <Captcha />
+          <YMScript nonce={nonce} />
+          <ThemeProvider
+            enableSystem
+            disableTransitionOnChange
+            attribute="class"
+            defaultTheme="system"
+            nonce={nonce}
+          >
+            <LazyMotionProvider>
+              <Header
+                title={t('title')}
+                anchors={[
+                  { title: t('anchors.info'), href: '#info' },
+                  { title: t('anchors.experience'), href: '#experience' },
+                  { title: t('anchors.technologies'), href: '#technologies' },
+                  { title: t('anchors.contacts'), href: '#contacts' },
+                ]}
+                githubButtonText={t('githubButtonText')}
+                localeSelectProps={{
+                  title: t('localeSelect.title'),
+                  localeNames: routing.locales.reduce(
+                    (acc, locale) => ({
+                      ...acc,
+                      [locale]: t(`localeSelect.locales.${locale}`),
+                    }),
+                    {} as Record<string, string>,
+                  ),
+                }}
+              />
+            </LazyMotionProvider>
+            <div className="overflow-y-auto">
+              <main className="container flex-1">{children}</main>
+            </div>
+          </ThemeProvider>
         </NextIntlClientProvider>
-        <YMScript nonce={nonce} />
-        <ThemeProvider
-          enableSystem
-          disableTransitionOnChange
-          attribute="class"
-          defaultTheme="system"
-          nonce={nonce}
-        >
-          <LazyMotionProvider>
-            <Header
-              title={t('title')}
-              anchors={[
-                { title: t('anchors.info'), href: '#info' },
-                { title: t('anchors.experience'), href: '#experience' },
-                { title: t('anchors.technologies'), href: '#technologies' },
-                { title: t('anchors.contacts'), href: '#contacts' },
-              ]}
-              githubButtonText={t('githubButtonText')}
-              localeSelectProps={{
-                title: t('localeSelect.title'),
-                localeNames: routing.locales.reduce(
-                  (acc, locale) => ({
-                    ...acc,
-                    [locale]: t(`localeSelect.locales.${locale}`),
-                  }),
-                  {} as Record<string, string>,
-                ),
-              }}
-            />
-          </LazyMotionProvider>
-          <div className="overflow-y-auto">
-            <main className="container flex-1">{children}</main>
-          </div>
-        </ThemeProvider>
       </body>
     </html>
   );
