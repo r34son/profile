@@ -81,8 +81,8 @@ importers:
         specifier: workspace:^
         version: link:packages/next-csp
       next-intl:
-        specifier: ^4.0.0-beta-40d535a
-        version: 4.0.0-beta-f10dbba(next@15.1.6(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(babel-plugin-react-compiler@19.0.0-beta-decd7b8-20250118)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
+        specifier: ^4.0.0-beta-67507cc
+        version: 4.0.0-beta-67507cc(next@15.1.6(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(babel-plugin-react-compiler@19.0.0-beta-decd7b8-20250118)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
       next-themes:
         specifier: ^0.4.4
         version: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1239,6 +1239,9 @@ packages:
 
   '@formatjs/fast-memoize@2.2.6':
     resolution: {integrity: sha512-luIXeE2LJbQnnzotY1f2U2m7xuQNj2DA8Vq4ce1BY9ebRZaoPB1+8eZ6nXpLzsxuW5spQxr7LdCg+CApZwkqkw==}
+
+  '@formatjs/icu-messageformat-parser@2.11.0':
+    resolution: {integrity: sha512-Hp81uTjjdTk3FLh/dggU5NK7EIsVWc5/ZDWrIldmf2rBuPejuZ13CZ/wpVE2SToyi4EiroPTQ1XJcJuZFIxTtw==}
 
   '@formatjs/icu-messageformat-parser@2.9.8':
     resolution: {integrity: sha512-hZlLNI3+Lev8IAXuwehLoN7QTKqbx3XXwFW1jh0AdIA9XJdzn9Uzr+2LLBspPm/PX0+NLIfykj/8IKxQqHUcUQ==}
@@ -3883,6 +3886,9 @@ packages:
   decimal.js@10.4.3:
     resolution: {integrity: sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==}
 
+  decimal.js@10.5.0:
+    resolution: {integrity: sha512-8vDa8Qxvr/+d94hSh5P3IJwI5t8/c0KsMp+g8bNw9cY2icONa5aPfvKeieW1WlG0WQYwwhJ7mjui2xtiePQSXw==}
+
   dedent@0.7.0:
     resolution: {integrity: sha512-Q6fKUPqnAHAyhiUgFU7BUzLiv0kd8saH9al7tnu5Q/okj6dnupxyTgFIBjVzJATdfIAm9NAsvXNzjaKa+bxVyA==}
 
@@ -4889,6 +4895,9 @@ packages:
   intl-messageformat@10.7.11:
     resolution: {integrity: sha512-IB2N1tmI24k2EFH3PWjU7ivJsnWyLwOWOva0jnXFa29WzB6fb0JZ5EMQGu+XN5lDtjHYFo0/UooP67zBwUg7rQ==}
 
+  intl-messageformat@10.7.14:
+    resolution: {integrity: sha512-mMGnE4E1otdEutV5vLUdCxRJygHB5ozUBxsPB5qhitewssrS/qGruq9bmvIRkkGsNeK5ZWLfYRld18UHGTIifQ==}
+
   ip-address@9.0.5:
     resolution: {integrity: sha512-zHtQzGojZXTwZTHQqra+ETKd4Sn3vgi7uBmlPoXVWZqYvuKmtI0l/VZTjqGmJY9x88GGOaZ9+G9ES8hC4T4X8g==}
     engines: {node: '>= 12'}
@@ -5799,8 +5808,8 @@ packages:
   next-compose-plugins@2.2.1:
     resolution: {integrity: sha512-OjJ+fV15FXO2uQXQagLD4C0abYErBjyjE0I0FHpOEIB8upw0hg1ldFP6cqHTJBH1cZqy96OeR3u1dJ+Ez2D4Bg==}
 
-  next-intl@4.0.0-beta-f10dbba:
-    resolution: {integrity: sha512-lbNOzinxnqVRsZxNZTuuf9FJoMkG8ftuUUmSLR92b0hBP0e4xY90CMdYQyNDFwgvsltdILGaYC+5lsMS/8RQ4w==}
+  next-intl@4.0.0-beta-67507cc:
+    resolution: {integrity: sha512-nsJ3gwJJLtU8tXRQvV+gSDYeVPdGRdSV1SE6/KMJ7ur+KakCNuB5Lzvj0MfM1S6t+73zyKCPNy4mNOGD2qEiDA==}
     peerDependencies:
       next: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || >=19.0.0-rc <19.0.0 || ^19.0.0
@@ -7582,8 +7591,8 @@ packages:
       '@types/react':
         optional: true
 
-  use-intl@4.0.0-beta-f10dbba:
-    resolution: {integrity: sha512-vTDyrZOdjLJiUstP3srO/ZziRdSk1wx//i16w45HQiu4WxTyNNdGLeix5zty9whW+XHcpja5sY4ShJOONrIDWQ==}
+  use-intl@4.0.0-beta-67507cc:
+    resolution: {integrity: sha512-C26GJ5h6Sll2c8sY5Fznx7ouXhKNt+5gFiZL3A0fYY06dOGK1wMpimNzuQIlrmPvIO6TB4BbNZHqaV/n2gmDSQ==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || >=19.0.0-rc <19.0.0 || ^19.0.0
 
@@ -8977,11 +8986,17 @@ snapshots:
     dependencies:
       '@formatjs/fast-memoize': 2.2.6
       '@formatjs/intl-localematcher': 0.5.10
-      decimal.js: 10.4.3
+      decimal.js: 10.5.0
       tslib: 2.8.1
 
   '@formatjs/fast-memoize@2.2.6':
     dependencies:
+      tslib: 2.8.1
+
+  '@formatjs/icu-messageformat-parser@2.11.0':
+    dependencies:
+      '@formatjs/ecma402-abstract': 2.3.2
+      '@formatjs/icu-skeleton-parser': 1.8.12
       tslib: 2.8.1
 
   '@formatjs/icu-messageformat-parser@2.9.8':
@@ -12243,6 +12258,8 @@ snapshots:
 
   decimal.js@10.4.3: {}
 
+  decimal.js@10.5.0: {}
+
   dedent@0.7.0: {}
 
   dedent@1.5.3: {}
@@ -13488,6 +13505,13 @@ snapshots:
       '@formatjs/icu-messageformat-parser': 2.9.8
       tslib: 2.8.1
 
+  intl-messageformat@10.7.14:
+    dependencies:
+      '@formatjs/ecma402-abstract': 2.3.2
+      '@formatjs/fast-memoize': 2.2.6
+      '@formatjs/icu-messageformat-parser': 2.11.0
+      tslib: 2.8.1
+
   ip-address@9.0.5:
     dependencies:
       jsbn: 1.1.0
@@ -14546,13 +14570,13 @@ snapshots:
 
   next-compose-plugins@2.2.1: {}
 
-  next-intl@4.0.0-beta-f10dbba(next@15.1.6(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(babel-plugin-react-compiler@19.0.0-beta-decd7b8-20250118)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(typescript@5.7.3):
+  next-intl@4.0.0-beta-67507cc(next@15.1.6(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(babel-plugin-react-compiler@19.0.0-beta-decd7b8-20250118)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(typescript@5.7.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.10
       negotiator: 1.0.0
       next: 15.1.6(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(babel-plugin-react-compiler@19.0.0-beta-decd7b8-20250118)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react: 19.0.0
-      use-intl: 4.0.0-beta-f10dbba(react@19.0.0)
+      use-intl: 4.0.0-beta-67507cc(react@19.0.0)
     optionalDependencies:
       typescript: 5.7.3
 
@@ -16456,11 +16480,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.8
 
-  use-intl@4.0.0-beta-f10dbba(react@19.0.0):
+  use-intl@4.0.0-beta-67507cc(react@19.0.0):
     dependencies:
       '@formatjs/fast-memoize': 2.2.6
       '@schummar/icu-type-parser': 1.21.5
-      intl-messageformat: 10.7.11
+      intl-messageformat: 10.7.14
       react: 19.0.0
 
   use-sidecar@1.1.3(@types/react@19.0.8)(react@19.0.0):
