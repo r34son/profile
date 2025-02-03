@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.43.0](https://github.com/r34son/profile/compare/v1.42.0...v1.43.0) (2025-02-03)
+
+
+### Features
+
+* update deps ([#774](https://github.com/r34son/profile/issues/774)) ([c00b487](https://github.com/r34son/profile/commit/c00b487cd09fd3981ee81a7959c25d2a5fc15f7c))
+
 ## [1.42.0](https://github.com/r34son/profile/compare/v1.41.0...v1.42.0) (2025-02-02)
 
 ### Features
