@@ -8,6 +8,7 @@ import {
   linkedErrorsIntegration,
   browserTracingIntegration,
   browserProfilingIntegration,
+  captureRouterTransitionStart,
   setCurrentClient,
 } from '@sentry/nextjs';
 import { SENTRY_CAPTURE_RATE, SENTRY_DSN } from 'sentry.constants';
@@ -39,3 +40,5 @@ const lazyLoadSentryIntegrations = async () => {
 };
 
 lazyLoadSentryIntegrations();
+
+export const onRouterTransitionStart = captureRouterTransitionStart;
