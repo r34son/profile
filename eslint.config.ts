@@ -14,6 +14,7 @@ const compat = new FlatCompat({
 export default [
   includeIgnoreFile(path.resolve(import.meta.dirname, '.gitignore')),
   ...fixupConfigRules(
+    // @ts-ignore
     compat.extends('next/core-web-vitals', 'plugin:storybook/recommended'),
   ),
   {

@@ -84,7 +84,6 @@ export default withPlugins(
         reactComponentAnnotation: { enabled: true },
         widenClientFileUpload: true,
         tunnelRoute: '/monitoring',
-        hideSourceMaps: true,
         disableLogger: true,
       }),
   ],
