@@ -50,7 +50,7 @@
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/react-tooltip": "^1.2.4",
     "@sentry/nextjs": "9.14.0",
-    "@sentry/opentelemetry": "9.14.0",
+    "@sentry/opentelemetry": "9.15.0",
     "@sentry/profiling-node": "9.14.0",
     "@yandex/smart-captcha": "^2.8.0",
     "class-variance-authority": "^0.7.1",
